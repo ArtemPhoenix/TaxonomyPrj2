@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TaxonomyPrj2.Models.User>
+@{
+    ViewData["Title"] = "UsersEdit";
+}
+
+    <input hidden type="text" value="Admin" id="constRole" />
+
+<h1>UsersEdit</h1>
+
+ Пользователь: @(User.Identity.Name)
+
+<div id="myModalC" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="ModalViewC">
+                <p>ТУТ СОДЕРЖИМОЕ М/О</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="allUsers">
+
+
+
+
+</div>
+
+<!--
+<a href="/Roles/Index" class="btn btn-outline-info btn-lg " role="button" aria-pressed="true">Роли</a>
+    -->
+>
+
+
+@section Scripts
+{
+    <script src="~/js/UsersEdit.js" asp-append-version="true"></script>
+
+
+
+}

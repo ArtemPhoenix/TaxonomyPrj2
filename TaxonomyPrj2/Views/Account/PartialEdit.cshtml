@@ -1,0 +1,77 @@
+﻿@model TaxonomyPrj2.ViewModels.UserEditViewModel
+
+<h1>Изменить данные пользователя</h1>
+<br>
+
+<h1>Информация:</h1>
+
+<h1 id="errInfo" class="redText"></h1>
+
+
+<form method="post" id="needsValidationEdit">
+
+
+
+    <div class="">
+
+
+
+        <div class="input-group ">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Логин:</span>
+            </div>
+            <input type="text" id="Login" name="userName" readonly class="form-control" value="@Model.Login" aria-label="1" aria-describedby="basic-addon1 ">
+        </div>
+
+        <div class="@(Model.Login == User.Identity.Name ? "input-group" : "")">
+            <div class="@(Model.Login == User.Identity.Name ? "input-group-prepend" : "")">
+                <span class="input-group-text" id="basic-addon1">Категория организма:</span>
+            </div>
+            <select id="Role" @(Model.Login == User.Identity.Name ? "readonly disabled" : "") name="CategoryId" class="form-control">
+
+                @foreach (var role in Model.AllRoles)
+                {
+                    @if (role.Name == Model.Role)
+                    {
+                        <option selected value="@role.Name">@(role.Name)</option>
+                    }
+                    else
+                    {
+                        <option value="@role.Name">@(role.Name)</option>
+                    }
+
+                }
+
+            </select>
+        </div>
+
+
+        @Html.LabelFor(x => x.EMail, new { @class = "input-group-text" })
+        @Html.TextBoxFor(x => x.EMail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.EMail, null, new { @class = "redText" })
+        <div class="input-group">
+            <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+        </div>
+        <br>
+
+
+
+        @Html.LabelFor(x => x.Year, new { @class = "input-group-text" })
+        @Html.TextBoxFor(x => x.Year, new { @class = "form-control " })
+        @Html.ValidationMessageFor(x => x.Year, null, new { @class = "redText" })
+        <div class="input-group ">
+            <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+        </div>
+        <br>
+
+
+    </div>
+
+
+    <button type="button" id="editButton" data-login="@Model.Login" class="btn btn-outline-warning btn-lg btn-block">Изменить</button>
+
+
+
+
+
+</form>

@@ -1,0 +1,96 @@
+﻿@model TaxonomyPrj2.ViewModels.OrganismTableViewModel
+
+@if (Model.CurrenCategoryId == 0)
+{
+    <br>
+    <div class="input-group mb-3">
+        <h1>Результаты поиска</h1>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <button type="button" id="exitSeach" class=" btn btn-outline-warning btn-lg ProtectionAgainstRoleChanges">Убрать результаты</button>
+    </div>
+
+
+
+    @if (Model.Organisms.Count == 0)
+    {
+        <h1 class="text-danger">Поиск не принес результатов.</h1>
+    }
+    else
+    {
+
+        <table id="searchResult" class="table-bordered table-striped table-success">
+            <thead>
+                <tr>
+
+                    <th><div>ID</div><div>категории</div></th>
+                    <th><div>Начало</div><div>исследований</div></th>
+                    <th><div>Количество</div><div>образцов</div></th>
+                    <th>Имя</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var organism in Model.Organisms)
+                {
+
+                    <tr class="info">
+
+                        <td class="info">@organism.CategoryId</td>
+                        <td>@(organism.StartResearch.Day + "." + organism.StartResearch.Month + "." + organism.StartResearch.Year)</td>
+                        <td>@organism.CountSample</td>
+                        <td>@organism.Name</td>
+                        <td>@organism.Description</td>
+
+
+                    </tr>
+
+
+                }
+
+            </tbody>
+        </table>
+
+    }
+
+    <br>
+    <br>
+    <br>
+
+}
+else
+{
+<tr>
+    <td colspan="2"> <span class="greenText">Применен фильтр:</span></td>
+    
+    @if (Model.Organisms.Count == 0)
+    {
+        <td colspan="3"><span class="redText">Фильтрация не принесла результатов</span></td>
+       
+    }
+
+
+</tr>
+    @foreach (var organism in Model.Organisms)
+    {
+
+        <tr class="info">
+
+            <td class="info">@organism.CategoryId</td>
+            <td>@(organism.StartResearch.Day + "." + organism.StartResearch.Month + "." + organism.StartResearch.Year)</td>
+            <td>@organism.CountSample</td>
+            <td>@organism.Name</td>
+            <td>@organism.Description</td>
+            <td>
+
+                <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block">Редактировать</button>
+
+                <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block">Удалить</button>
+
+            </td>
+
+        </tr>
+
+
+    }
+
+}

@@ -1,0 +1,18 @@
+﻿
+@model TaxonomyPrj2.ViewModels.QuestionUsersViewModel
+
+@if (User.Identity.Name == Model.Login)
+{
+    <h1 align="center" class="redText" id="question"> Нельзя удалить активного активного пользователя! </h1>
+   
+    <button type="button" id="NoQuestionButton" class="btn btn-outline-success btn-lg btn-block">ОТМЕНА</button>
+}
+else
+{
+    <h1 align="center" id="question"> Вы уверены? </h1>
+    <h1 id="errInfo" class="redText"></h1>
+    <button type="button" id="YesQuestionButton" data-Categoryid="@Model.Login" class="btn btn-outline-danger btn-lg btn-block">ДА</button>
+    <button type="button" id="NoQuestionButton" class="btn btn-outline-success btn-lg btn-block">ОТМЕНА</button>
+}
+
+

@@ -1,0 +1,39 @@
+﻿@model TaxonomyPrj2.ViewModels.LoginViewModel
+
+<h2>Вход в приложение</h2>
+<form method="post" asp-controller="Account" asp-action="Login"
+      asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Login"></label><br />
+        <input asp-for="Login" />
+        <span asp-validation-for="Login"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <!--
+             <label asp-for="RememberMe"></label><br />
+          <input asp-for="RememberMe" />
+        -->
+        <br>
+    </div>
+    <div>
+        <input type="submit" id="enterButton" class="btn btn-outline-success btn-lg " value="Войти" />
+        <a href="/Account/Register" class="btn btn-outline-info btn-lg " role="button" aria-pressed="true">Регистрация</a>
+    </div>
+    <br>
+
+</form>
+
+
+@section Scripts
+{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+}

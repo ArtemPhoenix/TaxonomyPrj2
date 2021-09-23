@@ -1,0 +1,137 @@
+﻿body {
+    background-color: lavender;
+}
+
+h1 {
+    color: navy;
+}
+
+#left {
+    color: navy;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    background-color: darkseagreen;
+}
+
+#right {
+    color: green;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    background-color: aquamarine;
+}
+
+#parent {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: darkorange;
+}
+
+#footer {
+    color: red;
+    position: relative;
+}
+
+.active2 {
+    color: red;
+}
+
+.choiseMarker {
+    background-color: lightgoldenrodyellow;
+   
+}
+
+.level_0 {
+    color: red;
+}
+
+.level_1 {
+    color: orange;
+}
+
+.level_2 {
+    color: green;
+}
+
+.level_3 {
+    color: blue;
+}
+
+.level_4 {
+    color: purple;
+}
+
+.level_5 {
+    color: deeppink;
+}
+
+.level_6 {
+    color: darkblue;
+}
+
+.level_7 {
+    color: slateblue;
+}
+
+.notTransfer {
+    white-space: pre;
+}
+
+.input-validation-error {
+    border-color: rgba(224, 29, 29, 1);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(250, 7, 7, 1),0 0 8px rgba(250, 7, 7, 1);
+    box-shadow: inset 0 1px 1px rgba(250, 7, 7, 1),0 0 8px rgba(250, 7, 7, 1);
+    opacity: 0.5;
+}
+    .input-validation-error:focus {
+        border-color: rgba(224, 29, 29, 1);
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(250, 7, 7, 1),0 0 8px rgba(250, 7, 7, 1);
+        box-shadow: inset 1px 1px rgba(250, 7, 7, 1),0 0 8px rgba(250, 7, 7, 1);
+        opacity: 0.5;
+    }
+.valid {
+    border-color: rgba(23, 235, 38, 1);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(23, 235, 38, 1),0 0 8px rgba(23, 235, 38, 1);
+    box-shadow: inset 0 1px 1px rgba(23, 235, 38, 1),0 0 8px rgba(23, 235, 38, 1);
+    opacity: 0.5;
+}
+
+    .valid:focus {
+        border-color: rgba(23, 235, 38, 1);
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(23, 235, 38, 1),0 0 8px rgba(250, 7, 7, 1);
+        box-shadow: inset 1px 1px rgba(23, 235, 38, 1),0 0 8px rgba(23, 235, 38, 1);
+        opacity: 0.5;
+    }    
+
+
+
+.form-control2:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+
+.redText {
+    color:red;
+}
+
+.greenText{
+    color:green;
+}
+
+#startButtonSeach {
+    margin: 10px 0px;
+}
+
+.layoutBackground {
+    background-color: darkgrey; 
+}

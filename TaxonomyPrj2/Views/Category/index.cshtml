@@ -1,0 +1,124 @@
+﻿@model TaxonomyPrj2.ViewModels.IndexCategoriesViewModel;
+@{
+    ViewData["Title"] = "Category";
+}
+
+<input hidden type="text" value="Admin" id="constRole" />
+
+<h1>Категории</h1>
+
+<button type="button" id="createCategory" data-id="0" class="ProtectionAgainstRoleChanges btn btn-outline-success btn-lg btn-block">Добавить категорию</button>
+
+
+<div id="myModalC" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="ModalViewC">
+                <p>ТУТ СОДЕРЖИМОЕ М/О</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container" id="infoTree">
+
+    <div class="row">
+        <div class="" id="">
+            <!-- ******** -->
+            <table class="">
+                <thead>
+
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.CategoryTree)
+                    {
+                        <tr data-id="@category.Id" class="choiseCategory  @("level_"+category.level) ">
+
+
+
+                            <td class=" ">
+                                <pre class="@("level_"+category.level) "> @(category.indent + category.NameCat + " " + category.Name)</pre>
+
+
+                            </td>
+
+                            <td class="">@category.Description</td>
+
+                            <td class="">
+                                <div class="btn-group">
+
+                                    <button type="button" data-id="@category.Id" class="redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges">Р</button>
+                                    <button type="button" data-id="@category.Id" class="deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges">У</button>
+                                </div>
+
+
+
+
+                            </td>
+
+
+
+
+
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="input-group ">
+    <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+</div>
+<br><br><br>
+
+
+
+@section Scripts
+{
+    <script src="~/js/indexCategories.js" asp-append-version="true"></script>
+
+
+
+}
+
+<!--
+      <script>
+
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Извлеките все формы, к которым мы хотим применить пользовательские стили проверки начальной загрузки
+                var forms = document.getElementsByClassName('needs-validation');
+                // Перелистайте их и предотвратите отправку
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('click', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+
+-->

@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewData["Title"] = "DeleteOrganizm";
+    // АЛЬТ удаление организма
+}
+
+<h1>DeleteOrganizm</h1>
+
+<h1 class="active2"> @if (Model.flagEvent == 0)
+{ 
+    <span>Вы точно хотите удалить информацию ?</span>
+}
+ </h1>
+<div class="container">
+    <div class="row ">
+        @if (Model.flagEvent == 1)
+        {
+            <div class="col-sm border border-light rounded-pill bg-warning text-md-center font-weight-bold">
+                <h1>Обновление произведено успешно</h1>
+            </div>
+        }
+        @if (Model.flagEvent == 2)
+        {
+            <div class="col-sm border border-light rounded-pill bg-danger align-text-bottom font-weight-bold">
+                <h1>Удаление произведено успешно</h1>
+            </div>
+        }
+        @if (Model.flagEvent == 3)
+        {
+            <div class="col-sm border border-light rounded-pill bg-success align-text-top font-weight-bold">
+                <h1>Добавление произведено успешно</h1>
+            </div>
+        }
+        <div class="col-sm">
+            <h1>
+                @if (Model.flagEvent == 0)
+                {
+                    <span>Текущий организм:</span>
+                }
+                else
+                {
+                    <span>Информация об организме была удалена</span>
+                }
+            </h1>
+        </div>
+    </div>
+</div>
+
+@if (Model.flagEvent == 0)
+{
+    <h3>
+        @foreach (var category in Model.Categories)
+        {
+            <span>@category.NameCat</span>
+            <span>@category.Name</span>
+            <br>
+        }
+    </h3>
+
+
+    <form method="post">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">ID организма:</span>
+            </div>
+            <input type="text" name="id" readonly class="form-control" value="@Model.OneOrganism.Id" placeholder="ID организма" aria-label="1" aria-describedby="basic-addon1 ">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Название организма:</span>
+            </div>
+            <input type="text" name="Name" readonly class="form-control" value="@Model.OneOrganism.Name" placeholder="Название организма" aria-label="empty" aria-describedby="basic-addon1 ">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">ID категории организма:</span>
+            </div>
+            <input type="text" name="CategoryId" readonly class="form-control" value="@Model.OneOrganism.CategoryId" placeholder="ID категории организма" aria-label="1" aria-describedby="basic-addon1 ">
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend ">
+                <span class="input-group-text">Описание организма:</span>
+            </div>
+            <textarea class="form-control" readonly name="Description" rows="4" aria-label="empty">@Model.OneOrganism.Description</textarea>
+        </div>
+
+        <input type="hidden" name="idOrganism" value="@Model.CurrenOrganismId" />
+        <input type="hidden" name="flagIvent" value="2">
+
+        <br>
+
+
+        <button type="submit" class="btn btn-outline-danger btn-lg btn-block">Удалить</button>
+
+    </form>
+}
+else
+{
+    <button type="button" class="btn btn-outline-danger btn-lg btn-block" onclick="window.location.href = '/Home/Index';">Обратно к списку</button>
+
+}
+

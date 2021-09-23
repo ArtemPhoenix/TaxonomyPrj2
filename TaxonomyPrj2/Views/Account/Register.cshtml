@@ -1,0 +1,42 @@
+﻿@model TaxonomyPrj2.ViewModels.RegisterViewModel;
+@{
+    ViewData["Title"] = "Register";
+    
+}
+
+
+<h1>Регистрация нового пользователя</h1>
+
+<form method="post" asp-controller="Account" asp-action="Register">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Login"></label><br />
+        <input asp-for="Login" />
+        <span asp-validation-for="Login"></span>
+    </div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Year"></label><br />
+        <input asp-for="Year" />
+        <span asp-validation-for="Year"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="PasswordConfirm"></label><br />
+        <input asp-for="PasswordConfirm" />
+        <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <br>
+        <input type="submit" class="btn btn-outline-info btn-lg " value="Регистрация" />
+    </div>
+</form>
+

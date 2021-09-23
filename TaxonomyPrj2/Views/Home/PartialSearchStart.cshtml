@@ -1,0 +1,31 @@
+﻿@model TaxonomyPrj2.ViewModels.IndexViewModel
+
+
+    <div class="input-group mb-3">
+        <h3>Выборка</h3>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <button type="button" id="exitStartSeach" class=" btn btn-outline-warning btn-lg ProtectionAgainstRoleChanges">Убрать выборку</button>
+    </div>
+    <div class="input-group mb-3">
+        @Html.LabelFor(x => x.SearchNameOrganism, new { @class = "input-group-text" })
+        @Html.TextBoxFor(x => x.SearchNameOrganism, new { @class = "form-control SearchNameOrganism"})
+    </div>
+    <div class="input-group mb-3">
+        @Html.LabelFor(x => x.SearchCountFromtOrganism, new { @class = "input-group-text" })
+        @Html.TextBoxFor(x => x.SearchCountFromtOrganism, new { @class = "form-control SearchCountFromOrganism" })
+    </div>
+    <div class="input-group mb-3">
+        @Html.LabelFor(x => x.SearchCountTotOrganism, new { @class = "input-group-text" })
+        @Html.TextBoxFor(x => x.SearchCountTotOrganism, new { @class = "form-control SearchCountToOrganism" })
+    </div>
+    <div class="input-group mb-3">
+        @Html.LabelFor(x => x.SearchDateFromOrganism, new { @class = "input-group-text" })
+       
+        <input type="date" class="form-control SearchDateFromOrganism" id="SearchDateFromOrganism" value="@Model.SearchDateFromOrganism.ToString("yyyy-MM-dd")" placeholder="">
+    </div>
+    <div class="input-group mb-3">
+        @Html.LabelFor(x => x.SearchDateToOrganism, new { @class = "input-group-text" })
+        
+        <input type="date" class="form-control SearchDateToOrganism" id="SearchDateToOrganism" value="@Model.SearchDateToOrganism.ToString("yyyy-MM-dd")" placeholder="">
+    </div>
+    <button type="button" id="startSeach" class=" btn btn-outline-success btn-lg btn-block">Произвести выборку по заданным параметрам</button>

@@ -1,0 +1,166 @@
+﻿@model TaxonomyPrj2.ViewModels.PartialRedactOrganismViewModel
+@{
+    ViewData["Title"] = "PartialRedactOrganism";
+    // отображение м/окна создания организма
+}
+
+
+
+
+<div class="container">
+    <div class="row ">
+        @if (Model.FlagEvent == 1) // убрать лишнее
+        {
+            <div class="col-sm border border-light rounded-pill bg-warning text-md-center font-weight-bold">
+                <h1>Обновление произведено успешно</h1>
+            </div>
+        }
+        @if (Model.FlagEvent == 2)
+        {
+            <div class="col-sm border border-light rounded-pill bg-danger align-text-bottom font-weight-bold">
+                <h1>Удаление произведено успешно</h1>
+            </div>
+        }
+        @if (Model.FlagEvent == 3)
+        {
+            <div class="col-sm border border-light rounded-pill bg-success align-text-top font-weight-bold">
+                <h1>Добавление произведено успешно</h1>
+            </div>
+        }
+    <div class="col-sm">
+        @if (Model.Id != 0)
+        {
+            <h1>Текущий организм:</h1>
+        }
+        else
+        {
+            <h1>Новый организм:</h1>
+        }
+
+    </div>
+    </div>
+</div>
+
+@if (Model.Id != 0)
+{
+    <h3>
+        @foreach (var category in Model.Categories)
+        {
+            <span>@category.NameCat</span>
+            <span>@category.Name</span>
+            <br>
+        }
+    </h3>
+}
+
+<form method="post" id="needsValidationOrganism">
+
+    @if (Model.Id != 0)
+    {
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">ID организма:</span>
+            </div>
+            <input type="text" readonly name="Id" class="form-control" value="@(Model.Id)" aria-label="empty" aria-describedby="basic-addon1 ">
+            <!-- Html.TextBoxFor(x => x.Id, new { class = "form-control" }) -->
+        </div>
+    }
+
+
+
+
+
+    @Html.LabelFor(x => x.Name, new { @class = "input-group-text" })
+    @if (Model.FlagEvent != 0)
+    {
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @readonly = true })
+    }
+    else
+    {
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    }
+
+    @Html.ValidationMessageFor(x => x.Name, null, new { @class = "redText" })
+    <div class="input-group">
+        <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+    </div>
+    <br>
+
+    <!--**********************************************************-->
+    <div class="">
+        <div class="">
+            <span class="input-group-text" id="basic-addon1">Категория организма:</span>
+        </div>
+        <select id="newCategoryId" @(Model.FlagEvent == 3 ? "readonly" : "") name="CategoryId" class="form-control">
+
+            @foreach (var category in Model.Categories)
+            {
+                @if (category.Id == Model.Id)
+                {
+                    <option selected value="@category.Id">@(category.NameCat) @category.Name</option>
+                }
+                else
+                {
+                    <option value="@category.Id">@(category.NameCat) @category.Name</option>
+                }
+
+            }
+
+        </select>
+    </div>
+    <br>
+    <!--**********************************************************-->
+    @Html.LabelFor(x => x.StartResearch, new { @class = "input-group-text" })
+    @Html.TextBoxFor(x => (x.StartResearch), "{0:dd.MM.yyyy}", new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.StartResearch, null, new { @class = "redText" })
+    <div class="input-group">
+        <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+    </div>
+    <br>
+
+    @Html.LabelFor(x => x.CountSample, new { @class = "input-group-text" })
+    @Html.TextBoxFor(x => x.CountSample, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.CountSample, null, new { @class = "redText" })
+    <div class="input-group">
+        <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+    </div>
+    <br>
+
+
+    @Html.LabelFor(x => x.Description, new { @class = "input-group-text" })
+
+    @if (Model.FlagEvent != 0)
+    {
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @readonly = true })
+    }
+    else
+    {
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+    }
+    @Html.ValidationMessageFor(x => x.Description, null, new { @class = "redText" })
+    <div class="input-group ">
+        <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+    </div>
+    <br>
+
+    <input type="hidden" name="idOrganism" value="@Model.Id" />
+
+
+
+
+    @if (Model.Id != 0)
+    {
+        @if (Model.FlagEvent == 0)
+        {
+            <button type="button" data-id="@Model.Id" id="redactOrganismButton" class="btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges">Обновить</button>
+        }
+    }
+    else
+    {
+
+        <button type="button" id="createOrganismButton" class="btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Добавить</button>
+    }
+
+    <button type="button" id="exitPartialButton" data-id="@Model.CategoryId" class="btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges">Закрыть</button>
+
+</form>

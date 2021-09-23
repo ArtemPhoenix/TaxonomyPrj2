@@ -1,0 +1,90 @@
+﻿@model TaxonomyPrj2.ViewModels.PartialCreateCategoryVievModel
+@{
+    ViewData["Title"] = "RedactOrganism";
+    // АЛЬТ создание организма
+}
+
+<h1>Добавить категорию</h1>
+<br>
+
+<h1>Информация:</h1>
+
+
+    
+
+<form method="post" id="needsValidationEdit">
+
+ 
+
+    <div class="">
+
+
+
+        <div class="input-group ">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">ID категории:</span>
+            </div>
+            <input type="text" id="id" name="Id" readonly class="form-control" value="@Model.Id" aria-label="1" aria-describedby="basic-addon1 ">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Родитель:</span>
+            </div>
+            <select id="ParentId" name="ParentId" class="form-control">
+
+                @foreach (var category in Model.Categories)
+                {
+                    @if (category.Id == Model.Parent)
+                    {
+                        <option value="@category.Id" selected>@(category.NameCat) @category.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@category.Id">@(category.NameCat) @category.Name</option>
+                    }
+
+
+                }
+
+            </select>
+        </div>
+
+        @Html.LabelFor(x => x.NameCat, new { @class = "input-group-text" })
+        @Html.TextBoxFor(x => x.NameCat, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.NameCat, null, new { @class = "redText" })
+        <div class="input-group">
+            <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+        </div>
+        <br>
+
+
+
+        @Html.LabelFor(x => x.Name, new { @class = "input-group-text" })
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control " })
+        @Html.ValidationMessageFor(x => x.Name, null, new { @class = "redText" })
+        <div class="input-group ">
+            <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+        </div>
+        <br>
+
+        @Html.LabelFor(x => x.Description, new { @class = "input-group-text" })
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Description, null, new { @class = "redText" })
+        <div class="input-group ">
+            <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
+        </div>
+        <br>
+
+
+
+    </div>
+
+
+    <button type="button" id="editButton" data-id="@Model.Id" class="btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges">Изменить</button>
+
+
+
+
+
+</form>

@@ -1,0 +1,31 @@
+﻿@*
+    // Отображение списка организмов на index по категории
+*@
+@model TaxonomyPrj2.ViewModels.OrganismTableViewModel
+
+
+
+@foreach (var organism in Model.Organisms)
+{
+    
+    <tr class="info">
+
+        <td class="info">@organism.CategoryId</td>
+        <td>@(organism.StartResearch.Day + "." + organism.StartResearch.Month + "." + organism.StartResearch.Year)</td>
+        <td>@organism.CountSample</td>
+        <td>@organism.Name</td>
+        <td>@organism.Description</td>
+        @if (Model.Admin)
+        {
+    <td>
+        <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges">Редактировать</button>
+        <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges">Удалить</button>
+    </td>
+        }
+            
+
+    </tr>
+    
+       
+}
+

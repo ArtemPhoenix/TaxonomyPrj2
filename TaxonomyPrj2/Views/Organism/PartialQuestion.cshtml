@@ -1,0 +1,9 @@
+﻿@*
+      // вопрос да/нет    
+*@
+
+@model TaxonomyPrj2.ViewModels.QuestionViewModel
+
+<h1 align="center"> Вы уверены? </h1>
+<button type="button" id="YesQuestionButton" data-Categoryid="@Model.Id" class="btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges">ДА</button>
+<button type="button" id="NoQuestionButton"  class="btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">ОТМЕНА</button>

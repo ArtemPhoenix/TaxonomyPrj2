@@ -1,0 +1,180 @@
+﻿@model TaxonomyPrj2.ViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "Таксономия";
+
+    // ctr + d = копия строкикопия строкикопия строкикопия строкикопия строки
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <input hidden type="text" value="Admin" id="constRole" />
+}
+else
+{
+    <input hidden type="text" value="CommonUser" id="constRole" />
+}
+
+
+@if (@Model.Admin)
+{
+    <a href="/Category/index" class="btn btn-outline-primary btn-lg btn-block ProtectionAgainstRoleChanges" role="button" aria-pressed="true">Работа с категориями</a>
+    <button type="button" class="createOrganism btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Добавить организм в котегорию</button>
+}
+
+
+
+<div id="myModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="ModalView">
+                <p>ТУТ СОДЕРЖИМОЕ М/О</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<button type="button" id="startButtonSeach" class="btn btn-outline-info btn-lg btn-block ProtectionAgainstRoleChanges">Сделать выборку организмов</button>
+
+<form id="startSearch">
+</form>
+
+<div class="container" id="searchResult1">
+
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-xl-7">
+            <table id="tableCategories" class="table-bordered ">
+                <tr>
+                    <th>ID </th>
+                    <th>ID родителя</th>
+                    <th>Приставочное имя</th>
+                    <th>Имя</th>
+                    <th>Описание</th>
+
+                </tr>
+                @foreach (var category in Model.Categories)
+                {
+
+                    <tr class="@(category.Id == Model.CurrenCategoryId ? "choiseMarker" : "" ) choiseCategory" data-id="@(category.Id)">
+                        <td>@category.Id</td>
+                        <td>@category.Parent</td>
+                        <td>@category.NameCat</td>
+                        <td>@category.Name</td>
+                        <td>@category.Description</td>
+
+                    </tr>
+
+                }
+            </table>
+        </div>
+
+
+
+        <div class="col-xl-5">
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Имя организма:</span>
+                <input type="text" id="SearchNameOrganismSmall" class="form-control SearchNameOrganism" value="@Model.SearchNameOrganism" placeholder="" aria-label="empty" aria-describedby="basic-addon1 ">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Количесто образцов от</span>
+                </div>
+                <input type="text" id="SearchCountFromOrganismSmall" class="form-control SearchCountFromtOrganism" value="@Model.SearchCountFromtOrganism" placeholder="" aria-label="empty" aria-describedby="basic-addon1 ">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">до</span>
+                </div>
+                <input type="text" id="SearchCountToOrganismSmall" class="form-control SearchCountTotOrganism" value="@Model.SearchCountTotOrganism" placeholder="" aria-label="empty" aria-describedby="basic-addon1 ">
+
+            </div>
+
+            <span class="input-group-text" id="basic-addon1">Дата начала исследований:</span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">От</span>
+                </div>
+                <input type="date" class="form-control SearchDateFromOrganism" id="SearchDateFromOrganismSmall" value="@Model.SearchDateFromOrganism.ToString("yyyy-MM-dd")" placeholder="">
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">до</span>
+                </div>
+                <input type="date" class="form-control SearchDateToOrganism" id="SearchDateToOrganismSmall" value="@Model.SearchDateToOrganism.ToString("yyyy-MM-dd")" placeholder="">
+            </div>
+
+
+            <button type="button" id="startSeachCategorySmall" class=" btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Применить фильтр</button>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID категории</th>
+                        <th>Начало исследований</th>
+                        <th>Количество образцов</th>
+                        <th>Имя</th>
+                        <th>Описание</th>
+                    </tr>
+                </thead>
+                <tbody id="tableOrganisms">
+
+
+
+
+                    @foreach (var organism in Model.Organisms)
+                    {
+                        <tr class="info ">
+
+                            <td class="info">@organism.CategoryId</td>
+                            <td>@(organism.StartResearch.Day + "." + organism.StartResearch.Month + "." + organism.StartResearch.Year)</td>
+                            <td>@organism.CountSample</td>
+                            <td>@organism.Name</td>
+                            <td>@organism.Description</td>
+                            @if (@Model.Admin)
+                            {
+                                <td>
+                                    <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges" data-dismiss="modal">Редактировать</button>
+                                    <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges" data-dismiss="modal">Удалить</button>
+
+                                    <!--
+                                    <a href="собака_Url.Action("AltEdit", "Organism",new { id = organism.Id})">Редактировать</a>
+                                    <a href=собака_Url.Action("CreateOrganism", "Organism")>Добавить</a>
+                                    <a href="/Organism/AltDelete/?idOrganism=собака_(organism.Id)">Удалить</a>
+                                    -->
+
+                                </td>
+                            }
+
+
+                        </tr>
+                    }
+                </tbody>
+
+
+            </table>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+<!--*******************************-->
+<!--*******************************-->
+
+
+@section Scripts
+{
+    <script src="~/js/index.js" asp-append-version="true"></script>
+}

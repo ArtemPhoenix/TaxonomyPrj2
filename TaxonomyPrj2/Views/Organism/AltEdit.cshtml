@@ -1,0 +1,111 @@
+﻿@model TaxonomyPrj2.ViewModels.RedactOrganismViewModel
+@{
+    ViewData["Title"] = "RedactOrganism";
+    // АЛЬТ создание организма
+}
+
+<h1>RedactOrganism</h1>
+<br>
+
+
+<div class="container">
+    <div class="row ">
+        @if (Model.FlagEvent == 1) // убрать лишнее
+        {
+            <div class="col-sm border border-light rounded-pill bg-warning text-md-center font-weight-bold">
+                <h1>Обновление произведено успешно</h1>
+            </div>
+        }
+        @if (Model.FlagEvent == 2)
+        {
+            <div class="col-sm border border-light rounded-pill bg-danger align-text-bottom font-weight-bold">
+                <h1>Удаление произведено успешно</h1>
+            </div>
+        }
+        @if (Model.FlagEvent == 3)
+        {
+            <div class="col-sm border border-light rounded-pill bg-success align-text-top font-weight-bold">
+                <h1>Добавление произведено успешно</h1>
+            </div>
+        }
+        <div class="col-sm">
+            <h1>Текущий организм:</h1>
+        </div>
+    </div>
+</div>
+
+
+<h3>
+    @foreach (var category in Model.Categories)
+    {
+        <span>@category.NameCat</span>
+        <span>@category.Name</span>
+        <br>
+    }
+</h3>
+<form method="post">
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">ID организма:</span>
+        </div>
+
+        @Html.TextBoxFor(x => x.Id, new { @class = "form-control" })
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Название организма:</span>
+        </div>
+        <input type="text" name="Name" class="form-control" value="@(Model.Name)" placeholder="Название организма" aria-label="empty" aria-describedby="basic-addon1 ">
+    </div>
+    <!--**********************************************************-->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">ID категории организма:</span>
+        </div>
+        <select name="CategoryId" class="form-control">
+
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@(category.NameCat) @category.Name</option>
+            }
+
+        </select>
+    </div>
+    <!--**********************************************************-->
+    <div class="input-group">
+        <div class="input-group-prepend ">
+            <span class="input-group-text">Описание организма:</span>
+        </div>
+        <textarea class="form-control" name="Description" rows="4" aria-label="empty">@Model.Description </textarea>
+    </div>
+
+
+    <input type="hidden" name="idOrganism" value="@Model.Id" />
+
+
+    <br>
+
+    @if (Model.Id != 0)
+    {
+
+        @if (Model.FlagEvent == 0)
+        {
+            <button type="submit" class="btn btn-outline-warning btn-lg btn-block">Обновить</button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-outline-danger btn-lg btn-block" onclick="window.location.href = '/Home/Index';">Обратно к списку</button>
+        }
+    }
+    else
+    {
+        <button type="submit" class="btn btn-outline-success btn-lg btn-block">Добавить</button>
+
+       
+    }
+
+
+
+</form>

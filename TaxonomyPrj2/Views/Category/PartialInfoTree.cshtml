@@ -1,0 +1,56 @@
+﻿@model TaxonomyPrj2.ViewModels.IndexCategoriesViewModel;
+
+@{
+    Layout = null;
+}
+
+
+
+<div class="row">
+    <div class="" id="">
+        <!-- ******** -->
+        <table class="">
+            <thead>
+
+            </thead>
+            <tbody>
+                @foreach (var category in Model.CategoryTree)
+                {
+                    <tr data-id="@category.Id" class="choiseCategory  @("level_"+category.level) ">
+
+
+
+                        <td class=" ">
+                            <pre class="@("level_"+category.level) "> @(category.indent + category.NameCat + " " + category.Name)</pre>
+
+
+                        </td>
+
+                        <td class="">@category.Description</td>
+
+                        <td class="">
+                            <div class="btn-group">
+                                <button type="button" data-id="@category.Id" class="redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges">Р</button>
+                                <button type="button" data-id="@category.Id" class="deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges">У</button>
+                            </div>
+
+
+
+
+                        </td>
+
+
+
+
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
