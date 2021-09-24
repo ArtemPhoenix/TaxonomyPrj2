@@ -1,7 +1,7 @@
 ﻿using System;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using DAL.Models;
 
 #nullable disable
 
@@ -33,14 +33,14 @@ namespace DAL.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=taxonomydb;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=taxonomydb");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-            base.OnModelCreating(modelBuilder); //Добавил для миграции
+
             modelBuilder.Entity<AspNetRole>(entity =>
             {
                 entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
@@ -126,6 +126,14 @@ namespace DAL.Data
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserTokens)
                     .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasOne(d => d.ParentNavigation)
+                    .WithMany(p => p.InverseParentNavigation)
+                    .HasForeignKey(d => d.Parent)
+                    .HasConstraintName("FK_Categories_Categories");
             });
 
             modelBuilder.Entity<Organism>(entity =>

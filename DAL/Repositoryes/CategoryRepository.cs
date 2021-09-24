@@ -1,4 +1,5 @@
 ﻿using DAL.Data;
+using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +12,7 @@ using TaxonomyPrj2.Models;
 
 namespace TaxonomyPrj2.interfaces
 {
-    public class CategoryRepository : IDisposable
+    public class CategoryRepository : IDisposable, IRepository<Category>
     {
         private taxonomydbContext db;
 

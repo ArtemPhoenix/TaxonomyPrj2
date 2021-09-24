@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.Interfaces;
+using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +39,10 @@ namespace TaxonomyPrj2.Controllers
             
                 return View(model);
         }
+        private Category Example(IRepository<Category> repository, int id)
+        {
+           return repository.Get(id);
+        }
 
         [HttpGet]
         public IActionResult PartialDescription(int id)
@@ -45,11 +51,14 @@ namespace TaxonomyPrj2.Controllers
             var model = new PartialDescriptionViewModel();
             using (var repozitCategory = new CategoryRepository())
             {
-                model.Id = repozitCategory.Get(id).Id;
-                model.Name = repozitCategory.Get(id).Name;
-                model.NameCat = repozitCategory.Get(id).NameCat;
-                model.Parent = repozitCategory.Get(id).Parent;
-                model.Description = repozitCategory.Get(id).Description;
+                var ex = Example(repozitCategory, id);
+               // var ex2 = Example(repozitCategory, id);
+                var category = repozitCategory.Get(id);
+                model.Id = category.Id;
+                model.Name = category.Name;
+                model.NameCat = category.NameCat;
+                model.Parent = category.Parent;
+                model.Description = category.Description;
             }
                 return PartialView(model); 
         }

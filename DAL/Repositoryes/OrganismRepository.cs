@@ -1,4 +1,5 @@
 ﻿using DAL.Data;
+using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,7 @@ using TaxonomyPrj2.Models;
 
 namespace TaxonomyPrj2.interfaces
 {
-    public class OrganismRepository : IDisposable
+    public class OrganismRepository : IDisposable, IRepository<Organism>
     {
         private taxonomydbContext db;
 
@@ -103,7 +104,7 @@ namespace TaxonomyPrj2.interfaces
         /// <returns></returns>
         public List<Organism> SearchOrganismsByFilter(string searchName, int? searchCountFrom, int? searchCountTo, DateTime? searchDateFrom, DateTime? searchDateTo, int? SearchIdCategory)
         {
-           var query = db.Organisms.AsQueryable(); 
+            var query = db.Organisms.AsQueryable(); 
             if (!string.IsNullOrWhiteSpace(searchName))
             {
                 query = query.Where(x => x.Name.Contains(searchName));
