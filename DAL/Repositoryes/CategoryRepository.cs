@@ -149,7 +149,8 @@ namespace TaxonomyPrj2.interfaces
             while (newCategory.Parent != null) // если ноль, значит вершина достигнута
             {
                 listParent.Add(newCategory); // добавить родителя
-                newCategory = list.Find(x => x.Id == newCategory.Parent); // найти следующего
+               // newCategory = list.Find(x => x.Id == newCategory.Parent); // найти следующего
+                newCategory = newCategory.ParentNavigation; 
             }
             listParent.Add(newCategory);  // добавить вершину
             listParent.Reverse(); // сделать обратный порядок родителей
@@ -161,28 +162,26 @@ namespace TaxonomyPrj2.interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<Category> GetListAltParent(int id) 
+        public List<Category> GetAnotherBranches(int id) 
         {
             var list = db.Categories.ToList();
             var top = list.Find(x => x.Id == id);
-            var notAltList = new List<Category>();
+            var childsList = new List<Category>();
 
-            MakeListNotAltParent(top, ref list, ref notAltList);
+            MakeListChildsBranches(top,ref childsList);
 
-            var result = list.Except(notAltList); // убрать дочерние из листа
+            var result = list.Except(childsList); // убрать дочерние из листа
 
-            return list.Except(notAltList).ToList();
+            return list.Except(childsList).ToList();
         }
 
-        private void MakeListNotAltParent(Category top, ref List<Category> list, ref List<Category> notAltList) // получить лист всех дочерних на всех уровнях
+        private void MakeListChildsBranches(Category top,ref List<Category> childsList) // получить лист всех дочерних на всех уровнях
         {
-            foreach (var item in list)
+          
+            foreach (var item in top.InverseParentNavigation)
             {
-                if (item.Parent == top.Id) 
-                {
-                    notAltList.Add(item);
-                    MakeListNotAltParent(item, ref list, ref notAltList);
-                }
+                childsList.Add(item);
+                MakeListChildsBranches(item, ref childsList);
             }
         }
         

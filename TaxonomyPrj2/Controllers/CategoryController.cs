@@ -148,7 +148,7 @@ namespace TaxonomyPrj2.Controllers
                 
                 var isCorrectId = id.HasValue && repozitCategory.GetList().Any(x => x.Id == id);
                 model.Id = isCorrectId ? id.Value : 0;
-                model.Categories = isCorrectId ? repozitCategory.GetListAltParent(id.Value) : repozitCategory.GetList();
+                model.Categories = isCorrectId ? repozitCategory.GetAnotherBranches(id.Value) : repozitCategory.GetList();
                 //var cadasd = repozitCategory.GetList();
 
                 if (model.Id != 0)
