@@ -269,6 +269,8 @@ namespace TaxonomyPrj2.interfaces
         /// <param name="tree">формируемый лист</param>
         /// <param name="top">вершина</param>
         /// <param name="list">лист всех категорий</param>
+        /// 
+        /*
         private void makeCategoryTreeWC(ref List<CategoryTreeWithChilds> tree, Category top, List <Category> list)
         {
             // создание листа типа элемент + лист потомков
@@ -295,6 +297,6 @@ namespace TaxonomyPrj2.interfaces
            
 
         }
-
+        */
     }
 }
