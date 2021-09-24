@@ -13,7 +13,7 @@ namespace TaxonomyPrj2.ViewModels
         public List<Category> Categories { get; set; }
 
         public int Id { get; set; }
-        public int Parent { get; set; }
+        public int? Parent { get; set; }
 
         [Display(Name = "Имя")]
         [Required(ErrorMessage = "Не указано имя")]

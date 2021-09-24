@@ -21,8 +21,9 @@ namespace TaxonomyPrj2.Models
         }
 
 
-        public int returnIndexCategoryes(List<Category> categoryes, int id)
+        public int returnIndexCategoryes(List<Category> categoryes, int? id)
         {
+            if (id == null) { id = 0; }
             int index = -1;
             for (int i = 0; i < categoryes.Count; i++)
             {
@@ -38,7 +39,7 @@ namespace TaxonomyPrj2.Models
         public string returnParentName(List<Category> categoryes, int id)
         {
             string name = "<предка нет>";
-            int idParent = categoryes[returnIndexCategoryes(categoryes, id)].Parent; //id предка
+            int? idParent = categoryes[returnIndexCategoryes(categoryes, id)].Parent; //id предка
             int indexParent = returnIndexCategoryes(categoryes, idParent); // index предка
 
 

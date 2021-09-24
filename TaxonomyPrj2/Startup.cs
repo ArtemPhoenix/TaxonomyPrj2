@@ -29,9 +29,9 @@ namespace TaxonomyPrj2
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<taxonomydbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<TaxonomydbContext>(options => options.UseSqlServer(connection));
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<taxonomydbContext>();
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TaxonomydbContext>();
 
             services.AddControllersWithViews();
         }

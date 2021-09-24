@@ -175,8 +175,9 @@ namespace TaxonomyPrj2.interfaces
             }
             return index;
         }
-        public int returnIndexCategory(List<Category> categoryes, int id) // АЛЬТ
+        public int returnIndexCategory(List<Category> categoryes, int? id) // АЛЬТ
         {
+            if (id == null) { id = 0; }
             int index = 0;
             for (int i = 0; i < categoryes.Count; i++)
             {

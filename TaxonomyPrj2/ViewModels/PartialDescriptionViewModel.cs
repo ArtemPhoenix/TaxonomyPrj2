@@ -9,7 +9,7 @@ namespace TaxonomyPrj2.ViewModels
     public class PartialDescriptionViewModel
     {
         public int Id { get; set; }
-        public int Parent { get; set; }
+        public int? Parent { get; set; }
         [Required(ErrorMessage = "Не указано имя2")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Не указано приставочное имя")]

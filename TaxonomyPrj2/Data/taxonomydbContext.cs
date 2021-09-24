@@ -9,13 +9,13 @@ using TaxonomyPrj2.Models;
 
 namespace TaxonomyPrj2.Data
 {
-    public partial class taxonomydbContext : IdentityDbContext<User>
+    public partial class TaxonomydbContext : IdentityDbContext<User>
     {
-        public taxonomydbContext()
+        public TaxonomydbContext()
         {
         }
 
-        public taxonomydbContext(DbContextOptions<taxonomydbContext> options)
+        public TaxonomydbContext(DbContextOptions<TaxonomydbContext> options)
             : base(options)
         {
         }
