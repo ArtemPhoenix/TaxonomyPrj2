@@ -121,7 +121,7 @@ namespace TaxonomyPrj2.interfaces
             var listParent = new List<Category>(); 
             var list = GetList(); // взять лист категорий
             var newCategory = list.Find(x => x.Id == id);  // взять первый родительский
-            while (newCategory.Parent != 0) // если ноль, значит вершина достигнута
+            while (newCategory.Parent != null) // если ноль, значит вершина достигнута
             {
                 listParent.Add(newCategory); // добавить родителя
                 newCategory = list.Find(x => x.Id == newCategory.Parent); // найти следующего
@@ -177,7 +177,7 @@ namespace TaxonomyPrj2.interfaces
         }
         public int returnIndexCategory(List<Category> categoryes, int? id) // АЛЬТ
         {
-            if (id == null) { id = 0; }
+            //if (id == null) { id = 0; }
             int index = 0;
             for (int i = 0; i < categoryes.Count; i++)
             {
@@ -194,7 +194,7 @@ namespace TaxonomyPrj2.interfaces
             
             int categoryIndex = returnIndexCategory(categories, organisms[returnIndexOrganism(organisms,idOrganism)].CategoryId);  
              List<Category> result = new List<Category>();  // тут дублеж!! потом исправить
-            while (categories[categoryIndex].Parent != 0) // цепочка родительских категорий снизу-вверх
+            while (categories[categoryIndex].Parent != null) // цепочка родительских категорий снизу-вверх
             {
                 result.Add(categories[categoryIndex]);
                 categoryIndex = returnIndexCategory(categories, categories[categoryIndex].Parent);
