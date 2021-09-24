@@ -50,9 +50,9 @@ namespace TaxonomyPrj2.interfaces
            
         }
 
-        public bool Delete(int id) // +
+        public string Delete(int id) // +
         {
-            bool result = true;
+            string result = "error:";
 
 
             Category category = db.Categories.Include(x => x.InverseParentNavigation)
@@ -62,18 +62,42 @@ namespace TaxonomyPrj2.interfaces
             {
                 if (category.InverseParentNavigation.Count != 0 || category.Organisms.Count != 0)
                 {
-                    result = false;
+                   
+                    if (category.InverseParentNavigation.Count != 0) 
+                    {
+                        result += " существуют подкатегории";
+                    }
+                    if (category.InverseParentNavigation.Count != 0)
+                    {
+                        result += " существуют организмы";
+                    }
                 }
                 else
                 {
-                    db.Categories.Remove(category);
-                    db.SaveChanges();
+                    try
+                    {
+                        db.Categories.Remove(category);
+                    }
+                    catch (Exception)
+                    {
+                        result += " удаление из БД не поизошло";
+                    }
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        result += " сохранить измениния в БД не удалось";
+                    }
+                    if (result == "error:") { result = "успешно"; }
                 }
 
             }
             else
             {
-                result = false;
+                result = "error: категория не найдена";
             }
 
 

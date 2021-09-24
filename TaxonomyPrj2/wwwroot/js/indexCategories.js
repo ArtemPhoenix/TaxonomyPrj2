@@ -121,8 +121,19 @@ function addButton()  // delete & redact
             //-------------------------
             $('#YesQuestionButton').on('click', function () {
                 var clickId = $(this).attr('data-id');
-                $.post('/Category/PartialDelete', { id: clickId }, function (data) {
-                    if (data.save != true) { alert("Данная подкатегория имеет дочерние подкатегории, удаление невозможно!"); }
+                $.post('/Category/Delete', { id: clickId }, function (data) {
+                    if (data.error != null && data.error.length > 0)
+                    {
+                        alert(data.error);
+                    }
+                    else
+                    {
+                        if (data.save != "успешно")
+                        {
+                            alert(data.save);
+                        }
+                    }
+                   
                     $("#myModalC").modal('hide');
                     //loadInfoCategory(1);
                     loadInfoTree();
