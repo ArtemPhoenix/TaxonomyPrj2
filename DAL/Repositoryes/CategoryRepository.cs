@@ -186,109 +186,7 @@ namespace TaxonomyPrj2.interfaces
         }
         
 
-        private int returnIndexOrganism(List<Organism> organisms, int id)  // АЛЬТ
-        {
-            int index = -1;
-            for (int i = 0; i < organisms.Count; i++)
-            {
-                if (organisms[i].Id == id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
-        }
-        public int returnIndexCategory(List<Category> categoryes, int? id) // АЛЬТ
-        {
-            //if (id == null) { id = 0; }
-            int index = 0;
-            for (int i = 0; i < categoryes.Count; i++)
-            {
-                if (categoryes[i].Id == id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
-        }
-        public List<Category> chainCategoriesToOrganism(int idOrganism, List<Category> categories, List<Organism> organisms) // АЛЬТ
-        {
-            
-            int categoryIndex = returnIndexCategory(categories, organisms[returnIndexOrganism(organisms,idOrganism)].CategoryId);  
-             List<Category> result = new List<Category>();  // тут дублеж!! потом исправить
-            while (categories[categoryIndex].Parent != null) // цепочка родительских категорий снизу-вверх
-            {
-                result.Add(categories[categoryIndex]);
-                categoryIndex = returnIndexCategory(categories, categories[categoryIndex].Parent);
-            }
-
-            result.Add(categories[0]);
-
-            for (int i = 0; i < (result.Count / 2); i++) // Это реверс
-            {
-                Category buf = new Category();
-                Category buf2 = new Category();
-
-                buf = result[i];
-                buf2 = result[result.Count - i -1];  // на всяк пожарный, чтоб не по ссылке
-
-                result[result.Count - i -1] = buf;
-                result[i] = buf2;
-
-            }
-            return result;
-            
-        }
-        /*
-        public List<Category> chainCategories(List<Category> categories, int idCategory) // не нужно
-        {
-            int categoryIndex = categories[returnIndexCategory(categories ,idCategory)].Parent;
-            List<Category> result = new List<Category>();
-            while (categories[categoryIndex].Parent != 0)
-            {
-                result.Add(categories[categoryIndex]);
-                categoryIndex = returnIndexCategory(categories, categories[categoryIndex].Parent);
-            }
-
-            result.Add(categories[0]);
-
-            for (int i = 0; i < (result.Count / 2); i++)
-            {
-                Category buf = new Category();
-                Category buf2 = new Category();
-
-                buf = result[i];
-                buf2 = result[result.Count - i - 1];  // на всяк пожарный, чтоб не по ссылке
-
-                result[result.Count - i - 1] = buf;
-                result[i] = buf2;
-
-            }
-            return result;
-        }
-        */
        
-        /*
-        private int getIdParentCategoryForIdOrganism(int idOrganism, List<Category> categories, List<Organism> organisms)
-        {
-            foreach (var organism in organisms)
-            {
-                if (organism.Id == idOrganism)
-                {
-                    foreach (var category in categories)
-                    {
-                        if (category.Id == organism.CategoryId)
-                        {
-                            return category.Parent;
-                        }
-                    }
-                }
-            }
-            return 0;
-        }
-        */
         /// <summary>
         /// Делает лист категорий для вывода в виде дерева добавляется уровень узла и отступ
         /// </summary>
@@ -296,26 +194,27 @@ namespace TaxonomyPrj2.interfaces
         public List<CategoryTree> GetListTree()  
         {
             // потом переделать нормально ?
-            var tree = new List<CategoryTreeWithChilds>(); // лист, где каждый элемент хранит всех своих потомков
+            // var tree = new List<CategoryTreeWithChilds>(); // лист, где каждый элемент хранит всех своих потомков
             var list = db.Categories.ToList(); // просто лист всех категорий
             var top = list.Find(x => x.Id == 1); // вершина дерева
 
-            makeCategoryTreeWC(ref tree,top,list); // наполнение элементами листа, где каждый элемент хранит всех своих потомков
-
-            var topTreeWC = tree.Find(x => x.data.Id == 1); // вершина дерева, где каждый элемент хранит всех своих потомков
+            // makeCategoryTreeWC(ref tree,top,list); // наполнение элементами листа, где каждый элемент хранит всех своих потомков
+            
+            // var topTreeWC = tree.Find(x => x.data.Id == 1); // вершина дерева, где каждый элемент хранит всех своих потомков
+            var topTree = list.Find(x => x.Id == 1);
             var treeCategory = new List<CategoryTree>(); // пустой лист категорий с отступом и уровнем
             int level = 0; // начальный уровень
             treeCategory.Add(new CategoryTree // записываем вершину листа дерева с наследниками, но без них
             {
-                Id = topTreeWC.data.Id,
-                Name = topTreeWC.data.Name,
-                NameCat = topTreeWC.data.NameCat,
-                Parent = topTreeWC.data.Parent,
-                Description = topTreeWC.data.Description,
+                Id = topTree.Id,
+                Name = topTree.Name,
+                NameCat = topTree.NameCat,
+                Parent = topTree.Parent,
+                Description = topTree.Description,
                 level = level
             });
 
-            SortTree(ref treeCategory, tree, topTreeWC, level); // записываем в treeCategory категории порядке их отображения на странице
+            SortTree(ref treeCategory, topTree, level); // записываем в treeCategory категории порядке их отображения на странице
 
             foreach (var item in treeCategory) // формирование отступа
             {
@@ -335,13 +234,13 @@ namespace TaxonomyPrj2.interfaces
         /// <param name="tree">дерево, где каждый элемент хранит всех своих потомков</param>
         /// <param name="top">вершина, где каждый элемент хранит всех своих потомков</param>
         /// <param name="level">уровень вершины</param>
-        private void SortTree(ref List<CategoryTree> treeCategory, List<CategoryTreeWithChilds> tree, CategoryTreeWithChilds top, int level)
+        private void SortTree(ref List<CategoryTree> treeCategory, Category top, int level)
         {
             // спуск вниз по веткам с присвоением уровня
             level++; // добавляет уровень
-            if (top.childs != null) // у вершины должны быть потомки
+            if (top.InverseParentNavigation != null) // у вершины должны быть потомки
             {
-                foreach (var item in top.childs) // берем каждого потомка вершины
+                foreach (var item in top.InverseParentNavigation) // берем каждого потомка вершины
                 {
                     
                         treeCategory.Add(new CategoryTree   /*записываем потомка в итоговый лист*/
@@ -354,7 +253,7 @@ namespace TaxonomyPrj2.interfaces
                             level = level
                         });
                         
-                        SortTree(ref treeCategory, tree, tree.Find(x => x.data == item), level);
+                        SortTree(ref treeCategory, item, level);
                     // рекурсия. переходим на потомков.next этого потомка, что бы они следовали в итоговом листе за текущим потомком 
                     // уровень там станет уже на 1 больше, так же передается как вершина текущий потомок
 
