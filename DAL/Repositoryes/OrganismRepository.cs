@@ -24,13 +24,15 @@ namespace TaxonomyPrj2.interfaces
 
         public void Create(OrganismEditModel editOrganism)
         {
-            Organism newOrganism = new Organism();
-            //newOrganism.Id = editOrganism.Id;
-            newOrganism.CategoryId = editOrganism.CategoryId;
-            newOrganism.Name = editOrganism.Name;
-            newOrganism.StartResearch = editOrganism.StartResearch;
-            newOrganism.CountSample = editOrganism.CountSample;
-            newOrganism.Description = editOrganism.Description;
+            Organism newOrganism = new Organism
+            {
+                //newOrganism.Id = editOrganism.Id;
+                CategoryId = editOrganism.CategoryId,
+                Name = editOrganism.Name,
+                StartResearch = editOrganism.StartResearch,
+                CountSample = editOrganism.CountSample,
+                Description = editOrganism.Description
+            };
             db.Organisms.Add(newOrganism);
 
             db.SaveChanges();
@@ -84,12 +86,12 @@ namespace TaxonomyPrj2.interfaces
 
         public List<Organism> GetList()
         {
-            return db.Organisms.ToList();
+            return db.Organisms.Include(x => x.Category).ToList();
         }
 
         public Organism Get(int id)
         {
-            return db.Organisms.Find(id);
+            return db.Organisms.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
         }
 
         /// <summary>
@@ -130,153 +132,12 @@ namespace TaxonomyPrj2.interfaces
                 query = query.Where(x => x.CategoryId == (SearchIdCategory.Value));
             }
             var resSearch = query.ToList(); // для памяти дублируется
-
-           int flagWork = 0;
-            //bool FlagSearchTrue = true;
-           var SearchList = GetList();
-           if (searchName!=null) { SearchByName(searchName,ref SearchList, ref flagWork); }
-           if ((searchCountFrom != null) && (flagWork !=0)) { SearchByCountFrom(searchCountFrom.Value, ref SearchList, ref flagWork); }
-           if ((searchCountTo != null) && (flagWork != 0)) { SearchByCountTo(searchCountTo.Value, ref SearchList, ref flagWork); }
-           if ((searchDateFrom != null) && (flagWork != 0)) { SearchByDateFrom(searchDateFrom.Value, ref SearchList, ref flagWork); }
-           if ((searchDateTo != null) && (flagWork != 0)) { SearchByDateTo(searchDateTo.Value, ref SearchList, ref flagWork); }
-           if ((SearchIdCategory != null) && (flagWork != 0)) { SearchByIdCategory(SearchIdCategory.Value, ref SearchList, ref flagWork); }
-
-            if (flagWork == 0) { SearchList = new List<Organism>(); }
-
-           return SearchList.ToList();
+          
+           return resSearch;
         }
 
-        /// <summary>
-        /// фильтруем searchList, изначально там все организмы
-        /// </summary>
-        /// <param name="searchIdCategiry"></param>
-        /// <param name="searchList"></param>
-        /// <param name="flagWork"></param>
-        private void SearchByIdCategory(int searchIdCategiry, ref List<Organism> searchList, ref int flagWork)
-        {
-            List<Organism> result = new List<Organism>();
-
-            foreach (var item in searchList) // перебор элементов
-            {
-                if (item.CategoryId == searchIdCategiry) // если элемент проходит ограничение - добавляем в лист прошедших фильтр
-                {
-                    result.Add(item);
-                }
-            }
-            if (result.Count != 0) // если хоть что-нибудь прошло фильтр.
-            {
-                searchList = result; // обновляем лист для фильтрования
-                flagWork++; // делаем флаг не ноль, если запуск первый, а так же подсчитываем пройденные фильтры
-            }
-            else
-            {
-                flagWork = 0; //фильтр не пройден - флаг в ноль
-            }
-        }
-        private void SearchByDateTo(DateTime searchDateTo, ref List<Organism> searchList, ref int flagWork)
-        {
-            List<Organism> result = new List<Organism>();
-
-            foreach (var item in searchList)
-            {
-                if (item.StartResearch <= searchDateTo)
-                {
-                    result.Add(item);
-                }
-            }
-            if (result.Count != 0) 
-            {
-                searchList = result;
-                flagWork++;
-            }
-            else
-            {
-                flagWork = 0;
-            }
-        }
-        private void SearchByDateFrom(DateTime searchDateFrom, ref List<Organism> searchList, ref int flagWork)
-        {
-            List<Organism> result = new List<Organism>();
-
-            foreach (var item in searchList)
-            {
-                if (item.StartResearch >= searchDateFrom) 
-                {
-                    result.Add(item);
-                }
-            }
-            if (result.Count != 0) 
-            {
-                searchList = result;
-                flagWork++;
-            }
-            else
-            {
-                flagWork = 0;
-            }
-        }
-        private void SearchByCountTo(int searchCountTo, ref List<Organism> searchList, ref int flagWork)
-        {
-            List<Organism> result = new List<Organism>();
-
-            foreach (var item in searchList)
-            {
-                if (item.CountSample <= searchCountTo)
-                {
-                    result.Add(item);
-                }
-            }
-            if (result.Count != 0) 
-            {
-                searchList = result;
-                flagWork++;
-            }
-            else
-            {
-                flagWork = 0;
-            }
-        }
-        private void SearchByCountFrom(int searchCountFrom, ref List<Organism> searchList, ref int flagWork)
-        {
-            List<Organism> result = new List<Organism>();
-
-            foreach (var item in searchList)
-            {
-                if (item.CountSample >= searchCountFrom) 
-                {
-                    result.Add(item);
-                }
-            }
-            if (result.Count != 0)
-            {
-                searchList = result;
-                flagWork++;
-            }
-            else
-            {
-                flagWork = 0;
-            }
-        }
-        private void SearchByName(string searchName,ref List<Organism> searchList, ref int flagWork)
-        {
-            List<Organism> result = new List<Organism>();
-            foreach (var item in searchList)
-            {
-                if (item.Name == searchName) 
-                {
-                    result.Add(item);
-                }
-            }
-            if (result.Count != 0) 
-            {
-                searchList = result;
-                flagWork++;
-            }
-            else
-            {
-                flagWork = 0;
-            }
-        }
+       
+       
 
         /// <summary>
         /// взять все организмы определенной категории

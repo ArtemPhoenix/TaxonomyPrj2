@@ -53,35 +53,36 @@ namespace TaxonomyPrj2.interfaces
         public bool Delete(int id) // +
         {
             bool result = true;
-           
-            Category category = db.Categories.Find(id);
+
+
+            Category category = db.Categories.Include(x => x.InverseParentNavigation)
+                .Include(x => x.Organisms).FirstOrDefault(x => x.Id == id);
 
             if (category != null)
             {
-                foreach (var item in GetList())
+                if (category.InverseParentNavigation.Count != 0 || category.Organisms.Count != 0)
                 {
-                    if (category.Id == item.Parent) 
-                    {
-                        result = false;
-                        break;
-                    }
+                    result = false;
                 }
-
-                if (result)
+                else
                 {
                     db.Categories.Remove(category);
                     db.SaveChanges();
                 }
-                
+
+            }
+            else
+            {
+                result = false;
             }
 
 
             return result;
         }
 
-        public Category Get(int id)
+        public Category Get(int id)//****************************************************************
         {
-            return db.Categories.Find(id);
+            return db.Categories.Include( x => x.ParentNavigation).Include(x => x.InverseParentNavigation).FirstOrDefault(x=> x.Id==id);
         }
 
         public List<Category> GetList()

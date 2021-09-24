@@ -83,11 +83,13 @@ namespace TaxonomyPrj2.Controllers
             var model = new PartialDescriptionViewModel();
             using (var repozitCategory = new CategoryRepository())
             {
-                model.Id = repozitCategory.Get(id).Id;
-                model.Name = repozitCategory.Get(id).Name;
-                model.NameCat = repozitCategory.Get(id).NameCat;
-                model.Parent = repozitCategory.Get(id).Parent;
-                model.Description = repozitCategory.Get(id).Description;
+                var infoCategory = repozitCategory.Get(id);
+               // var x= infoCategory.InverseParentNavigation;
+                model.Id = infoCategory.Id;
+                model.Name = infoCategory.Name;
+                model.NameCat = infoCategory.NameCat;
+                model.Parent = infoCategory.Parent;
+                model.Description = infoCategory.Description;
             }
 
             return PartialView(model);
@@ -196,18 +198,24 @@ namespace TaxonomyPrj2.Controllers
         }
 
         [HttpPost]
-        public IActionResult PartialDelete(int? id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                using (var repozitCategory = new CategoryRepository())
+                {
 
-            using (var repozitCategory = new CategoryRepository())
+
+                    var result = repozitCategory.Delete(id);
+                    return Json(new { save = result });
+                }
+            }
+            catch (Exception ex)
             {
 
-                var isCorrectId = id.HasValue && repozitCategory.GetList().Any(x => x.Id == id);
-
-               // var result =isCorrectId ? repozitCategory.Delete(isCorrectId ? id.Value : 0): false;
-
-                return Json(new { save = isCorrectId ? repozitCategory.Delete(isCorrectId ? id.Value : 0) : false }); 
+                return Json(new { save = false, error = ex.Message });
             }
+           
             
           
         }

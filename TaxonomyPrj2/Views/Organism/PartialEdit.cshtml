@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="row ">
-        @if (Model.FlagEvent == 1) // убрать лишнее
+        @if (Model.FlagEvent == 1) 
         {
             <div class="col-sm border border-light rounded-pill bg-warning text-md-center font-weight-bold">
                 <h1>Обновление произведено успешно</h1>
@@ -41,8 +41,7 @@
     </div>
 </div>
 
-@if (Model.Id != 0)
-{
+
     <h3>
         @foreach (var category in Model.Categories)
         {
@@ -51,12 +50,10 @@
             <br>
         }
     </h3>
-}
+
 
 <form method="post" id="needsValidationOrganism">
 
-    @if (Model.Id != 0)
-    {
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">ID организма:</span>
@@ -64,7 +61,7 @@
             <input type="text" readonly name="Id" class="form-control" value="@(Model.Id)" aria-label="empty" aria-describedby="basic-addon1 ">
             <!-- Html.TextBoxFor(x => x.Id, new { class = "form-control" }) -->
         </div>
-    }
+  
 
 
 
