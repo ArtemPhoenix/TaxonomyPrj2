@@ -144,68 +144,14 @@ namespace TaxonomyPrj2.interfaces
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        public List<Organism> GetListByCategoryId(int categoryId/*, List<Category> categories*/) // по 1-й категории
+        public List<Organism> GetListByCategoryId(int categoryId) 
         {
 
-            return /*makeResult(categoryId, categories);*/db.Organisms.Where(x => x.CategoryId == categoryId).ToList();
+            return db.Organisms.Where(x => x.CategoryId == categoryId).ToList();
             
         }
-        public List<Organism> GetListByCategoryId(int categoryId, List<Category> categories) //по веткам, не используется уже
-        {
+      
 
-            return MakeResult(categoryId, categories);
-
-        }
-
-        private List<Organism> MakeResult(int categoryId, List<Category> categories) // не используется уже
-        {
-            List<int> currenViews = new List<int>();
-            CurrenListViews(categoryId, categories, ref currenViews);
-            List<Organism> result = new List<Organism>();
-            foreach (var item in currenViews)
-            {
-                foreach (var itemOrganism in db.Organisms)
-                {
-                    if (itemOrganism.CategoryId == item) { result.Add(itemOrganism); }
-                }
-            }
-            return result;
-        }
-        private void  CurrenListViews(int categoryId, List<Category> categories, ref List<int> currenViews) // не используется уже
-        {
-            foreach (var category in categories)
-            {
-                if (category.Parent == categoryId) { CurrenListViews(category.Id, categories,ref currenViews); }
-            }
-            currenViews.Add(categoryId);
-        }
-
-        /*
-        private int returnIndexOrganism(List<Organism> organisms, int id)
-        {
-            int index = 0;
-            for (int i = 0; i < organisms.Count; i++)
-            {
-                if (organisms[i].Id == id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
-        }
-        */
-        
-        /* static void GetListID(int currenCat, List<Category> categories, ref List<int> views)
-         {
-             foreach (var category in categories)
-             {
-                 if (category.parentId == currenCat) { GetListID(category.id, categories, ref views); }
-
-             }
-             views.Add(currenCat);
-
-         }*/
 
     }
 }

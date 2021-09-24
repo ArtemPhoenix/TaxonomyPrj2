@@ -60,14 +60,9 @@ namespace TaxonomyPrj2.Controllers
 
                 using (var repozitOrganism = new OrganismRepository())
                 {
-                    model.Organisms = repozitOrganism.GetListByCategoryId(model.CurrenCategoryId/*, repozitCategory.GetList()*//*,true*/);
+                    model.Organisms = repozitOrganism.GetListByCategoryId(model.CurrenCategoryId);
                     ViewBag.currenCategoryId = model.CurrenCategoryId;
-
-                    model.SearchNameOrganism = "Организм";
-                    model.SearchCountFromtOrganism = 5;
-                    model.SearchCountTotOrganism = 15;
-                    model.SearchDateFromOrganism = new DateTime(1922, 12, 29);
-                    model.SearchDateToOrganism = new DateTime(1991, 12, 26);
+                    
                     return View(model);
                 }
             }
@@ -77,11 +72,7 @@ namespace TaxonomyPrj2.Controllers
         public IActionResult PartialSearchStart()
         {
             var model = new IndexViewModel();
-            model.SearchNameOrganism = "Организм";
-            model.SearchCountFromtOrganism = 5;
-            model.SearchCountTotOrganism = 15;
-            model.SearchDateFromOrganism = new DateTime(1922, 12, 29);
-            model.SearchDateToOrganism = new DateTime(1991, 12, 26);
+           
 
             return PartialView(model);
         }
@@ -90,9 +81,9 @@ namespace TaxonomyPrj2.Controllers
         [HttpGet]
         public IActionResult PartialSearchResult(string searchNameOrganism, int? searchCountFromtOrganism, int? searchCountTotOrganism, string searchDateFromOrganism, string searchDateToOrganism, int? searchIdCategiryOrganism)
         {
-            DateTime? searchDateFromOrganismC;
+            DateTime? searchDateFromOrganismC=null;
             if (DateTime.TryParse(searchDateFromOrganism, out var t)) { searchDateFromOrganismC = t; }
-            else { searchDateFromOrganismC = null; }
+            
 
             DateTime? searchDateToOrganismC;
             if (searchDateFromOrganism != null)
@@ -109,7 +100,7 @@ namespace TaxonomyPrj2.Controllers
             }
             else
             {
-                searchDateToOrganismC = null;
+                searchDateToOrganismC = null; /// исправить!!!
             }
 
             var model = new OrganismTableViewModel();
@@ -125,7 +116,7 @@ namespace TaxonomyPrj2.Controllers
             }
             else
             {
-                model.CurrenCategoryId = 0;
+                model.CurrenCategoryId = 0;  // разобраться
             }
 
             
@@ -177,11 +168,7 @@ namespace TaxonomyPrj2.Controllers
 
         
 
-        public IActionResult Examp(int categoryId)
-        {
-            int exa = categoryId + 100;
-            return View(exa);
-        }
+       
 
 
     }
