@@ -34,6 +34,8 @@ namespace TaxonomyPrj2.Controllers
             using (var repozitCategory = new CategoryRepository())
             {
                 model.CategoryTree = repozitCategory.GetListTree();
+                model.Indent = model.CategoryTree.FirstOrDefault().indent;
+                model.CategoryTree.FirstOrDefault().indent = "";
             }
 
             
@@ -73,6 +75,8 @@ namespace TaxonomyPrj2.Controllers
             using (var repozitCategory = new CategoryRepository())
             {
                 model.CategoryTree = repozitCategory.GetListTree();
+                model.Indent = model.CategoryTree.FirstOrDefault().indent;
+                model.CategoryTree.FirstOrDefault().indent="";
             }
             return View(model);
         }

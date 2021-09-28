@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
 
+ 
     $(document).on('click', function () {
         var constRole = $('#constRole').val();
         
@@ -74,6 +75,8 @@
 
 function addButtonTree()  // descript
 {
+   
+
     $('.descriptionCategory').on('click', function (e) {
         var clickId = $(this).attr('data-id');
 
@@ -198,10 +201,30 @@ function loadInfoCategory(id)
 
 function loadInfoTree()
 {
+   
+
     $.get('/Category/PartialInfoTree', function (data) {
-        //alert(data);
+      
+
         $('#infoTree').html(data);
         addButtonTree();
         addButton();
+
+        clickUL();
+        
     });
+
+    
+}
+
+function clickUL(id)
+{
+    //$(this).addClass("redText");
+   // var x = $(this).val();
+   // alert();
+    
+   // $('.treeline').on('click', function (event) {
+   //     var x = $(this).attr('data-level');
+   //     alert(x);
+   // });
 }

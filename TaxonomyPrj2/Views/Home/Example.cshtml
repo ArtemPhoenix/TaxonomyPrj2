@@ -4,6 +4,38 @@
 }
 
 <h1>Example</h1>
+
+<ul class="test">
+    <li><a href="#">Home</a></li>
+    <li>
+        <a href="#">WordPress</a>
+
+        <!-- первый уровень выпадающего списка -->
+        <ul class="test">
+            <li><a href="#">Themes</a></li>
+            <li><a href="#">Plugins</a></li>
+            <li>
+                <a href="#">Tutorials</a>
+
+                <!-- второй уровень выпадающего списка -->
+                <ul class="test">
+                    <li><p href="#">Stuff</p></li>
+                    <li><p href="#">Things</p></li>
+                    <li><p href="#">Other Stuff</p></li>
+                </ul>
+                <!—конец второго уровня выпадающего списка -->
+
+            </li>
+        </ul>
+        <!—конец первого уровня выпадающего списка -->
+
+    </li>
+    <li><a href="#">Graphic Design</a></li>
+    <li><a href="#">Inspiration</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">About</a></li>
+</ul>
+
 <form class="needs-validation" novalidate>
 
 
@@ -36,7 +68,7 @@
 </form>
 
 <script>
-    
+
     (function () {
         'use strict';
         window.addEventListener('load', function () {
@@ -54,5 +86,12 @@
             });
         }, false);
     })();
+
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
 
 </script>

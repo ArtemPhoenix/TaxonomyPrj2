@@ -3,6 +3,13 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
+
+    $('.test').on('click', function () {
+        alert("d");
+        $(this).addClass("redText");
+    });
+
+
     $('#enterButton').on('click', function () {
         var login = $('#Login').val();
         $('#roleUser').html(login);

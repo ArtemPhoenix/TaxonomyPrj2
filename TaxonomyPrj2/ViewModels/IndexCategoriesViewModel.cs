@@ -12,5 +12,8 @@ namespace TaxonomyPrj2.ViewModels
         public List<CategoryTree> CategoryTree { get; set; }
         public string Indent { get; set; }
         public int Test { get; set; }
+
+       
+
     }
 }

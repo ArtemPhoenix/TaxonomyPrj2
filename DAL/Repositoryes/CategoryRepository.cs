@@ -224,6 +224,13 @@ namespace TaxonomyPrj2.interfaces
                 }
             }
 
+            string alt="";
+            int lev = 0;
+            MakeTreeInViev(topTree, ref alt, ref lev);
+            
+            treeCategory.FirstOrDefault().indent = "<ul class=\"treeline\" data-level=\"0\"  > " + alt + "</ul>" + "<h1 class=\"redText\">Стиль подключен</h1>";
+            //treeCategory.FirstOrDefault().indent = "<ul class=\"treeline\">";
+            
             return treeCategory;
         }
 
@@ -262,6 +269,27 @@ namespace TaxonomyPrj2.interfaces
                 }
             }
           
+        }
+
+        public void MakeTreeInViev(Category top, ref string inView, ref int level)
+        {
+            level++;
+           // inView += "<ul>";
+            inView += "<li onclick=\"clickUL(this)\">";
+            inView += top.NameCat + top.Name;
+            if (top.InverseParentNavigation.Count != 0)
+            {
+                inView += "<ul id=\"i"+ level+ "\" class= \"treeline\"  data-level=\"" + level + "\"  >";
+                
+                foreach (var item in top.InverseParentNavigation)
+                {
+                    MakeTreeInViev(item, ref inView,ref level);
+                }
+                inView += "</ul>"; 
+                
+            }
+            inView += "</li>";
+            // inView += "</ul>";
         }
         /// <summary>
         /// формируем лист категорий, где у каждого элемента вдобавок хранится его потомки

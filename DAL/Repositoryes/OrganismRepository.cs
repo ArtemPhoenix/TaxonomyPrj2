@@ -52,9 +52,11 @@ namespace TaxonomyPrj2.interfaces
             db.SaveChanges();
         }
 
-        public void Delete(int id)
+        public string Delete(int id)
         {
-            Organism organism = db.Organisms.Find(id);
+            string result = "error:";
+
+            Organism organism = db.Organisms.FirstOrDefault(x => x.Id == id);//Find(id);
             if (organism != null)
             {
                 db.Organisms.Remove(organism);
