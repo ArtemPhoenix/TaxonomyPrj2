@@ -15,7 +15,7 @@
         <td>@organism.CountSample</td>
         <td>@organism.Name</td>
         <td>@organism.Description</td>
-        @if (Model.Admin)
+        @if (User.IsInRole("Admin"))
         {
     <td>
         <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges">Редактировать</button>

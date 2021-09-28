@@ -155,7 +155,7 @@ namespace TaxonomyPrj2.Controllers
            
             var model = new OrganismTableViewModel();
             //роли
-            model.Role = userRoles.First();
+           /* model.Role = userRoles.First();
             if (model.Role == "Admin")
             {
                 model.Admin = true;
@@ -165,7 +165,7 @@ namespace TaxonomyPrj2.Controllers
             {
                 model.CommonUser = true;
                 model.Admin = false;
-            }
+            }*/
             //
             using (var repozitOrganism = new OrganismRepository())
             {

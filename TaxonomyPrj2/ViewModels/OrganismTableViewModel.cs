@@ -9,11 +9,11 @@ namespace TaxonomyPrj2.ViewModels
 {
     public class OrganismTableViewModel
     {
-        public string Role { get; set; }
-        public bool Admin { get; set; }
-        public bool CommonUser { get; set; }
+        //public string Role { get; set; }
+        //public bool Admin { get; set; }
+        //public bool CommonUser { get; set; }
         public List<Organism> Organisms { get; set; }
-        public int CurrenCategoryId { get; set; }
+        public int? CurrenCategoryId { get; set; }
 
     }
 }

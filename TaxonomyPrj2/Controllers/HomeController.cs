@@ -108,7 +108,7 @@ namespace TaxonomyPrj2.Controllers
             var model = new OrganismTableViewModel();
             using (var repozitOrganism = new OrganismRepository())
             {
-               model.Organisms = repozitOrganism.SearchOrganismsByFilter(NameOrganism, CountFromtOrganism, CountTotOrganism, DateFromOrganismC, searchDateToOrganismC, IdCategiryOrganism);
+               model.Organisms = repozitOrganism.SearchOrganismsByFilter(NameOrganism, CountFromtOrganism, CountTotOrganism, DateFromOrganismC, DateToOrganismC, IdCategiryOrganism);
             }
 
             if (IdCategiryOrganism != null)
@@ -118,7 +118,7 @@ namespace TaxonomyPrj2.Controllers
             }
             else
             {
-                model.CurrenCategoryId = 0;  // разобраться
+                model.CurrenCategoryId = null;  // разобраться
             }
 
             
