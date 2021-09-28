@@ -4,14 +4,20 @@
 // Write your JavaScript code.
 $(document).ready(function () {
 
-    $('.test').on('click', function () {
-        alert("d");
-        $(this).addClass("redText");
-    });
+    $(document).on('click', function () {
+        var constRole = $('#constRole').val();
 
+        $.get('/Account/returnRole', { role: constRole }, function (data) {
+            //alert("проверка прошла");
+            if (!data.result) {
 
-    $('#enterButton').on('click', function () {
-        var login = $('#Login').val();
-        $('#roleUser').html(login);
+                alert("Внимание! У пользователя сменилась роль");
+                $('.hideNotAut').html("");
+                window.location.replace("https://localhost:44333/Account/Login?ReturnUrl=%2F");
+
+            }
+
+        });
     });
+    
 });

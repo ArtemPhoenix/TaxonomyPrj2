@@ -1,21 +1,7 @@
 ﻿$(document).ready(function () {
 
  
-    $(document).on('click', function () {
-        var constRole = $('#constRole').val();
-        
-        $.get('/Category/returnRole', { role: constRole }, function (data) {
-            //alert("проверка прошла");
-            if (!data.result) {
-               
-                alert("Внимание! У пользователя сменилась роль");
-                $('.hideNotAut').html("");
-                window.location.replace("https://localhost:44333/Account/Login?ReturnUrl=%2F");
-              
-            }
-           
-        });
-    });
+   
   //  $('#roleUserLayout').html("Admin");
    /* $.get('/Home/PartialWorkWithUser', {}, function (data) {
         $('#workWithUser').html(data);

@@ -248,5 +248,20 @@ namespace TaxonomyPrj2.Controllers
             
         }
 
+        public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли
+        {
+            var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            var userRoles = await _userManager.GetRolesAsync(elem);
+            if (userRoles.First() == role)
+            {
+                return Json(new { result = true });
+            }
+            else
+            {
+                await _signInManager.SignOutAsync();
+                return Json(new { result = false });
+            }
+
+        }
     }
 }
