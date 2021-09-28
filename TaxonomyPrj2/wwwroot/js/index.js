@@ -1,30 +1,7 @@
 ﻿$(document).ready(function () {
     CheckingTheRoleChange();
   
-   /* var role = $('#roleUser').val();
-    if (role == "CommonUser")
-    {
-        $('#roleUserLayout').html("Права доступа: CommonUser");
-    } 
-   /* if (role == "CommonUser")
-    {
-        $('#workWithUser').html("");
-    }
-    if (role == "Admin")
-    {
-        $.get('/Home/PartialWorkWithUser', {}, function (data) {
-            $('#workWithUser').html(data);
-        });
-    }*/
-
-    //выделение категории в таблице
-    /*$('.choiseCategory').on('click', function (e) {
-        $('#tableCategories .table').removeClass('marked');
-        $(this).addClass('marked');
-    });*/
-    
-   // $('.choiseCategory').removeClass('choiseMarker');
-   // $(this).addClass('choiseMarker');
+  
 
     //запуск поиска
     StartSearch();
@@ -273,16 +250,25 @@ function addButton()
 
             $('#YesQuestionButton').on('click', function () {
                 var clickCategoryId = $(this).attr('data-Categoryid');
-                $.post('/Organism/PartialQuestion', { id: clickId }, function (data) {
-                    
-                    if (data.save == true) {
+                $.post('/Organism/Delete', { id: clickId }, function (data) {
+
+                    if (data.error != null && data.error.length > 0) {
+                        alert(data.error);
+                    }
+                    else {
+                        if (data.save != "успешно") {
+                            alert(data.save);
+                        }
+
+                    }
+                  
                         $("#myModal").modal('hide');
 
                         //обновление списка организмов по категории
                         loadTableOrganisms(clickCategoryId);
                         
                         
-                    }
+                  
                 });
             });
         });

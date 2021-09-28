@@ -194,17 +194,25 @@ namespace TaxonomyPrj2.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult PartialQuestion(int? id)  // спросить, может ли id быть null?
+        public IActionResult Delete(int id)  // 
         {
-
-            using (var repozitOrganism = new OrganismRepository())
+            try
             {
-                var isCorrectId = id.HasValue && repozitOrganism.GetList().Any(x => x.Id == id);
-
-                repozitOrganism.Delete(isCorrectId ? id.Value : 0);
+                using (var repozitOrganism = new OrganismRepository())
+                {
+                  var result = repozitOrganism.Delete(id);
+                    return Json(new { save = result });
+                }
+               
             }
+            catch (Exception ex)
+            {
 
-            return Json(new { save = true });
+                return Json(new { save = false, error = ex.Message });
+            }
+            
+
+          
         }
 
      

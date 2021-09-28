@@ -135,6 +135,7 @@ function addButton()  // delete & redact
                         {
                             alert(data.save);
                         }
+
                     }
                    
                     $("#myModalC").modal('hide');

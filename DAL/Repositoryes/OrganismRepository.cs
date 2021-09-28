@@ -59,9 +59,32 @@ namespace TaxonomyPrj2.interfaces
             Organism organism = db.Organisms.FirstOrDefault(x => x.Id == id);//Find(id);
             if (organism != null)
             {
-                db.Organisms.Remove(organism);
-                db.SaveChanges();
+                try
+                {
+                    db.Organisms.Remove(organism);
+                }
+                catch (Exception)
+                {
+
+                    result += " удаление из БД не поизошло";
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    result += " сохранить измениния в БД не удалось";
+                }
+                if (result == "error:") { result = "успешно"; }
             }
+            else
+            {
+                result = "error: категория не найдена";
+            }
+
+            return result;
         }
 
        
