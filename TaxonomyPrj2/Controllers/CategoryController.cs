@@ -16,16 +16,16 @@ namespace TaxonomyPrj2.Controllers
     [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
-        private readonly UserManager<User> _userManager;
+       // private readonly UserManager<User> _userManager;
       //  private RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<User> _signInManager;
+        //private readonly SignInManager<User> _signInManager;
 
-        public CategoryController(UserManager<User> userManager, SignInManager<User> signInManager/*, RoleManager<IdentityRole> roleManager*/)
+       /* public CategoryController(UserManager<User> userManager/*, SignInManager<User> signInManager/*, RoleManager<IdentityRole> roleManager)
         {
-            _userManager = userManager;
+            //_userManager = userManager;
             //_roleManager = roleManager;
-            _signInManager = signInManager;
-        }
+            //_signInManager = signInManager;
+        }*/
        
         public IActionResult index()
         {
@@ -224,22 +224,7 @@ namespace TaxonomyPrj2.Controllers
           
         }
 
-        [HttpGet]
-        public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли
-        {
-            var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var userRoles = await _userManager.GetRolesAsync(elem);
-            if (userRoles.First() == role)
-            {
-                return Json(new { result = true });
-            }
-            else
-            {
-                await _signInManager.SignOutAsync();
-                return Json(new { result = false });
-            }
-
-        }
+       
 
 
 

@@ -8,6 +8,8 @@
 @if (User.IsInRole("Admin"))
 {
     <input hidden type="text" value="Admin" id="constRole" />
+    <a href="/Category/index" class="btn btn-outline-primary btn-lg btn-block ProtectionAgainstRoleChanges" role="button" aria-pressed="true">Работа с категориями</a>
+    <button type="button" class="createOrganism btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Добавить организм в котегорию</button>
 }
 else
 {
@@ -15,11 +17,7 @@ else
 }
 
 
-@if (@Model.Admin)
-{
-    <a href="/Category/index" class="btn btn-outline-primary btn-lg btn-block ProtectionAgainstRoleChanges" role="button" aria-pressed="true">Работа с категориями</a>
-    <button type="button" class="createOrganism btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Добавить организм в котегорию</button>
-}
+
 
 
 
@@ -139,7 +137,7 @@ else
                             <td>@organism.CountSample</td>
                             <td>@organism.Name</td>
                             <td>@organism.Description</td>
-                            @if (@Model.Admin)
+                            @if (User.IsInRole("Admin"))
                             {
                                 <td>
                                     <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges" data-dismiss="modal">Редактировать</button>
@@ -177,5 +175,5 @@ else
 @section Scripts
 {
     <script src="~/js/index.js" asp-append-version="true"></script>
-  
+
 }

@@ -10,9 +10,9 @@ namespace TaxonomyPrj2.ViewModels
 {
     public class IndexViewModel
     {
-        public string Role { get; set; }
-        public bool Admin { get; set; }
-        public bool CommonUser { get; set; }
+        //public string Role { get; set; }
+        //public bool Admin { get; set; }
+        //public bool CommonUser { get; set; }
         public List<Category> Categories { get; set; }   // prop + tab
         public List<Organism> Organisms { get; set; }
 

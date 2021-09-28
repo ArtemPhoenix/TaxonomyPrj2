@@ -18,13 +18,13 @@ namespace TaxonomyPrj2.Controllers
     public class HomeController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<User> _signInManager;
-        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager  )
+      //  private RoleManager<IdentityRole> _roleManager;
+      //  private readonly SignInManager<User> _signInManager;
+        public HomeController(UserManager<User> userManager/*, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager */ )
         {
-          _signInManager = signInManager;
+          //_signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = roleManager;
+            //_roleManager = roleManager;
 
         }
        
@@ -43,7 +43,7 @@ namespace TaxonomyPrj2.Controllers
                     Categories = repozitCategory.GetList()
                 };
                 //роли
-                model.Role = userRoles.First();
+              /*  model.Role = userRoles.First();
                 if (model.Role == "Admin") 
                 {
                     model.Admin = true;
@@ -53,7 +53,7 @@ namespace TaxonomyPrj2.Controllers
                 { 
                     model.CommonUser = true;
                     model.Admin = false;
-                }
+                }*/
                 //
                 var isCorrectId = id.HasValue && model.Categories.Any(x => x.Id == id);
                 model.CurrenCategoryId = isCorrectId ? id.Value : model.Categories.First().Id;  // тернарные операторы
@@ -129,7 +129,7 @@ namespace TaxonomyPrj2.Controllers
             return PartialView();
         }
 
-        public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли
+        /*public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли
         {
             var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             var userRoles = await _userManager.GetRolesAsync(elem);
@@ -143,7 +143,7 @@ namespace TaxonomyPrj2.Controllers
                 return Json(new { result = false });
             }
 
-        }
+        }*/
 
 
 

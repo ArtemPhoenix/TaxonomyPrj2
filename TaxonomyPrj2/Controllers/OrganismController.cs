@@ -16,12 +16,12 @@ namespace TaxonomyPrj2.Controllers
     public class OrganismController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private RoleManager<IdentityRole> _roleManager;
+       // private RoleManager<IdentityRole> _roleManager;
 
-        public OrganismController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public OrganismController(UserManager<User> userManager/*, RoleManager<IdentityRole> roleManager*/)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+           // _roleManager = roleManager;
 
         }
 
