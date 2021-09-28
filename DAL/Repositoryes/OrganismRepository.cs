@@ -129,32 +129,32 @@ namespace TaxonomyPrj2.interfaces
         /// <param name="searchDateTo"></param>
         /// <param name="SearchIdCategory"></param>
         /// <returns></returns>
-        public List<Organism> SearchOrganismsByFilter(string searchName, int? searchCountFrom, int? searchCountTo, DateTime? searchDateFrom, DateTime? searchDateTo, int? SearchIdCategory)
+        public List<Organism> SearchOrganismsByFilter(string Name, int? CountFrom, int? CountTo, DateTime? DateFrom, DateTime? DateTo, int? IdCategory)
         {
             var query = db.Organisms.AsQueryable(); 
-            if (!string.IsNullOrWhiteSpace(searchName))
+            if (!string.IsNullOrWhiteSpace(Name))
             {
-                query = query.Where(x => x.Name.Contains(searchName));
+                query = query.Where(x => x.Name.Contains(Name));
             }
-            if (searchCountFrom != null)
+            if (CountFrom != null)
             {
-                query = query.Where(x => x.CountSample > (searchCountFrom.Value));
+                query = query.Where(x => x.CountSample > (CountFrom.Value));
             }
-            if (searchCountTo != null)
+            if (CountTo != null)
             {
-                query = query.Where(x => x.CountSample < (searchCountTo.Value));
+                query = query.Where(x => x.CountSample < (CountTo.Value));
             }
-            if (searchDateFrom != null)
+            if (DateFrom != null)
             {
-                query = query.Where(x => x.StartResearch > (searchDateFrom.Value));
+                query = query.Where(x => x.StartResearch > (DateFrom.Value));
             }
-            if (searchDateTo != null)
+            if (DateTo != null)
             {
-                query = query.Where(x => x.StartResearch < (searchDateTo.Value));
+                query = query.Where(x => x.StartResearch < (DateTo.Value));
             }
-            if (SearchIdCategory != null)
+            if (IdCategory != null)
             {
-                query = query.Where(x => x.CategoryId == (SearchIdCategory.Value));
+                query = query.Where(x => x.CategoryId == (IdCategory.Value));
             }
             var resSearch = query.ToList(); // для памяти дублируется
           

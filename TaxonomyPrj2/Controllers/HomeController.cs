@@ -79,18 +79,20 @@ namespace TaxonomyPrj2.Controllers
 
 
         [HttpGet]
-        public IActionResult PartialSearchResult(string searchNameOrganism, int? searchCountFromtOrganism, int? searchCountTotOrganism, string searchDateFromOrganism, string searchDateToOrganism, int? searchIdCategiryOrganism)
+        public IActionResult PartialSearchResult(string NameOrganism, int? CountFromtOrganism, int? CountTotOrganism, string DateFromOrganism, string DateToOrganism, int? IdCategiryOrganism)
         {
-            DateTime? searchDateFromOrganismC=null;
-            if (DateTime.TryParse(searchDateFromOrganism, out var t)) { searchDateFromOrganismC = t; }
-            
+            DateTime? DateFromOrganismC = null;
+            if (DateTime.TryParse(DateFromOrganism, out var t)) { DateFromOrganismC = t; }
 
-            DateTime? searchDateToOrganismC;
-            if (searchDateFromOrganism != null)
+            DateTime? DateToOrganismC = null;
+            if (DateTime.TryParse(DateToOrganism, out var x)) { DateToOrganismC = x; }
+
+            /*DateTime? searchDateToOrganismC;
+            if (DateFromOrganism != null)
             {
                 try
                 {
-                    searchDateToOrganismC = Convert.ToDateTime(searchDateToOrganism);
+                    searchDateToOrganismC = Convert.ToDateTime(DateToOrganism);
                 }
                 catch (Exception)
                 {
@@ -100,18 +102,18 @@ namespace TaxonomyPrj2.Controllers
             }
             else
             {
-                searchDateToOrganismC = null; /// исправить!!!
-            }
+                searchDateToOrganismC = null; 
+            }*/
 
             var model = new OrganismTableViewModel();
             using (var repozitOrganism = new OrganismRepository())
             {
-               model.Organisms = repozitOrganism.SearchOrganismsByFilter(searchNameOrganism, searchCountFromtOrganism, searchCountTotOrganism, searchDateFromOrganismC, searchDateToOrganismC, searchIdCategiryOrganism);
+               model.Organisms = repozitOrganism.SearchOrganismsByFilter(NameOrganism, CountFromtOrganism, CountTotOrganism, DateFromOrganismC, searchDateToOrganismC, IdCategiryOrganism);
             }
 
-            if (searchIdCategiryOrganism != null)
+            if (IdCategiryOrganism != null)
             {
-                model.CurrenCategoryId = searchIdCategiryOrganism.Value;
+                model.CurrenCategoryId = IdCategiryOrganism.Value;
                 // return PartialOrganismTable(model);
             }
             else
@@ -129,21 +131,7 @@ namespace TaxonomyPrj2.Controllers
             return PartialView();
         }
 
-        /*public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли
-        {
-            var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var userRoles = await _userManager.GetRolesAsync(elem);
-            if (userRoles.First() == role)
-            {
-                return Json(new { result = true });
-            }
-            else
-            {
-                await _signInManager.SignOutAsync();
-                return Json(new { result = false });
-            }
-
-        }*/
+       
 
 
 
