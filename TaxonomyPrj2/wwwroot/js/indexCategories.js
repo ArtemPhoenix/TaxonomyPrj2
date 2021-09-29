@@ -1,14 +1,5 @@
 ﻿$(document).ready(function () {
 
- 
-   
-  //  $('#roleUserLayout').html("Admin");
-   /* $.get('/Home/PartialWorkWithUser', {}, function (data) {
-        $('#workWithUser').html(data);
-    });
-*/
-
-
     $('#createCategory').on('click', function () {
         var clikId = $(this).attr('data-id');
         //CreateModal(clikId);
@@ -51,9 +42,7 @@
     });
 
     loadInfoTree();
-        
-    
-
+   
 });
 
 
@@ -62,7 +51,6 @@
 function addButtonTree()  // descript
 {
    
-
     $('.descriptionCategory').on('click', function (e) {
         var clickId = $(this).attr('data-id');
 
@@ -204,9 +192,9 @@ function loadInfoTree()
     
 }
 
-function clickUL(selector)
+function clickUL(selector)  // клик по категории
 {
-    var xFalse = $(selector).parent().children("ul").hasClass("hideChild");//getAttribute("class").indexOf("my__class")
+    var xFalse = $(selector).parent().children("ul").hasClass("hideChild");
 
     if (xFalse)
     {
@@ -218,16 +206,10 @@ function clickUL(selector)
         $(selector).parent().children("ul").addClass("hideChild");
         $(selector).html("+");
     }
-       
-    
-    
-        //$(selector).parent().children().removeClass("hideChild");
-   
-    
-    //alert();
+     
 }
 
-function clickDescr(selector)
+function clickDescr(selector) // клик по кнопке описание
 {
     var xFalse = $(selector).parent().children("div").hasClass("hideChild");
 

@@ -4,18 +4,19 @@
 // Write your JavaScript code.
 $(document).ready(function () {
 
-    $(document).on('click', function () {
+    $(document).on('click', function () {  // проверка на смену роли во время работы
         var constRole = $('#constRole').val();
-
+       
         $.get('/Account/returnRole', { role: constRole }, function (data) {
-            //alert("проверка прошла");
+            
             if (!data.result) {
 
                 alert("Внимание! У пользователя сменилась роль");
                 $('.hideNotAut').html("");
-                window.location.replace("https://localhost:44333/Account/Login?ReturnUrl=%2F");
+                window.location.replace("/");  // узнать, как сделать универсально
 
             }
+            else { alert("!!"); }
 
         });
     });
