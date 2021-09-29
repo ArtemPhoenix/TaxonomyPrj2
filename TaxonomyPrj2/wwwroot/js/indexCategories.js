@@ -226,3 +226,16 @@ function clickUL(selector)
     
     //alert();
 }
+
+function clickDescr(selector)
+{
+    var xFalse = $(selector).parent().children("div").hasClass("hideChild");
+
+    if (xFalse) {
+        $(selector).parent().children("div").removeClass("hideChild");
+    }
+    else
+    {
+        $(selector).parent().children("div").addClass("hideChild");
+    }
+}

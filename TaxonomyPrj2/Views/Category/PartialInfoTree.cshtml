@@ -21,9 +21,12 @@
             Model.InViewOld += "<li>";
         }
         Model.InViewOld += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;&nbsp;</span>";
-        Model.InViewOld += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Редактировать</button>";
+
+        Model.InViewOld += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Редактировать</button>&nbsp;";
         Model.InViewOld += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges\">Удалить</button>";
-        Model.InViewOld += "<div> " + top.Description + "</div>";
+        Model.InViewOld += "<span> ";
+        Model.InViewOld += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">Описание</button>";
+        Model.InViewOld += "<div class=\"hideChild\"> " + top.Description + "</div></button></span>";
 
         if (top.InverseParentNavigation.Count != 0)
         {
@@ -44,25 +47,38 @@
         Model.InViewOld += "</li>";
 
     }
-    /*
+
     public void MakeTreeInViev(DAL.Models.Category top, int level)
     {
-
         level++;
-        if (level > 7) { level = 0; }
+        if (level > 5) { level = 1; }
+
 
         if (top.InverseParentNavigation.Count != 0)
         {
-            Model.InView += "<li>" + " <span class=\"drop h1\" onclick=\"clickUL(this)\">-</span>";
+            Model.InView += "<li>" + " <button class=\"btn btn-outline-dark h1\" onclick=\"clickUL(this)\">-</button>&nbsp;";
         }
         else
         {
-            Model.InView += "<li>";
+            Model.InView += "<li>" + " <button class=\"btn btn-outline-secondary h1\" >...</button>&nbsp;&nbsp;";
         }
-        Model.InView += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;&nbsp;</span>";
-        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Редактировать</button>";
-        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges\">Удалить</button>";
-        Model.InView += "<div> " + top.Description + "</div>";
+        Model.InView += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;</span>";
+        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Р</button>&nbsp;";
+        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"";
+        if (CanDelete(top))
+        {
+            Model.InView += "deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges\">У</button>";
+        }
+        else
+        {
+            Model.InView += " btn btn-outline-secondary \">У</button>";
+        }
+
+        // Model.InView += "<div> " + top.Description + "</div>";
+
+        Model.InView += "<span> ";
+        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">О</button>";
+        Model.InView += "<div  class=\"hideChild\"> " + top.Description + "</div></button></span>";
 
         if (top.InverseParentNavigation.Count != 0)
         {
@@ -70,7 +86,7 @@
 
             // Model.InView += top.NameCat + " " + top.Name + " " + top.Description;
 
-            Model.InView += "<ul class=\"level_" + level + "\">";
+            Model.InView += "<ul class=\"gray_" + level + "\">";
 
             foreach (var item in top.InverseParentNavigation)
             {
@@ -83,7 +99,16 @@
         Model.InView += "</li>";
 
     }
-    */
+
+    private bool CanDelete(DAL.Models.Category element)
+    {
+        if (element.InverseParentNavigation.Count != 0 || element.Organisms.Count != 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
 
 
@@ -92,13 +117,18 @@
     MakeTreeInVievOld(Model.CategoryTree.FirstOrDefault(),levelOld);
     Model.InViewOld = "<ul class=\"level_"+ levelOld+ "\"> " + Model.InViewOld + "</ul>";
 
-   // int level = 0;
-   // MakeTreeInViev(Model.CategoryTree.FirstOrDefault(), level);
-   // Model.InView = "<ul class=\"level_" + level + "\"> " + Model.InView + "</ul>";
-
+    int levelGray = 0;
+    MakeTreeInViev(Model.CategoryTree.FirstOrDefault(), levelGray);
+    Model.InView = "<ul class=\"gray_" + "\"> " + Model.InView + "</ul>";
 }
 
+<div id="tree" class="h5" data-id="@Model.InView">@Html.Raw(Model.InView)</div>
+
+<button><h1 class="redText">СТАРАЯ ЦВЕТНАЯ ВЕРСИЯ</h1></button> 
+
 <div id="tree" class="h5" data-id="@Model.InViewOld">@Html.Raw(Model.InViewOld)</div>
+
+
 
 
 

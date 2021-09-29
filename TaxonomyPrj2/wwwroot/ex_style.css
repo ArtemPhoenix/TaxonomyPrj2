@@ -45,6 +45,9 @@ h1 {
    
 }
 
+.level_ {
+    color:black;
+}
 .level_0 {
     color: red;
 }
@@ -149,4 +152,28 @@ h1 {
 
 ul {
     list-style-type:none;
+}
+
+.gray_ {
+    color: #1C1C1C;
+}
+
+.gray_1 {
+    color: #4F4F4F;
+}
+
+.gray_2 {
+    color: #828282;
+}
+
+.gray_3 {
+    color: #4F4F4F;
+}
+
+.gray_4 {
+    color: #828282;
+}
+
+.gray_5 {
+    color: #4F4F4F;
 }

@@ -16,7 +16,7 @@ namespace TaxonomyPrj2.ViewModels
         //public int Test { get; set; }
        
         public string InViewOld { get; set; }
-       // public string InView { get; set; }
+        public string InView { get; set; }
 
 
 
