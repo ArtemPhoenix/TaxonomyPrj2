@@ -104,7 +104,7 @@ namespace TaxonomyPrj2.interfaces
             return result;
         }
 
-        public Category Get(int id)//****************************************************************
+        public Category Get(int id)//****
         {
             return db.Categories.Include( x => x.ParentNavigation).Include(x => x.InverseParentNavigation).FirstOrDefault(x=> x.Id==id);
         }
