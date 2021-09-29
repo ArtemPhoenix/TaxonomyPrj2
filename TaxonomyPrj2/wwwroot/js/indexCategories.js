@@ -204,14 +204,25 @@ function loadInfoTree()
     
 }
 
-function clickUL(id)
+function clickUL(selector)
 {
-    //$(this).addClass("redText");
-   // var x = $(this).val();
-   // alert();
+    var xFalse = $(selector).parent().children("ul").hasClass("hideChild");//getAttribute("class").indexOf("my__class")
+
+    if (xFalse)
+    {
+        $(selector).parent().children("ul").removeClass("hideChild");
+        $(selector).html("-");
+    }
+    else
+    {
+        $(selector).parent().children("ul").addClass("hideChild");
+        $(selector).html("+");
+    }
+       
     
-   // $('.treeline').on('click', function (event) {
-   //     var x = $(this).attr('data-level');
-   //     alert(x);
-   // });
+    
+        //$(selector).parent().children().removeClass("hideChild");
+   
+    
+    //alert();
 }

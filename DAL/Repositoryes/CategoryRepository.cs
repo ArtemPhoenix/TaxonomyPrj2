@@ -111,7 +111,7 @@ namespace TaxonomyPrj2.interfaces
 
         public List<Category> GetList()
         {
-            return db.Categories.ToList();
+            return db.Categories.Include(x => x.InverseParentNavigation).ToList();
         }
 
         private bool disposed = false;
@@ -225,10 +225,10 @@ namespace TaxonomyPrj2.interfaces
             }
 
             string alt="";
-            int lev = 0;
-            MakeTreeInViev(topTree, ref alt, ref lev);
             
-            treeCategory.FirstOrDefault().indent = "<ul class=\"treeline\" data-level=\"0\"  > " + alt + "</ul>" + "<h1 class=\"redText\">Стиль подключен</h1>";
+            MakeTreeInViev(topTree, ref alt);
+            
+            treeCategory.FirstOrDefault().indent = "<ul> " + alt + "</ul>" + "<h1 class=\"redText\">Стиль подключен</h1>";
             //treeCategory.FirstOrDefault().indent = "<ul class=\"treeline\">";
             
             return treeCategory;
@@ -271,26 +271,35 @@ namespace TaxonomyPrj2.interfaces
           
         }
 
-        public void MakeTreeInViev(Category top, ref string inView, ref int level)
+        public void MakeTreeInViev(Category top, ref string inView)
         {
-            level++;
+            
            // inView += "<ul>";
-            inView += "<li onclick=\"clickUL(this)\">";
-            inView += top.NameCat + top.Name;
+            
             if (top.InverseParentNavigation.Count != 0)
             {
-                inView += "<ul id=\"i"+ level+ "\" class= \"treeline\"  data-level=\"" + level + "\"  >";
-                
+                inView += "<li> <span class=\"drop\" onclick=\"clickUL(this)\">-</span>";
+                inView += top.NameCat + top.Name;
+
+                inView += "<ul>";
+
                 foreach (var item in top.InverseParentNavigation)
                 {
-                    MakeTreeInViev(item, ref inView,ref level);
+                    MakeTreeInViev(item, ref inView);
                 }
-                inView += "</ul>"; 
-                
+                inView += "</ul>";
+
+            }
+            else
+            {
+                inView += "<li>";
+                inView += top.NameCat + top.Name;
             }
             inView += "</li>";
             // inView += "</ul>";
         }
+
+        
         /// <summary>
         /// формируем лист категорий, где у каждого элемента вдобавок хранится его потомки
         /// </summary>

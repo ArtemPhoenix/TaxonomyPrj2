@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace TaxonomyPrj2.ViewModels
     public class IndexCategoriesViewModel
     {
         public List<CategoryTree> CategoryTree { get; set; }
+        public List<Category> List { get; set; }
         public string Indent { get; set; }
         public int Test { get; set; }
 
