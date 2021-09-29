@@ -195,7 +195,7 @@ namespace TaxonomyPrj2.interfaces
         {
             // потом переделать нормально ?
             // var tree = new List<CategoryTreeWithChilds>(); // лист, где каждый элемент хранит всех своих потомков
-            var list = db.Categories.ToList(); // просто лист всех категорий
+            var list = db.Categories.Include(x=>x.InverseParentNavigation).ToList(); // просто лист всех категорий
             var top = list.Find(x => x.Id == 1); // вершина дерева
 
             // makeCategoryTreeWC(ref tree,top,list); // наполнение элементами листа, где каждый элемент хранит всех своих потомков
@@ -211,8 +211,9 @@ namespace TaxonomyPrj2.interfaces
                 NameCat = topTree.NameCat,
                 Parent = topTree.Parent,
                 Description = topTree.Description,
-                level = level
-            });
+                level = level,
+                InverseParentNavigation = topTree.InverseParentNavigation
+            }) ;
 
             SortTree(ref treeCategory, topTree, level); // записываем в treeCategory категории порядке их отображения на странице
 
@@ -274,7 +275,7 @@ namespace TaxonomyPrj2.interfaces
         public void MakeTreeInViev(Category top, ref string inView)
         {
             
-           // inView += "<ul>";
+           
             
             if (top.InverseParentNavigation.Count != 0)
             {
@@ -296,7 +297,7 @@ namespace TaxonomyPrj2.interfaces
                 inView += top.NameCat + top.Name;
             }
             inView += "</li>";
-            // inView += "</ul>";
+           
         }
 
         

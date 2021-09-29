@@ -8,26 +8,11 @@
      
 }
 
-<div>
-    <ul>
-        @foreach (var item in Model.List.Where(x => x.Parent==null))
-        {
-            <li>@item.Name
-                @if (item.InverseParentNavigation.Count != 0) 
-                {
-                    <ul>
-                        @foreach (var item2 in item.InverseParentNavigation)
-                        {
-                            <li>
-                                123
-                            </li>
-                        }
-                    </ul>
-                }
-            </li>
-        }
-    </ul>
-</div>
+
+@{ 
+    Model.MakeTreeInViev(Model.CategoryTree.FirstOrDefault());
+}
+<div id="test" class="a1" data-id="@Model.Indent">@Html.Raw(Model.InView)</div>
 
 <div id="test" class="a1" data-id="@Model.Indent">@Html.Raw(Model.Indent)</div>
 
