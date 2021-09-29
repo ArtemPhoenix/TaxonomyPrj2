@@ -5,16 +5,62 @@
 }
 @functions
 {
-     
+
+    public void MakeTreeInViev(DAL.Models.Category top,int level)
+    {
+
+        level++;
+        if (level > 7) { level = 0; }
+
+        if (top.InverseParentNavigation.Count != 0)
+        {
+            Model.InView += "<li>" + " <span class=\"drop h1\" onclick=\"clickUL(this)\">-</span>";
+        }
+        else
+        {
+            Model.InView += "<li>";
+        }
+        Model.InView += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;&nbsp;</span>";
+        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Редактировать</button>";
+        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges\">Удалить</button>";
+        Model.InView += "<div> " + top.Description + "</div>";
+
+        if (top.InverseParentNavigation.Count != 0)
+        {
+
+
+            // Model.InView += top.NameCat + " " + top.Name + " " + top.Description;
+
+            Model.InView += "<ul class=\"level_" + level + "\">";
+
+            foreach (var item in top.InverseParentNavigation)
+            {
+                MakeTreeInViev(item, level);
+            }
+            Model.InView += "</ul>";
+
+        }
+
+        Model.InView += "</li>";
+
+    }
+
 }
 
 
-@{ 
-    Model.MakeTreeInViev(Model.CategoryTree.FirstOrDefault());
+@{
+    int level = 0;
+    MakeTreeInViev(Model.CategoryTree.FirstOrDefault(),level);
+    Model.InView = "<ul class=\"level_"+ level+ "\"> " + Model.InView + "</ul>";
 }
-<div id="test" class="a1" data-id="@Model.Indent">@Html.Raw(Model.InView)</div>
+
+<div id="tree" class="h5" data-id="@Model.InView">@Html.Raw(Model.InView)</div>
+
+<!--
+   <div id="test" class="a1" data-id="@Model.InView">@Html.Raw(Model.InView)</div>
 
 <div id="test" class="a1" data-id="@Model.Indent">@Html.Raw(Model.Indent)</div>
+-->
 
 
 <div class="row">
