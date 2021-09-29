@@ -53,14 +53,14 @@
         level++;
         if (level > 5) { level = 1; }
 
-
-        if (top.InverseParentNavigation.Count != 0)  // выбираем кнопку перед категорией. Открываем первый li
+        Model.InView += "<li>"; // открываем первый li
+        if (top.InverseParentNavigation.Count != 0)  // выбираем кнопку перед категорией. 
         {
-            Model.InView += "<li>" + " <button class=\"btn btn-outline-dark h1\" onclick=\"clickUL(this)\">-</button>&nbsp;";  // скрыть или показать ветку через скрипт
+            Model.InView += " <button class=\"btn btn-outline-dark h1\" onclick=\"clickUL(this)\">-</button>&nbsp;";  // скрыть или показать ветку через скрипт
         }
         else
         {
-            Model.InView += "<li>" + " <button class=\"btn btn-outline-secondary h1\" >...</button>&nbsp;&nbsp;";
+            Model.InView += " <button class=\"btn btn-outline-secondary h1\" >...</button>&nbsp;&nbsp;";
         }
         // ставим название
         Model.InView += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;</span>";
@@ -81,6 +81,7 @@
         Model.InView += "<span> ";
         Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">О</button>";
         Model.InView += "<div  class=\"hideChild\"> " + top.Description + "</div></button></span>";
+        
 
         if (top.InverseParentNavigation.Count != 0) // если есть потомки - строим ul
         {
@@ -97,7 +98,8 @@
 
         }
 
-        Model.InView += "</li>"; // закрываем  первый li
+
+        Model.InView += "</li>"; // закрываем  первый  li
 
     }
 
