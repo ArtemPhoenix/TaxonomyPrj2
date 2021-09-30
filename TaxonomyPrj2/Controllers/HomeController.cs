@@ -72,8 +72,6 @@ namespace TaxonomyPrj2.Controllers
         public IActionResult PartialSearchStart()
         {
             var model = new IndexViewModel();
-           
-
             return PartialView(model);
         }
 
@@ -86,24 +84,6 @@ namespace TaxonomyPrj2.Controllers
 
             DateTime? DateToOrganismC = null;
             if (DateTime.TryParse(DateToOrganism, out var x)) { DateToOrganismC = x; }
-
-            /*DateTime? searchDateToOrganismC;
-            if (DateFromOrganism != null)
-            {
-                try
-                {
-                    searchDateToOrganismC = Convert.ToDateTime(DateToOrganism);
-                }
-                catch (Exception)
-                {
-
-                    searchDateToOrganismC = null;
-                }
-            }
-            else
-            {
-                searchDateToOrganismC = null; 
-            }*/
 
             var model = new OrganismTableViewModel();
             using (var repozitOrganism = new OrganismRepository())
@@ -118,7 +98,7 @@ namespace TaxonomyPrj2.Controllers
             }
             else
             {
-                model.CurrenCategoryId = null;  // разобраться
+                model.CurrenCategoryId = null;  // 
             }
 
             

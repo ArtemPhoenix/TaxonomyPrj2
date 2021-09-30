@@ -21,11 +21,11 @@
     <div class="input-group mb-3">
         @Html.LabelFor(x => x.SearchDateFromOrganism, new { @class = "input-group-text" })
        
-        <input type="date" class="form-control SearchDateFromOrganism" id="SearchDateFromOrganism" value="@Model.SearchDateFromOrganism.ToString("yyyy-MM-dd")" placeholder="">
+        <input type="date" class="form-control SearchDateFromOrganism" id="SearchDateFromOrganism" value="" placeholder="">
     </div>
     <div class="input-group mb-3">
         @Html.LabelFor(x => x.SearchDateToOrganism, new { @class = "input-group-text" })
         
-        <input type="date" class="form-control SearchDateToOrganism" id="SearchDateToOrganism" value="@Model.SearchDateToOrganism.ToString("yyyy-MM-dd")" placeholder="">
+        <input type="date" class="form-control SearchDateToOrganism" id="SearchDateToOrganism" value="" placeholder="">
     </div>
     <button type="button" id="startSeach" class=" btn btn-outline-success btn-lg btn-block">Произвести выборку по заданным параметрам</button>

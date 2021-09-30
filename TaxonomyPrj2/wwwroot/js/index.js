@@ -1,13 +1,10 @@
 ﻿$(document).ready(function () {
     
-  
-  
-
     //запуск поиска
     StartSearch();
     $('#startButtonSeach').on('click', function () {
         $.get('/Home/PartialSearchStart', {}, function (data) {
-            //alert(data);
+           
             $('#startSearch').html(data);
            
             StartSearch();
@@ -34,18 +31,6 @@
 
     addButton();
 
- 
-   // $('div:contains("Петр")')	вернет все div - элементы, внутри которых найдется строка Петр.
-
-      
-
-   // document.getElementById('message').innerHTML = a;
-    //$("#message1").text("***********");
-   
-
-   
-    
-    //$("#message").fadeOut("slow");
 });
 
 function CheckingTheRoleChange()
@@ -57,17 +42,15 @@ function CheckingTheRoleChange()
 function StartSearchSmall()
 {
     $('#startSeachCategorySmall').on('click', function () {
-        var searchNameOrganism = $('#SearchNameOrganismSmall').val();
-        var searchCountFromtOrganism = $('#SearchCountFromOrganismSmall').val();
-        //if (SearchCountFromtOrganism == "") { SearchCountFromtOrganism = "-1"; }
-        var searchCountTotOrganism = $('#SearchCountToOrganismSmall').val();
-        //if (SearchCountTotOrganism == "") { SearchCountTotOrganism = "-1"; }
-        var searchDateFromOrganism = $('#SearchDateFromOrganismSmall').val();
-        var searchDateToOrganism = $('#SearchDateToOrganismSmall').val();
-        var searchIdCategiryOrganism = $('.choiseMarker').attr('data-id');
+        var NameOrganism = $('#SearchNameOrganismSmall').val();
+        var CountFromtOrganism = $('#SearchCountFromOrganismSmall').val();
+        var CountTotOrganism = $('#SearchCountToOrganismSmall').val();
+        var DateFromOrganism = $('#SearchDateFromOrganismSmall').val();
+        var DateToOrganism = $('#SearchDateToOrganismSmall').val();
+        var IdCategiryOrganism = $('.choiseMarker').attr('data-id');
        
-        $.get('/Home/PartialSearchResult', { searchNameOrganism, searchCountFromtOrganism, searchCountTotOrganism, searchDateFromOrganism, searchDateToOrganism, searchIdCategiryOrganism }, function (data) {
-            //alert(data);
+        $.get('/Home/PartialSearchResult', { NameOrganism, CountFromtOrganism, CountTotOrganism, DateFromOrganism, DateToOrganism, IdCategiryOrganism }, function (data) {
+            
             $('#tableOrganisms').html(data);
             addButton();
             
@@ -80,15 +63,13 @@ function StartSearch()
 {
    
     $('#startSeach').on('click', function () {
-        var searchNameOrganism = $('#SearchNameOrganism').val();
-        var searchCountFromtOrganism = $('#SearchCountFromtOrganism').val();
-        //if (SearchCountFromtOrganism == "") { SearchCountFromtOrganism = "-1"; }
-        var searchCountTotOrganism = $('#SearchCountTotOrganism').val();
-        //if (SearchCountTotOrganism == "") { SearchCountTotOrganism = "-1"; }
-        var searchDateFromOrganism = $('#SearchDateFromOrganism').val();
-        var searchDateToOrganism = $('#SearchDateToOrganism').val();
-        var searchIdCategiryOrganism = null;
-        $.get('/Home/PartialSearchResult', { searchNameOrganism, searchCountFromtOrganism, searchCountTotOrganism, searchDateFromOrganism, searchDateToOrganism, searchIdCategiryOrganism }, function (data) {
+        var NameOrganism = $('#SearchNameOrganism').val();
+        var CountFromtOrganism = $('#SearchCountFromtOrganism').val();        
+        var CountTotOrganism = $('#SearchCountTotOrganism').val();       
+        var DateFromOrganism = $('#SearchDateFromOrganism').val();
+        var DateToOrganism = $('#SearchDateToOrganism').val();
+        var IdCategiryOrganism = null;
+        $.get('/Home/PartialSearchResult', { NameOrganism, CountFromtOrganism, CountTotOrganism, DateFromOrganism, DateToOrganism, IdCategiryOrganism }, function (data) {
             $('#searchResult1').html(data);
             $('#exitSeach').on('click', function () {
                 $('#searchResult1').html("");

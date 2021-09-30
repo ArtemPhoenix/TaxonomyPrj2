@@ -23,9 +23,9 @@ namespace TaxonomyPrj2.ViewModels
         [Display(Name = "Имя искомого организма")]
         public string SearchNameOrganism { get; set; }
         [Display(Name = "Нижняя планка количества образцов искомого организма")]
-        public int SearchCountFromtOrganism { get; set; }
+        public int? SearchCountFromtOrganism { get; set; }
         [Display(Name = "Верхняя планка количества образцов искомого организма")]
-        public int SearchCountTotOrganism { get; set; }
+        public int? SearchCountTotOrganism { get; set; }
         [Display(Name = "Нижняя планка начала исследования искомого организма")]
         public DateTime SearchDateFromOrganism { get; set; }
         [Display(Name = "Верхняя планка начала исследования искомого организма")]
