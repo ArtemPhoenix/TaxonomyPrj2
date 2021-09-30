@@ -50,8 +50,7 @@ namespace TaxonomyPrj2.Controllers
             {
                 using (var repozitCategory = new CategoryRepository())
                 {
-                    var idOrg = repozitOrganizm.GetList().Find(x => x.Id==id).CategoryId;
-                    model.Categories = repozitCategory.GetListParent(idOrg);
+                    model.Categories = repozitCategory.GetList();
                 }
 
                 var organism = repozitOrganizm.Get(id);
