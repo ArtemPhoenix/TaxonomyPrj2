@@ -46,8 +46,6 @@
         if (top.InverseParentNavigation.Count != 0) // если есть потомки - строим ul
         {
 
-            // Model.InView += top.NameCat + " " + top.Name + " " + top.Description;
-
             Model.InView += "<ul class=\"gray_" + level + "\">"; // открываем ul
 
             foreach (var item in top.InverseParentNavigation)
