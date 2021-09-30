@@ -118,7 +118,6 @@ function addButton()  // delete & redact
                 var nameCat = $('#NameCat').val();
                 var description = $('#Description').val();
 
-             
                 if ($('#needsValidationEdit').valid()) {
                     $.post('/Category/PartialEdit', { id, parentId, nameCat, name, description }, function (data) {
                         $("#myModalC").modal('hide');
@@ -127,10 +126,6 @@ function addButton()  // delete & redact
                     });
                 }
               
-               
-               
-                    
-
             });
         });
         //-----------------------
@@ -147,14 +142,9 @@ function loadInfoTree()
    
 
     $.get('/Category/PartialInfoTree', function (data) {
-      
-
         $('#infoTree').html(data);
         addButtonTree();
         addButton();
-
-        clickUL();
-        
     });
 
     
