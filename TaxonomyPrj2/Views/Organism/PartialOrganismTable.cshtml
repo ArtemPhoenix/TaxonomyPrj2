@@ -1,13 +1,12 @@
-﻿@*
-    // Отображение списка организмов на index по категории
-*@
+﻿<!-- Отображение списка организмов на index по категории -->
+
 @model TaxonomyPrj2.ViewModels.OrganismTableViewModel
 
 
 
 @foreach (var organism in Model.Organisms)
 {
-    
+
     <tr class="info">
 
         <td class="info">@organism.CategoryId</td>
@@ -17,15 +16,15 @@
         <td>@organism.Description</td>
         @if (User.IsInRole("Admin"))
         {
-    <td>
-        <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges">Редактировать</button>
-        <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges">Удалить</button>
-    </td>
+            <td>
+                <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges">Редактировать</button>
+                <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges">Удалить</button>
+            </td>
         }
-            
+
 
     </tr>
-    
-       
+
+
 }
 
