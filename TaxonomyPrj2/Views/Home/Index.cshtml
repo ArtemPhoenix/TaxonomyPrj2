@@ -7,12 +7,15 @@
 
 @if (User.IsInRole("Admin"))
 {
+    <!--пропись на странице роли доступа-->
     <input hidden type="text" value="Admin" id="constRole" />
+
     <a href="/Category/index" class="btn btn-outline-primary btn-lg btn-block ProtectionAgainstRoleChanges" role="button" aria-pressed="true">Работа с категориями</a>
     <button type="button" class="createOrganism btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Добавить организм в котегорию</button>
 }
 else
 {
+    <!--пропись на странице роли доступа-->
     <input hidden type="text" value="CommonUser" id="constRole" />
 }
 
@@ -40,17 +43,20 @@ else
 
 <button type="button" id="startButtonSeach" class="btn btn-outline-info btn-lg btn-block ProtectionAgainstRoleChanges">Сделать выборку организмов</button>
 
+<!--Фильтр по всем организмам-->
 <form id="startSearch">
+    <!--сюда загружается PartialSearchStart-->
 </form>
 
 <div class="container" id="searchResult1">
-
+    <!--сюда загружается PartialResult-->
 </div>
 
 <div class="container">
 
     <div class="row">
 
+        <!--список категорий слева-->
         <div class="col-xl-7">
             <table id="tableCategories" class="table-bordered ">
                 <tr>
@@ -63,7 +69,6 @@ else
                 </tr>
                 @foreach (var category in Model.Categories)
                 {
-
                     <tr class="@(category.Id == Model.CurrenCategoryId ? "choiseMarker" : "" ) choiseCategory" data-id="@(category.Id)">
                         <td>@category.Id</td>
                         <td>@category.Parent</td>
@@ -78,9 +83,10 @@ else
         </div>
 
 
-
+        <!--Таблица организмов слева-->
         <div class="col-xl-5">
 
+            <!--фильтр в пределах категории-->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Имя организма:</span>
                 <input type="text" id="SearchNameOrganismSmall" class="form-control SearchNameOrganism" value="" placeholder="" aria-label="empty" aria-describedby="basic-addon1 ">
@@ -113,6 +119,7 @@ else
 
             <button type="button" id="startSeachCategorySmall" class=" btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Применить фильтр</button>
 
+            <!--/конец фильтра в пределах категории-->
             <table class="table">
                 <thead>
                     <tr>
@@ -143,7 +150,7 @@ else
                                     <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges" data-dismiss="modal">Редактировать</button>
                                     <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges" data-dismiss="modal">Удалить</button>
 
-                                    
+
 
                                 </td>
                             }
@@ -169,6 +176,6 @@ else
 @section Scripts
 {
     <script src="~/js/index.js" asp-append-version="true"></script>
-    
+
     <script src="~/js/site.js" asp-append-version="true"></script>
 }

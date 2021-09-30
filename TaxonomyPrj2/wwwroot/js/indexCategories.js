@@ -9,7 +9,9 @@
 
             $.validator.unobtrusive.parse("#needsValidationCreate"); // прицепить валидацию к форме
 
-
+            $('#exitPartialButton').on('click', function () {
+                $("#myModalC").modal('hide');
+            });
 
             $('#createButton').on('click', function () {
                 var parentId = $('#ParentId').val();
@@ -48,20 +50,7 @@
 
 
 
-function addButtonTree()  
-{
-   
-    
 
-    $('.choiseCategory').on('click', function (e) {
-        var clickId = $(this).attr('data-id');
-      
-        $('.choiseCategory').removeClass('choiseMarker');
-        $(this).addClass('choiseMarker');
-
-        loadInfoCategory(clickId);
-    });
-}
 
 function addButton()  // delete & redact
 {
@@ -110,7 +99,11 @@ function addButton()  // delete & redact
             $("#myModalC").modal('show');
 
             $.validator.unobtrusive.parse("#needsValidationEdit"); // прицепить валидацию к форме
-            
+
+            $('#exitPartialButton').on('click', function () {
+                $("#myModalC").modal('hide');
+            });
+
             $('#editButton').on('click', function () {
                 var id = $('#id').val();
                 var parentId = $('#ParentId').val();
@@ -143,7 +136,7 @@ function loadInfoTree()
 
     $.get('/Category/PartialInfoTree', function (data) {
         $('#infoTree').html(data);
-        addButtonTree();
+       
         addButton();
     });
 

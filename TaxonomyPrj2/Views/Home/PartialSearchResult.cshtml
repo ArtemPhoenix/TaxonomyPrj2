@@ -1,6 +1,6 @@
 ﻿@model TaxonomyPrj2.ViewModels.OrganismTableViewModel
 
-@if (Model.CurrenCategoryId == null)
+@if (Model.CurrenCategoryId == null)  // если null, то это большой фильтр
 {
     <br>
     <div class="input-group mb-3">
@@ -57,7 +57,7 @@
     <br>
 
 }
-else
+else  // малый фильтр в пределах категории
 {
 <tr>
     <td colspan="2"> <span class="greenText">Применен фильтр:</span></td>
