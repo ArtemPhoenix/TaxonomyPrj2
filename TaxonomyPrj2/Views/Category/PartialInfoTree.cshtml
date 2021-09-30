@@ -23,9 +23,9 @@
             Model.InView += " <button class=\"btn btn-outline-secondary h1\" >...</button>&nbsp;&nbsp;";
         }
         // ставим название
-        Model.InView += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;</span>";
-        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Р</button>&nbsp;"; // редактирование
-        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\""; // половина кнопки delete
+        Model.InView += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;</span>"+
+                        "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Р</button>&nbsp;"+ // редактирование
+                        "<button type = \"button\" data-id=\"" + top.Id + "\" class=\""; // половина кнопки delete
         if (CanDelete(top)) // актив или неактив кнопка delete
         {
             Model.InView += "deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges\">У</button>";
@@ -38,9 +38,9 @@
       
 
         // кнопка описания, которая скрывает/ показывает описание через скрипт
-        Model.InView += "<span> ";
-        Model.InView += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">О</button>";
-        Model.InView += "<div  class=\"hideChild\"> " + top.Description + "</div></button></span>";
+        Model.InView += "<span> "+
+                        "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">О</button>"+
+                        "<div  class=\"hideChild\"> " + top.Description + "</div></button></span>";
         
 
         if (top.InverseParentNavigation.Count != 0) // если есть потомки - строим ul

@@ -149,7 +149,7 @@ namespace TaxonomyPrj2.interfaces
             while (newCategory.Parent != null) // если ноль, значит вершина достигнута
             {
                 listParent.Add(newCategory); // добавить родителя
-               // newCategory = list.Find(x => x.Id == newCategory.Parent); // найти следующего
+              
                 newCategory = newCategory.ParentNavigation; 
             }
             listParent.Add(newCategory);  // добавить вершину
