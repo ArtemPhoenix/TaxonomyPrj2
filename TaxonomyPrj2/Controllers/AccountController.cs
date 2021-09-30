@@ -26,12 +26,12 @@ namespace TaxonomyPrj2.Controllers
 
         }
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Register() //+
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model) //+
         {
             if (ModelState.IsValid)
             {
@@ -70,14 +70,14 @@ namespace TaxonomyPrj2.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string returnUrl = null) //+
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model) //+
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +114,7 @@ namespace TaxonomyPrj2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout() // + 
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
@@ -122,14 +122,14 @@ namespace TaxonomyPrj2.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult Users()
+        public IActionResult Users() // + 
         {
             var model = _userManager.Users.ToList();
             return View(model);
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PartialUsers()
+        public async Task<IActionResult> PartialUsers() // +
         {
 
             var model = new List<UserEditViewModel>();
@@ -149,7 +149,7 @@ namespace TaxonomyPrj2.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> PartialEdit(string login)
+        public async Task<IActionResult> PartialEdit(string login) //+
         {
             var model = new UserEditViewModel();
 
@@ -167,7 +167,7 @@ namespace TaxonomyPrj2.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> PartialEdit(string login, string eMail, int year, string role)
+        public async Task<IActionResult> PartialEdit(string login, string eMail, int year, string role)  // + 
         {
             var elem = _userManager.Users.FirstOrDefault(x => x.UserName == login);
             var newRole = _roleManager.Roles.FirstOrDefault(x => x.Name == role);
@@ -219,7 +219,7 @@ namespace TaxonomyPrj2.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult PartialDelete(string login)
+        public IActionResult PartialDelete(string login)  // + 
         {
             var model = new QuestionUsersViewModel();
             model.Login = login;
@@ -228,7 +228,7 @@ namespace TaxonomyPrj2.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(string login)
+        public async Task<IActionResult> DeleteUser(string login)  //+
         {
             var elem = _userManager.Users.FirstOrDefault(x => x.UserName == login);
             if (elem == null)
@@ -248,7 +248,7 @@ namespace TaxonomyPrj2.Controllers
             
         }
 
-        public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли
+        public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли  +
         {
             var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             var userRoles = await _userManager.GetRolesAsync(elem);
