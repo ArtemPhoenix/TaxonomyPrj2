@@ -48,7 +48,7 @@
 
 
 
-function addButtonTree()  // descript
+function addButtonTree()  
 {
    
     
@@ -92,7 +92,7 @@ function addButton()  // delete & redact
                     }
                    
                     $("#myModalC").modal('hide');
-                    //loadInfoCategory(1);
+                    
                     loadInfoTree();
                 }); 
             });
@@ -103,7 +103,7 @@ function addButton()  // delete & redact
 
     $('.redactCategory').on('click', function (e) {
         var clickId = $(this).attr('data-id');
-        //alert(clickId);
+       
         //-----------------------------
         $.get('/Category/PartialEdit', { id: clickId }, function (data) {
             $('#ModalViewC').html(data);
@@ -122,7 +122,7 @@ function addButton()  // delete & redact
                 if ($('#needsValidationEdit').valid()) {
                     $.post('/Category/PartialEdit', { id, parentId, nameCat, name, description }, function (data) {
                         $("#myModalC").modal('hide');
-                        //loadInfoCategory(id);
+                        
                         loadInfoTree();
                     });
                 }
@@ -140,18 +140,7 @@ function addButton()  // delete & redact
        
 }
 
-function loadInfoCategory(id)
-{
 
-    //alert("info");
-    $.get('/Category/PartialInfoCategory', { id }, function (data) {
-        $('#infoCategory').html(data);
-       
-        addButton();
-    });
-
-    
-}
 
 function loadInfoTree()
 {

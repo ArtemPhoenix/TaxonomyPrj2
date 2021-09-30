@@ -52,23 +52,7 @@ namespace TaxonomyPrj2.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult PartialInfoCategory(int id)
-        {
-            var model = new PartialDescriptionViewModel();
-            using (var repozitCategory = new CategoryRepository())
-            {
-                var infoCategory = repozitCategory.Get(id);
-               // var x= infoCategory.InverseParentNavigation;
-                model.Id = infoCategory.Id;
-                model.Name = infoCategory.Name;
-                model.NameCat = infoCategory.NameCat;
-                model.Parent = infoCategory.Parent;
-                model.Description = infoCategory.Description;
-            }
-
-            return PartialView(model);
-        }
+       
        
         public IActionResult PartialCreate(int? id)   ////
         {
