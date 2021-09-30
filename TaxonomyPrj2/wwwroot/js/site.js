@@ -13,10 +13,10 @@ $(document).ready(function () {
 
                 alert("Внимание! У пользователя сменилась роль");
                 $('.hideNotAut').html("");
-                window.location.replace("/");  // узнать, как сделать универсально
+                window.location.replace("/"); 
 
             }
-            else { alert("!!"); }
+           
 
         });
     });
