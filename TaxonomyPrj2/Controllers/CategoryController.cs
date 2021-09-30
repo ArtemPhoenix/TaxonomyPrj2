@@ -20,21 +20,9 @@ namespace TaxonomyPrj2.Controllers
         public IActionResult index()
         {
            var model = new IndexCategoriesViewModel();
-
-            using (var repozitCategory = new CategoryRepository())
-            {
-                model.CategoryTree = repozitCategory.GetListTree();
-              
-            }
-
-            
-                return View(model);
+             return View(model);
         }
-        private Category Example(IRepository<Category> repository, int id)
-        {
-           return repository.Get(id);
-        }
-
+        
        
        
 
@@ -47,7 +35,10 @@ namespace TaxonomyPrj2.Controllers
             {
                
                 model.CategoryTree = repozitCategory.GetListTree();
-               
+
+                
+                
+                
             }
             return View(model);
         }

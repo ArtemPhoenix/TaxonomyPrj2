@@ -6,47 +6,7 @@
 @functions
 {
 
-    public void MakeTreeInVievOld(DAL.Models.Category top,int level) // цветная версия
-    {
-
-        level++;
-        if (level > 7) { level = 0; }
-
-        if (top.InverseParentNavigation.Count != 0)
-        {
-            Model.InViewOld += "<li>" + " <span class=\"drop h1\" onclick=\"clickUL(this)\">-</span>";
-        }
-        else
-        {
-            Model.InViewOld += "<li>";
-        }
-        Model.InViewOld += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;&nbsp;</span>";
-
-        Model.InViewOld += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Редактировать</button>&nbsp;";
-        Model.InViewOld += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges\">Удалить</button>";
-        Model.InViewOld += "<span> ";
-        Model.InViewOld += "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">Описание</button>";
-        Model.InViewOld += "<div class=\"hideChild\"> " + top.Description + "</div></button></span>";
-
-        if (top.InverseParentNavigation.Count != 0)
-        {
-
-
-           
-
-            Model.InViewOld += "<ul class=\"level_" + level + "\">";
-
-            foreach (var item in top.InverseParentNavigation)
-            {
-                MakeTreeInVievOld(item, level);
-            }
-            Model.InViewOld += "</ul>";
-
-        }
-
-        Model.InViewOld += "</li>";
-
-    }
+    
 
     public void MakeTreeInViev(DAL.Models.Category top, int level)  // ч/б версия
     {
@@ -116,9 +76,7 @@
 
 
 @{
-    int levelOld = 0;  // цветная версия
-    MakeTreeInVievOld(Model.CategoryTree.FirstOrDefault(),levelOld);
-    Model.InViewOld = "<ul class=\"level_"+ levelOld+ "\"> " + Model.InViewOld + "</ul>";
+   
 
     int levelGray = 0; // ч/б версия
     MakeTreeInViev(Model.CategoryTree.FirstOrDefault(), levelGray);
@@ -127,61 +85,9 @@
 
 <div id="tree" class="h5" data-id="@Model.InView">@Html.Raw(Model.InView)</div>
 
-<button><h1 class="redText">СТАРАЯ ЦВЕТНАЯ ВЕРСИЯ</h1></button> 
-
-<div id="tree" class="h5" data-id="@Model.InViewOld">@Html.Raw(Model.InViewOld)</div>
-
-
-
-
-
-<h1>Старый вариант</h1>
-
-<div class="row">
-    <div class="" id="">
-        <!-- ******** -->
-        <table class="">
-            <thead>
-
-            </thead>
-            <tbody>
-                @foreach (var category in Model.CategoryTree)
-                {
-                    <tr data-id="@category.Id" class="choiseCategory  @("level_"+category.level) ">
-
-
-
-                        <td class=" ">
-                            <pre class="@("level_"+category.level) "> @(category.indent + category.NameCat + " " + category.Name)</pre>
-
-
-                        </td>
-
-                        <td class="">@category.Description</td>
-
-                        <td class="">
-                            <div class="btn-group">
-                                <button type="button" data-id="@category.Id" class="redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges">Р</button>
-                                <button type="button" data-id="@category.Id" class="deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges">У</button>
-                            </div>
-
-
-
-
-                        </td>
 
 
 
 
 
 
-
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-    </div>
-
-
-</div>

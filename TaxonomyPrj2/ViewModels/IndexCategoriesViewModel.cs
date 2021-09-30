@@ -11,6 +11,7 @@ namespace TaxonomyPrj2.ViewModels
     public class IndexCategoriesViewModel
     {
         public List<CategoryTree> CategoryTree { get; set; }
+        public CategoryTree TopTree { get; set; }
         public string InViewOld { get; set; }
         public string InView { get; set; }
 
