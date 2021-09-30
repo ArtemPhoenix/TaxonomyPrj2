@@ -18,17 +18,12 @@ namespace TaxonomyPrj2.Controllers
     public class HomeController : Controller
     {
         private readonly UserManager<User> _userManager;
-      //  private RoleManager<IdentityRole> _roleManager;
-      //  private readonly SignInManager<User> _signInManager;
-        public HomeController(UserManager<User> userManager/*, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager */ )
+        public HomeController(UserManager<User> userManager )
         {
-          //_signInManager = signInManager;
             _userManager = userManager;
-            //_roleManager = roleManager;
-
         }
        
-        //[Authorize(Roles = "CommonUser")]
+        
         [HttpGet]
         public async Task<IActionResult> Index(int? id)
         {
@@ -42,19 +37,7 @@ namespace TaxonomyPrj2.Controllers
                 var model = new IndexViewModel {
                     Categories = repozitCategory.GetList()
                 };
-                //роли
-              /*  model.Role = userRoles.First();
-                if (model.Role == "Admin") 
-                {
-                    model.Admin = true;
-                    model.CommonUser = false;
-                }
-                else 
-                { 
-                    model.CommonUser = true;
-                    model.Admin = false;
-                }*/
-                //
+                
                 var isCorrectId = id.HasValue && model.Categories.Any(x => x.Id == id);
                 model.CurrenCategoryId = isCorrectId ? id.Value : model.Categories.First().Id;  // тернарные операторы
 
@@ -91,14 +74,13 @@ namespace TaxonomyPrj2.Controllers
                model.Organisms = repozitOrganism.SearchOrganismsByFilter(NameOrganism, CountFromtOrganism, CountTotOrganism, DateFromOrganismC, DateToOrganismC, IdCategiryOrganism);
             }
 
-            if (IdCategiryOrganism != null)
+            if (IdCategiryOrganism != null) // на основе его формируется нужный вывод для фильтра
             {
                 model.CurrenCategoryId = IdCategiryOrganism.Value;
-                // return PartialOrganismTable(model);
             }
             else
             {
-                model.CurrenCategoryId = null;  // 
+                model.CurrenCategoryId = null;  
             }
 
             

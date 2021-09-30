@@ -125,7 +125,6 @@ namespace TaxonomyPrj2.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public IActionResult PartialEdit(int id, int parentId, string name, string nameCat, string description)
         {
             using (var repozitCategory = new CategoryRepository())
