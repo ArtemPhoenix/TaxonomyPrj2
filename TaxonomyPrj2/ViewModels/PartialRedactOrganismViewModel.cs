@@ -10,7 +10,7 @@ namespace TaxonomyPrj2.ViewModels
 {
     public class PartialRedactOrganismViewModel
     {
-        public List<Category> Categories { get; set; }   // prop + tab
+        public List<Category> Categories { get; set; }   
         public int Id { get; set; }
 
         [Display(Name = "Имя")]
@@ -30,6 +30,6 @@ namespace TaxonomyPrj2.ViewModels
         public string Description { get; set; }
         public int CategoryId { get; set; }
         public int FlagEvent { get; set; }
-       // public Organism newOrganism { get; set; }
+       
     }
 }
