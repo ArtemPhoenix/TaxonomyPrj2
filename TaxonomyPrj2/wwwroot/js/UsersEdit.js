@@ -1,12 +1,7 @@
 ﻿$(document).ready(function () {
 
-  
-
-
     addTableUsers();
-   // redactUsers();
-   // deleteUsers();
-
+   
 });
 
 function addTableUsers()
@@ -60,16 +55,7 @@ function deleteUsers()
 {
     $('.deleteUser').on('click', function () {
         var login = $(this).attr('data-id');
-       /* var activeUser = $(this).attr('data-active');
-        if (login == activeUser) {
-            //$('#question').addClass('redText');
-            // $('#question').html("Error");
-            alert('Error');
-        }
-        else
-        {
-            alert('All OK');
-        }*/
+       
         $.get('/Account/PartialDelete', { login }, function (data) {
             $('#ModalViewC').html(data);
             $("#myModalC").modal('show');

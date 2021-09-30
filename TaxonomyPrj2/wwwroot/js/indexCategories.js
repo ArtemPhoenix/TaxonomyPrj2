@@ -2,7 +2,7 @@
 
     $('#createCategory').on('click', function () {
         var clikId = $(this).attr('data-id');
-        //CreateModal(clikId);
+        
         $.get('/Category/PartialCreate', { id: clikId }, function (data) {
             $('#ModalViewC').html(data);
             $("#myModalC").modal('show');
@@ -34,7 +34,7 @@
                 }
                
 
-                //  $('#needsValidationCreate').validate();
+               
 
             });
         });
@@ -51,28 +51,7 @@
 function addButtonTree()  // descript
 {
    
-    $('.descriptionCategory').on('click', function (e) {
-        var clickId = $(this).attr('data-id');
-
-         alert(clickId);
-        // prompt(clickId);
-        // confirm(clickId);
-
-        $.get('/Category/PartialDescription', { id: clickId }, function (data) {
-            
-            $('#ModalViewC').html(data);
-            $("#myModalC").modal('show');
-            //-------------------------
-            // закрытие м/окна по кнопке
-            $('#exitPartialButtonCategory').on('click', function () {
-               
-                $("#myModalC").modal('hide');
-            });
-            //-------------------------
-
-        });
-
-    });
+    
 
     $('.choiseCategory').on('click', function (e) {
         var clickId = $(this).attr('data-id');

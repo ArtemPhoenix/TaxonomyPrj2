@@ -16,17 +16,7 @@ namespace TaxonomyPrj2.Controllers
     [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
-       // private readonly UserManager<User> _userManager;
-      //  private RoleManager<IdentityRole> _roleManager;
-        //private readonly SignInManager<User> _signInManager;
-
-       /* public CategoryController(UserManager<User> userManager/*, SignInManager<User> signInManager/*, RoleManager<IdentityRole> roleManager)
-        {
-            //_userManager = userManager;
-            //_roleManager = roleManager;
-            //_signInManager = signInManager;
-        }*/
-       
+              
         public IActionResult index()
         {
            var model = new IndexCategoriesViewModel();
@@ -34,8 +24,7 @@ namespace TaxonomyPrj2.Controllers
             using (var repozitCategory = new CategoryRepository())
             {
                 model.CategoryTree = repozitCategory.GetListTree();
-                //model.Indent = model.CategoryTree.FirstOrDefault().indent;
-                //model.CategoryTree.FirstOrDefault().indent = "";
+              
             }
 
             
@@ -46,25 +35,7 @@ namespace TaxonomyPrj2.Controllers
            return repository.Get(id);
         }
 
-        [HttpGet]
-        public IActionResult PartialDescription(int id)
-        {
-            
-            var model = new PartialDescriptionViewModel();
-            using (var repozitCategory = new CategoryRepository())
-            {
-                var ex = Example(repozitCategory, id);
-               // var ex2 = Example(repozitCategory, id);
-                var category = repozitCategory.Get(id);
-                model.Id = category.Id;
-                model.Name = category.Name;
-                model.NameCat = category.NameCat;
-                model.Parent = category.Parent;
-                model.Description = category.Description;
-            }
-                return PartialView(model); 
-        }
-
+       
        
 
         [HttpGet]
@@ -74,10 +45,9 @@ namespace TaxonomyPrj2.Controllers
 
             using (var repozitCategory = new CategoryRepository())
             {
-               // model.List = repozitCategory.GetList();
+               
                 model.CategoryTree = repozitCategory.GetListTree();
-               // model.Indent = model.CategoryTree.FirstOrDefault().indent;
-               // model.CategoryTree.FirstOrDefault().indent="";
+               
             }
             return View(model);
         }
