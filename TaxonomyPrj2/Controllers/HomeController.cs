@@ -69,7 +69,7 @@ namespace TaxonomyPrj2.Controllers
         }
 
         [HttpGet]
-        public IActionResult PartialSearchStart()
+        public IActionResult PartialSearchStart() 
         {
             var model = new IndexViewModel();
             return PartialView(model);

@@ -16,13 +16,10 @@ namespace TaxonomyPrj2.Controllers
     public class OrganismController : Controller
     {
         private readonly UserManager<User> _userManager;
-       // private RoleManager<IdentityRole> _roleManager;
-
-        public OrganismController(UserManager<User> userManager/*, RoleManager<IdentityRole> roleManager*/)
+       
+        public OrganismController(UserManager<User> userManager)
         {
             _userManager = userManager;
-           // _roleManager = roleManager;
-
         }
 
         [Authorize(Roles = "Admin")]
@@ -37,8 +34,7 @@ namespace TaxonomyPrj2.Controllers
                 model.Categories = repozitCategory.GetList();
             }
             model.Id = 0;
-           /* model.Name = "Название нового организма";
-            model.Description = "Краткое описание нового организма";*/
+           
             return PartialView("PartialEdit", model);
         }
 
@@ -87,7 +83,7 @@ namespace TaxonomyPrj2.Controllers
                 Description = description
             };
 
-            if (id == 0) // создание новогоорганизма
+            if (id == 0) // создание нового организма
             {
 
                 model.FlagEvent = 3;
@@ -149,31 +145,16 @@ namespace TaxonomyPrj2.Controllers
         {
             var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             var userRoles = await _userManager.GetRolesAsync(elem);
-
-            //int categoryId = 1;
+                       
             ViewBag.currenCategoryId = categoryId;
            
             var model = new OrganismTableViewModel();
-            //роли
-           /* model.Role = userRoles.First();
-            if (model.Role == "Admin")
-            {
-                model.Admin = true;
-                model.CommonUser = false;
-            }
-            else
-            {
-                model.CommonUser = true;
-                model.Admin = false;
-            }*/
-            //
+           
             using (var repozitOrganism = new OrganismRepository())
             {
 
                 model.Organisms = repozitOrganism.GetListByCategoryId(categoryId);
-                //var allOrganisms = repozitOrganism.GetList().Where(x => x.CategoryId.Equals(categoryId));
                 model.CurrenCategoryId = categoryId;
-                //return View(model);
             }
             return PartialView(model);
         }
