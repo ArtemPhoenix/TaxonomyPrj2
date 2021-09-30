@@ -162,13 +162,17 @@ function clickUL(selector)  // клик по категории
 
 function clickDescr(selector) // клик по кнопке описание
 {
-    var xFalse = $(selector).parent().children("div").hasClass("hideChild");
+    var xFalse = $(selector).parent().children("p").hasClass("hideChild");
 
     if (xFalse) {
-        $(selector).parent().children("div").removeClass("hideChild");
+        $(selector).parent().children("p").removeClass("hideChild");
+        $(selector).parent().children("button").addClass("btn-outline-success");
+        $(selector).parent().children("button").removeClass("btn-success");
     }
     else
     {
-        $(selector).parent().children("div").addClass("hideChild");
+        $(selector).parent().children("p").addClass("hideChild");
+        $(selector).parent().children("button").addClass("btn-success");
+        $(selector).parent().children("button").removeClass("btn-outline-success");
     }
 }

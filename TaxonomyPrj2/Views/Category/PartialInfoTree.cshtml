@@ -39,7 +39,7 @@
         // кнопка описания, которая скрывает/ показывает описание через скрипт
         Model.InView2 += "<span> " +
                         "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">О</button>" +
-                        "<div  class=\"hideChild\"> " + top.Description + "</div></button></span>";
+                        "<p class=\"hideChild\"> " + top.Description + "</p></span>";
 
 
         if (top.InverseParentNavigation.Count != 0) // если есть потомки - строим ul
@@ -90,15 +90,34 @@
 
         <!--откры первый li-->
 <li>
-    @(top.NameCat + " " + top.Name)
-    @if (top.InverseParentNavigation.Count != 0)
+    <!--выбираем кнопку перед категорией.-->
+    @if (top.InverseParentNavigation.Count != 0)  // выбираем кнопку перед категорией.
+    {
+        <button class="btn btn-primary h1" onclick="clickUL(this)">-</button><span>&nbsp;</span>
+    }
+    else
+    {
+        <button class="btn btn-secondary h1">...</button><span>&nbsp;&nbsp;</span>
+    }
+    <!--ставим название-->
+    <span class="h2"> @(top.NameCat + " " + top.Name)</span>        <span>&nbsp;&nbsp;</span>
+    <!--редактирование-->
+    <button type="button" data-id="@top.Id" class="redactCategory btn btn-warning ProtectionAgainstRoleChanges">Р</button><span>&nbsp;</span>
+    <button type="button" data-id="@top.Id" class="btn ProtectionAgainstRoleChanges @(CanDelete(top)?"deleteCategory btn-danger": "btn-secondary")">У</button>
+
+    <span>
+        
+       <button type="button" data-id="@top.Id" class="btn btn-success ProtectionAgainstRoleChanges" onclick="clickDescr(this)">О</button>
+        <p class="hideChild "> @top.Description</p>
+    </span>
+
+@if(top.InverseParentNavigation.Count != 0)
     {
         foreach (var item in top.InverseParentNavigation)
-        {
-            <ul>
-                @{ 
+        {<ul class="gray_@level">
+                @{
                     TreeInViev(item, level);
-                 }
+                }
             </ul>
         }
     }
@@ -108,7 +127,7 @@
 }
 
 
-<ul class="gray_">
+<ul class="gray_ h5">
     @{
         int levGray = 0;
         TreeInViev(Model.CategoryTree.FirstOrDefault(), levGray);
