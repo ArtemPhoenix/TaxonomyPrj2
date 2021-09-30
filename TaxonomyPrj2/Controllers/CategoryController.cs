@@ -23,8 +23,7 @@ namespace TaxonomyPrj2.Controllers
            var model = new IndexCategoriesViewModel();
              return View(model);
         }
-        
-       
+              
        
 
         [HttpGet]
