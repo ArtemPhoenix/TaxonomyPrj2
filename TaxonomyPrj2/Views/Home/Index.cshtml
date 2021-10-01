@@ -57,24 +57,24 @@ else
     <div class="row">
 
         <!--список категорий слева-->
-        <div class="col-xl-7">
+        <div class="col-xl">
             <table id="tableCategories" class="table-bordered ">
                 <tr>
-                    <th>ID </th>
+                   
                     <th>ID родителя</th>
                     <th>Приставочное имя</th>
                     <th>Имя</th>
-                    <th>Описание</th>
+                    <th ><button type="button" class="btn btn-success " data-type="Category" onclick="clickDescr(this)">Описание</button> </th>
 
                 </tr>
                 @foreach (var category in Model.Categories)
                 {
                     <tr class="@(category.Id == Model.CurrenCategoryId ? "choiseMarker" : "" ) choiseCategory" data-id="@(category.Id)">
-                        <td>@category.Id</td>
+                       
                         <td>@category.Parent</td>
                         <td>@category.NameCat</td>
                         <td>@category.Name</td>
-                        <td>@category.Description</td>
+                        <td class="descriptionCategory">@category.Description</td>
 
                     </tr>
 
@@ -123,7 +123,7 @@ else
 
             <div id="tableOrganisms">
                
-
+                <!--сюда загружается таблица организмов-->
                
             </div>
 

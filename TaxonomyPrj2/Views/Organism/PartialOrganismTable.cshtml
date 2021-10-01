@@ -15,7 +15,7 @@
                 <th>Начало исследований</th>
                 <th>Количество образцов</th>
                 <th>Имя</th>
-                <th>Описание</th>
+                <th><button type="button" class="btn btn-success " data-type="Organism" onclick="clickDescrOrganism(this)">Описание</button></th>
             </tr>
         </thead>
         @foreach (var organism in Model.Organisms)
@@ -27,7 +27,7 @@
                 <td>@(organism.StartResearch.Day + "." + organism.StartResearch.Month + "." + organism.StartResearch.Year)</td>
                 <td>@organism.CountSample</td>
                 <td>@organism.Name</td>
-                <td>@organism.Description</td>
+                <td class="descriptionOrganism hideChild">@organism.Description</td>
                 @if (User.IsInRole("Admin"))
                 {
                     <td>

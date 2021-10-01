@@ -219,3 +219,35 @@ function addButton()
     });
 
 }
+
+
+
+function clickDescr(selector) // клик по кнопке описание
+{
+   
+    var isHidden = $('.descriptionCategory').hasClass("hideChild"); //
+
+    if (isHidden) {
+        $('.descriptionCategory').removeClass("hideChild");
+    }
+    else
+    {
+        $('.descriptionCategory').addClass("hideChild");
+    }
+}
+
+function clickDescrOrganism(selector)
+{
+    var isHidden = $('.descriptionOrganism').hasClass("hideChild"); //
+
+    if (isHidden) {
+        $('.descriptionOrganism').removeClass("hideChild");
+        $('.redactOrganism').html("Р");
+        $('.deleteOrganism').html("У");
+    }
+    else {
+        $('.descriptionOrganism').addClass("hideChild");
+        $('.redactOrganism').html("Редактировать");
+        $('.deleteOrganism').html("Удалить");
+    }
+}
