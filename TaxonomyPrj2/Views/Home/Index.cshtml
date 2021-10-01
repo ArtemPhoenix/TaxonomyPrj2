@@ -10,8 +10,8 @@
     <!--пропись на странице роли доступа-->
     <input hidden type="text" value="Admin" id="constRole" />
 
-    <a href="/Category/index" class="btn btn-outline-primary btn-lg btn-block ProtectionAgainstRoleChanges" role="button" aria-pressed="true">Работа с категориями</a>
-    <button type="button" class="createOrganism btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Добавить организм в котегорию</button>
+    <a href="/Category/index" class="btn btn-outline-primary btn-lg btn-block " role="button" aria-pressed="true">Работа с категориями</a>
+    <button type="button" class="createOrganism btn btn-outline-success btn-lg btn-block ">Добавить организм в котегорию</button>
 }
 else
 {
@@ -41,7 +41,7 @@ else
 
 
 
-<button type="button" id="startButtonSeach" class="btn btn-outline-info btn-lg btn-block ProtectionAgainstRoleChanges">Сделать выборку организмов</button>
+<button type="button" id="startButtonSeach" class="btn btn-outline-info btn-lg btn-block ">Сделать выборку организмов</button>
 
 <!--Фильтр по всем организмам-->
 <form id="startSearch">
@@ -117,7 +117,7 @@ else
             </div>
 
 
-            <button type="button" id="startSeachCategorySmall" class=" btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Применить фильтр</button>
+            <button type="button" id="startSeachCategorySmall" class=" btn btn-outline-success btn-lg btn-block ">Применить фильтр</button>
 
             <!--/конец фильтра в пределах категории-->
             <table class="table">
@@ -147,8 +147,8 @@ else
                             @if (User.IsInRole("Admin"))
                             {
                                 <td>
-                                    <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges" data-dismiss="modal">Редактировать</button>
-                                    <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges" data-dismiss="modal">Удалить</button>
+                                    <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block " data-dismiss="modal">Редактировать</button>
+                                    <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block " data-dismiss="modal">Удалить</button>
 
 
 

@@ -40,13 +40,13 @@
             <!--ставим название-->
             <span class="h2"> @(top.NameCat + " " + top.Name)</span>        <span>&nbsp;&nbsp;</span>
             <!--редактирование-->
-            <button type="button" data-id="@top.Id" class="redactCategory btn btn-warning ProtectionAgainstRoleChanges">Р</button>
-            <button type="button" data-id="@top.Id" class="btn ProtectionAgainstRoleChanges @(CanDelete(top)?"deleteCategory btn-danger": "btn-secondary")">У</button>
+            <button type="button" data-id="@top.Id" class="redactCategory btn btn-warning ">Р</button>
+            <button type="button" data-id="@top.Id" class="btn  @(CanDelete(top)?"deleteCategory btn-danger": "btn-secondary")">У</button>
 
             <!--блок описания-->
             <span> 
 
-                <button type="button" data-id="@top.Id" class="btn btn-success ProtectionAgainstRoleChanges" onclick="clickDescr(this)">О</button>
+                <button type="button" data-id="@top.Id" class="btn btn-success " onclick="clickDescr(this)">О</button>
                 <br>
                 <span class="hideChild "> @top.Description</span>
             </span>

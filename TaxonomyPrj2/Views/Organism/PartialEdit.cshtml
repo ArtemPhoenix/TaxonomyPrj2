@@ -36,14 +36,18 @@
 </div>
 
 
-    <h3>
+<h3>
+    @if (Model.Id != 0) // если 0, то это созд нового, id отображать не надо
+    {
         @foreach (var category in Model.Categories)
         {
             <span>@category.NameCat</span>
             <span>@category.Name</span>
             <br>
         }
-    </h3>
+    }
+
+</h3>
 
 
     <form method="post" id="needsValidationOrganism">
@@ -141,15 +145,15 @@
 
             @if (Model.FlagEvent == 0)
             {
-                <button type="button" data-id="@Model.Id" id="redactOrganismButton" class="btn btn-outline-warning btn-lg btn-block ProtectionAgainstRoleChanges">Обновить</button>
+                <button type="button" data-id="@Model.Id" id="redactOrganismButton" class="btn btn-outline-warning btn-lg btn-block ">Обновить</button>
             }
         }
         else
         {
 
-            <button type="button" id="createOrganismButton" class="btn btn-outline-success btn-lg btn-block ProtectionAgainstRoleChanges">Добавить</button>
+            <button type="button" id="createOrganismButton" class="btn btn-outline-success btn-lg btn-block s">Добавить</button>
         }
 
-        <button type="button" id="exitPartialButton" data-id="@Model.CategoryId" class="btn btn-outline-danger btn-lg btn-block ProtectionAgainstRoleChanges">Закрыть</button>
+        <button type="button" id="exitPartialButton" data-id="@Model.CategoryId" class="btn btn-outline-danger btn-lg btn-block ">Закрыть</button>
 
     </form>
