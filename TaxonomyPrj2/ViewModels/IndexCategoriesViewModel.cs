@@ -12,9 +12,7 @@ namespace TaxonomyPrj2.ViewModels
     {
        
         public List<Category> CategoryTree { get; set; }
-                
-        public string InView { get; set; }
-        public string InView2 { get; set; }
+       
 
     }
 }

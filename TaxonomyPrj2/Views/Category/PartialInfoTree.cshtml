@@ -8,58 +8,7 @@
 
 @functions
 {
-
-    public void MakeTreeInViev(DAL.Models.Category top, int level)  // ч/б версия
-    {
-        level++;
-        if (level > 5) { level = 1; }
-
-        Model.InView2 += "<li>"; // открываем первый li
-        if (top.InverseParentNavigation.Count != 0)  // выбираем кнопку перед категорией.
-        {
-            Model.InView2 += " <button class=\"btn btn-outline-dark h1\" onclick=\"clickUL(this)\">-</button>&nbsp;";  // скрыть или показать ветку через скрипт
-        }
-        else
-        {
-            Model.InView2 += " <button class=\"btn btn-outline-secondary h1\" >...</button>&nbsp;&nbsp;";
-        }
-        // ставим название
-        Model.InView2 += "<span class=\"h2\">" + top.NameCat + " " + top.Name + "&nbsp;&nbsp;</span>" +
-                        "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"redactCategory btn btn-outline-warning  ProtectionAgainstRoleChanges\">Р</button>&nbsp;" + // редактирование
-                        "<button type = \"button\" data-id=\"" + top.Id + "\" class=\""; // половина кнопки delete
-        if (CanDelete(top)) // актив или неактив кнопка delete
-        {
-            Model.InView2 += "deleteCategory btn btn-outline-danger  ProtectionAgainstRoleChanges\">У</button>";
-        }
-        else
-        {
-            Model.InView2 += " btn btn-outline-secondary \">У</button>";
-        }
-
-        // кнопка описания, которая скрывает/ показывает описание через скрипт
-        Model.InView2 += "<span> " +
-                        "<button type = \"button\" data-id=\"" + top.Id + "\" class=\"btn btn-outline-success  ProtectionAgainstRoleChanges\" onclick=\"clickDescr(this)\">О</button>" +
-                        "<p class=\"hideChild\"> " + top.Description + "</p></span>";
-
-
-        if (top.InverseParentNavigation.Count != 0) // если есть потомки - строим ul
-        {
-
-            Model.InView2 += "<ul class=\"gray_" + level + "\">"; // открываем ul
-
-            foreach (var item in top.InverseParentNavigation)
-            {
-                MakeTreeInViev(item, level);
-            }
-            Model.InView2 += "</ul>";  // закрываем ul
-
-        }
-
-
-        Model.InView2 += "</li>"; // закрываем  первый  li
-
-    }
-
+      
     private bool CanDelete(DAL.Models.Category element)
     {
         if (element.InverseParentNavigation.Count != 0 || element.Organisms.Count != 0)
@@ -70,16 +19,6 @@
         return true;
     }
 }
-
-
-@{
-    int levelGray = 0; // ч/б версия
-    MakeTreeInViev(Model.CategoryTree.FirstOrDefault(), levelGray);
-    Model.InView2 = "<ul class=\"gray_" + "\"> " + Model.InView2 + "</ul>";
-}
-
-
-
 
 @{
     void TreeInViev(Category top, int level)
@@ -104,12 +43,14 @@
             <button type="button" data-id="@top.Id" class="redactCategory btn btn-warning ProtectionAgainstRoleChanges">Р</button>
             <button type="button" data-id="@top.Id" class="btn ProtectionAgainstRoleChanges @(CanDelete(top)?"deleteCategory btn-danger": "btn-secondary")">У</button>
 
-            <span>
+            <!--блок описания-->
+            <span> 
 
                 <button type="button" data-id="@top.Id" class="btn btn-success ProtectionAgainstRoleChanges" onclick="clickDescr(this)">О</button>
                 <p class="hideChild "> @top.Description</p>
             </span>
 
+            <!--проверка на необходимость вложенного-->
             @if (top.InverseParentNavigation.Count != 0)
             {
                 foreach (var item in top.InverseParentNavigation)
@@ -135,7 +76,7 @@
 </ul>
 
 
-<div id="tree" class="h5" data-id="@Model.InView2">@Html.Raw(Model.InView2)</div>
+
 
 
 
