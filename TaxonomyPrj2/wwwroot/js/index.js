@@ -198,7 +198,7 @@ function addButton()
     $('.deleteOrganism').on('click', function () {
         var clickId = $(this).attr('data-id');
 
-        $.get('/Organism/PartialQuestion', { id: clickId }, function (data) {
+        $.get('/Organism/PartialConfirmDelete', { id: clickId }, function (data) {
             $('#ModalView').html(data);
             $("#myModal").modal('show');
 

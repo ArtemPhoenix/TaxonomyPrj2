@@ -151,7 +151,7 @@ namespace TaxonomyPrj2.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult PartialQuestion(int id)  // confirm delete   переименовать
+        public IActionResult PartialConfirmDelete(int id)  // 
         {
             
             var model = new QuestionViewModel();
