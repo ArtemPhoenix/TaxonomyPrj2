@@ -57,24 +57,24 @@ else
     <div class="row">
 
         <!--список категорий слева-->
-        <div class="col-xl">
-            <table id="tableCategories" class="table-bordered ">
-                <tr>
-                   
-                    <th>ID родителя</th>
+        <div class="col-xl-6 h4" id="Categories">
+            <table id="tableCategories " class="table-bordered ">
+                <tr class="h6">
+                    
+                    <th class="parent ">Родитель</th>
                     <th>Приставочное имя</th>
                     <th>Имя</th>
-                    <th ><button type="button" class="btn btn-success " data-type="Category" onclick="clickDescr(this)">Описание</button> </th>
+                    <th ><button type="button" class="btn btn-success " id="CategoryBut" onclick="clickDescr(this)">О</button> </th>
 
                 </tr>
                 @foreach (var category in Model.Categories)
                 {
                     <tr class="@(category.Id == Model.CurrenCategoryId ? "choiseMarker" : "" ) choiseCategory" data-id="@(category.Id)">
-                       
-                        <td>@category.Parent</td>
+                        
+                        <td class="parent gray_3">@(category.Parent==null?"": Model.Categories.Find(x => x.Id == category.Parent).Name )</td>
                         <td>@category.NameCat</td>
-                        <td>@category.Name</td>
-                        <td class="descriptionCategory">@category.Description</td>
+                        <td class="navyText">@category.Name</td>
+                        <td class="descriptionCategory hideChild">@category.Description</td>
 
                     </tr>
 
@@ -84,7 +84,7 @@ else
 
 
         <!--Таблица организмов слева-->
-        <div class="col-xl-5">
+        <div class="col-xl-6">
 
             <!--фильтр в пределах категории-->
             <div class="input-group mb-3">

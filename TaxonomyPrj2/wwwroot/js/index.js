@@ -229,10 +229,18 @@ function clickDescr(selector) // клик по кнопке описание
 
     if (isHidden) {
         $('.descriptionCategory').removeClass("hideChild");
+        $('.parent').addClass("hideChild");
+        $('#CategoryBut').addClass("btn-outline-success").removeClass("btn-success");
+        $('#CategoryBut').html("Описание");
+        $('#Categories').removeClass("h4");
     }
     else
     {
         $('.descriptionCategory').addClass("hideChild");
+        $('.parent').removeClass("hideChild");
+        $('#CategoryBut').addClass("btn-success").removeClass("btn-outline-success");
+        $('#CategoryBut').html("О");
+        $('#Categories').addClass("h4");
     }
 }
 
@@ -244,10 +252,12 @@ function clickDescrOrganism(selector)
         $('.descriptionOrganism').removeClass("hideChild");
         $('.redactOrganism').html("Р");
         $('.deleteOrganism').html("У");
+        $('#OrganismBut').addClass("btn-outline-success").removeClass("btn-success");
     }
     else {
         $('.descriptionOrganism').addClass("hideChild");
         $('.redactOrganism').html("Редактировать");
         $('.deleteOrganism').html("Удалить");
+        $('#OrganismBut').addClass("btn-success").removeClass("btn-outline-success");
     }
 }
