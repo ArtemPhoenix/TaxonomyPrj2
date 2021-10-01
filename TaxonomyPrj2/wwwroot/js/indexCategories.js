@@ -151,11 +151,15 @@ function clickUL(selector)  // клик по категории
     {
         $(selector).parent().children("ul").removeClass("hideChild");
         $(selector).html("-");
+        $(selector).addClass("btn-outline-primary");
+        $(selector).removeClass("btn-primary");
     }
     else
     {
         $(selector).parent().children("ul").addClass("hideChild");
         $(selector).html("+");
+        $(selector).addClass("btn-primary");
+        $(selector).removeClass("btn-outline-primary");
     }
      
 }
