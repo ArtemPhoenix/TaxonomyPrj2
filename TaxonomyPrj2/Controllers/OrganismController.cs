@@ -121,7 +121,12 @@ namespace TaxonomyPrj2.Controllers
                 model.Organisms = repozitOrganism.GetListByCategoryId(categoryId);
                 
             }
-            return PartialView(model);
+            using (var repozitCategory = new CategoryRepository())
+            {
+                var element = repozitCategory.Get(categoryId);
+                model.CurrenCategoryFullName = element.NameCat + " " + element.Name;
+            }
+                return PartialView(model);
         }
 
         [Authorize(Roles = "Admin")]

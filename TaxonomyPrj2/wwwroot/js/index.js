@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    
+    loadTableOrganisms(1); // первоначальная загрузка при открытии страницы
     //запуск поиска
     StartSearch();
     $('#startButtonSeach').on('click', function () {

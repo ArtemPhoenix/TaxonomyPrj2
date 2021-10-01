@@ -3,27 +3,44 @@
 @model TaxonomyPrj2.ViewModels.OrganismTableViewModel
 
 
-@foreach (var organism in Model.Organisms)
+<h1>@Model.CurrenCategoryFullName</h1>
+
+@if (Model.Organisms.Count != 0)
 {
 
-    <tr class="info">
+    <table class="table">
+        <thead>
+            <tr>
 
-        <td class="info">@organism.CategoryId</td>
-        <td>@(organism.StartResearch.Day + "." + organism.StartResearch.Month + "." + organism.StartResearch.Year)</td>
-        <td>@organism.CountSample</td>
-        <td>@organism.Name</td>
-        <td>@organism.Description</td>
-        @if (User.IsInRole("Admin"))
+                <th>Начало исследований</th>
+                <th>Количество образцов</th>
+                <th>Имя</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        @foreach (var organism in Model.Organisms)
         {
-            <td>
-                <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ">Редактировать</button>
-                <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ">Удалить</button>
-            </td>
+
+            <tr class="info">
+
+
+                <td>@(organism.StartResearch.Day + "." + organism.StartResearch.Month + "." + organism.StartResearch.Year)</td>
+                <td>@organism.CountSample</td>
+                <td>@organism.Name</td>
+                <td>@organism.Description</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <button type="button" data-id="@organism.Id" class="redactOrganism btn btn-outline-warning btn-lg btn-block ">Редактировать</button>
+                        <button type="button" data-id="@organism.Id" class="deleteOrganism btn btn-outline-danger btn-lg btn-block ">Удалить</button>
+                    </td>
+                }
+
+
+            </tr>
+
+
         }
-
-
-    </tr>
-
+    </table>
 
 }
-

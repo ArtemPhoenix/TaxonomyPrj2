@@ -13,5 +13,7 @@ namespace TaxonomyPrj2.ViewModels
         public List<Organism> Organisms { get; set; }
         public int? CurrenCategoryId { get; set; }
 
+        public string CurrenCategoryFullName { get; set; }
+
     }
 }
