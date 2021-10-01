@@ -106,7 +106,7 @@ function addButton()
             //-------------------------
 
             $('#redactOrganismButton').on('click', function () {
-                var clickId = $(this).attr('data-id');
+                var clickIdOrg = $(this).attr('data-id');
                 var clickName = $('#Name').val();
                 var clickCategoryId = $('#newCategoryId').val(); 
                 var clickStartResearch = $('#StartResearch').val();
@@ -115,23 +115,15 @@ function addButton()
 
               
                 if ($('#needsValidationOrganism').valid()) {
-                    $.post('/Organism/PartialEdit', { id: clickId, name: clickName, categoryId: clickCategoryId, startResearch: clickStartResearch, countSample: clickCountSample, description: clickDescription }, function (data) {
-                        $('#ModalView').html(data);
-                        $("#myModal").modal('show');
-                        //-------------------------
-                        // закрытие м/окна и обновление списка организмов по категории
-                        //  exitPartialButton
-                        $('#exitPartialButton').on('click', function () {
-                           
-                            //var clickId = $(this).attr('data-id');
-                            $("#myModal").modal('hide');
-
-                            var clickId = $(this).attr('data-id');
-
-                            loadTableOrganisms(clickId);
-
-                        });
-                        //-------------------------
+                    $.post('/Organism/PartialEdit', { id: clickIdOrg, name: clickName, categoryId: clickCategoryId, startResearch: clickStartResearch, countSample: clickCountSample, description: clickDescription }, function (data) {
+                        
+                        if (data.save != true) {
+                            alert("В ходе обновления произошла ошибка!");
+                        }
+                        
+                        $("#myModal").modal('hide');
+                        loadTableOrganisms(clickCategoryId);
+                       
                     });
                 }
                 
@@ -171,19 +163,11 @@ function addButton()
                 if ($('#needsValidationOrganism').valid()) {
                      
                     $.post('/Organism/PartialEdit', { id: '0', name: clickName, categoryId: clickCategoryId, startResearch: clickStartResearch, countSample: clickCountSample, description: clickDescription }, function (data) {
-                        $('#ModalView').html(data);
-                        $("#myModal").modal('show');
-                        //-------------------------
-                        // закрытие м/окна и обновление списка организмов по категории
-                        $('#exitPartialButton').on('click', function () {
-                            $("#myModal").modal('hide');
-
-                            var clickId = $(this).attr('data-id');
-
-                            loadTableOrganisms(clickId);
-                            
-                        });
-                        //-------------------------
+                        if (data.save != true) {
+                            alert("В ходе создания произошла ошибка!");
+                        }
+                        $("#myModal").modal('hide');
+                        loadTableOrganisms(clickCategoryId);
                         
                     });
                 }

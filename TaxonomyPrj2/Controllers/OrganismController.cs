@@ -22,7 +22,7 @@ namespace TaxonomyPrj2.Controllers
         public IActionResult PartialCreate()  // СКРИПТ создание организма ГЕТ
         {
             var model = new PartialRedactOrganismViewModel();
-            model.FlagEvent = 0;
+           
 
             using (var repozitCategory = new CategoryRepository())
             {
@@ -38,7 +38,7 @@ namespace TaxonomyPrj2.Controllers
         public IActionResult PartialEdit(int id)  // скрипт редактирование ГЕТ
         {
             var model = new PartialRedactOrganismViewModel();
-            model.FlagEvent = 0;
+           
 
            
             using (var repozitOrganizm = new OrganismRepository())
@@ -67,7 +67,7 @@ namespace TaxonomyPrj2.Controllers
         [HttpPost]
         public IActionResult PartialEdit(int id, string name, int categoryId, DateTime startResearch, int countSample, string description) // скрипт редактирования/создания ПОСТ
         {
-            var model = new PartialRedactOrganismViewModel();
+            
             OrganismEditModel newOrganism = new OrganismEditModel
             {
                 Id = id,
@@ -77,61 +77,36 @@ namespace TaxonomyPrj2.Controllers
                 CountSample = countSample,
                 Description = description
             };
-
-            if (id == 0) // создание нового организма
+            using (var repozitOrganizm = new OrganismRepository())
             {
-
-                model.FlagEvent = 3;
-                using (var repozitOrganizm = new OrganismRepository())
+                if (id == 0) // создание нового организма
                 {
-                    repozitOrganizm.Create(newOrganism);
-
-                    var newOrg = repozitOrganizm.GetList().Last();
-                    //model.Id = newOrg.Id;
-                    model.Name = newOrg.Name;
-                    model.CategoryId = newOrg.CategoryId;
-                    model.StartResearch = newOrg.StartResearch;
-                    model.CountSample = newOrg.CountSample;
-                    model.Description = newOrg.Description;
-
-                    using (var repozitCategory = new CategoryRepository())
+                    try
                     {
-                        var idOrg = repozitOrganizm.GetList().Find(x => ((x.Name == newOrganism.Name) && (x.Description == newOrganism.Description))).CategoryId;
-                        model.Categories = repozitCategory.GetListParent(idOrg);
+                        repozitOrganizm.Create(newOrganism);
+                    }
+                    catch (Exception)
+                    {
+                        return Json(new { save = false });
                     }
                 }
+                else
+                {                    
+                    try
+                    {
+                        repozitOrganizm.Update(newOrganism);
+                    }
+                    catch (Exception)
+                    {
+                        return Json(new { save = false });
+                    }
+                }
+            }
 
               
 
-            }
-            else  // обновление организма
-            {
 
-                model.FlagEvent = 1;
-
-                using (var repozitOrganizm = new OrganismRepository())
-                {
-                    repozitOrganizm.Update(newOrganism);
-
-                    var organism = repozitOrganizm.Get(newOrganism.Id);
-                    model.Id = organism.Id;
-                    model.Name = organism.Name;
-                    model.CategoryId = organism.CategoryId;
-                    model.StartResearch = organism.StartResearch;
-                    model.CountSample = organism.CountSample;
-                    model.Description = organism.Description;
-                }
-
-                using (var repozitCategory = new CategoryRepository())
-                {
-                    var idCat = repozitCategory.GetList().Find(x => x.Id == newOrganism.CategoryId).Id;
-                    model.Categories = repozitCategory.GetListParent(idCat);
-                }
-            }
-
-           
-
-            return PartialView(model);
+            return Json(new { save = true });
         }
 
 

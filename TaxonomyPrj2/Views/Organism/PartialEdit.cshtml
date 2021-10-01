@@ -6,34 +6,7 @@
 
 
 
-<div class="container">
-    <div class="row ">
-        @if (Model.FlagEvent == 1) 
-        {
-            <div class="col-sm border border-light rounded-pill bg-warning text-md-center font-weight-bold">
-                <h1>Обновление произведено успешно</h1>
-            </div>
-        }
-       
-        @if (Model.FlagEvent == 3)
-        {
-            <div class="col-sm border border-light rounded-pill bg-success align-text-top font-weight-bold">
-                <h1>Добавление произведено успешно</h1>
-            </div>
-        }
-    <div class="col-sm">
-        @if (Model.Id != 0)
-        {
-            <h1>Текущий организм:</h1>
-        }
-        else
-        {
-            <h1>Новый организм:</h1>
-        }
 
-    </div>
-    </div>
-</div>
 
 
 <h3>
@@ -64,14 +37,9 @@
         }
 
         @Html.LabelFor(x => x.Name, new { @class = "input-group-text" })
-        @if (Model.FlagEvent != 0)
-        {
-            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @readonly = true })
-        }
-        else
-        {
-            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-        }
+      
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        
 
         @Html.ValidationMessageFor(x => x.Name, null, new { @class = "redText" })
         <div class="input-group">
@@ -84,7 +52,7 @@
             <div class="">
                 <span class="input-group-text" id="basic-addon1">Категория организма:</span>
             </div>
-            <select id="newCategoryId" @(Model.FlagEvent == 3 ? "readonly" : "") name="CategoryId" class="form-control">
+            <select id="newCategoryId"  name="CategoryId" class="form-control">
 
                 @foreach (var category in Model.Categories)
                 {
@@ -122,14 +90,8 @@
 
         @Html.LabelFor(x => x.Description, new { @class = "input-group-text" })
 
-        @if (Model.FlagEvent != 0)
-        {
-            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @readonly = true })
-        }
-        else
-        {
-            @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
-        }
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+        
         @Html.ValidationMessageFor(x => x.Description, null, new { @class = "redText" })
         <div class="input-group ">
             <!-- что-бы_текст_ошибки_не_появлялся_на_br-->
