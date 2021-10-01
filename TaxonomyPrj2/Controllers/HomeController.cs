@@ -17,19 +17,13 @@ namespace TaxonomyPrj2.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        public HomeController(UserManager<User> userManager )
-        {
-            _userManager = userManager;
-        }
-       
+      
         
         [HttpGet]
-        public async Task<IActionResult> Index(int? id)
+        public IActionResult Index(int? id)
         {
            
-            var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var userRoles = await _userManager.GetRolesAsync(elem);
+           
 
             using (var repozitCategory = new CategoryRepository())
             {
@@ -44,8 +38,7 @@ namespace TaxonomyPrj2.Controllers
                 using (var repozitOrganism = new OrganismRepository())
                 {
                     model.Organisms = repozitOrganism.GetListByCategoryId(model.CurrenCategoryId);
-                    ViewBag.currenCategoryId = model.CurrenCategoryId;
-                    
+                   
                     return View(model);
                 }
             }
@@ -87,24 +80,12 @@ namespace TaxonomyPrj2.Controllers
             return PartialView(model);
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult PartialWorkWithUser()
-        {
-            return PartialView();
-        }
+       
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+     
 
         
-        public IActionResult Example()
-        {
-            return View();
-        }
-
+       
         
 
         

@@ -35,7 +35,7 @@
 
                 @foreach (var category in Model.Categories)
                 {
-                    @if (category.Id == Model.Parent)
+                    @if (category.Id == Model.Parent)  // переделать в тернарный оператор
                     {
                         <option value="@category.Id" selected>@(category.NameCat) @category.Name</option>
                     }

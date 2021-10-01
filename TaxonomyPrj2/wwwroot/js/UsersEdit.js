@@ -41,7 +41,7 @@ function redactUsers()
                             $('#errInfo').html(data.error);
                         }
 
-                    }).fail();
+                    }).fail(function (err) { console.log(err); });
                 }
                
 
@@ -74,7 +74,7 @@ function deleteUsers()
                     else {
                         $('#errInfo').html(data.error);
                     }
-                }).fail();
+                }).fail(function (err) { console.log(err); });
             });
         });
     });

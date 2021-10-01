@@ -15,12 +15,7 @@ namespace TaxonomyPrj2.Controllers
     [Authorize]
     public class OrganismController : Controller
     {
-        private readonly UserManager<User> _userManager;
        
-        public OrganismController(UserManager<User> userManager)
-        {
-            _userManager = userManager;
-        }
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -48,12 +43,10 @@ namespace TaxonomyPrj2.Controllers
            
             using (var repozitOrganizm = new OrganismRepository())
             {
-                using (var repozitCategory = new CategoryRepository())
-                {
-                    model.Categories = repozitCategory.GetList();
-                }
+                
 
                 var organism = repozitOrganizm.Get(id);
+
                 model.Id = organism.Id;
                 model.Name = organism.Name;
                 model.CategoryId = organism.CategoryId;
@@ -61,7 +54,10 @@ namespace TaxonomyPrj2.Controllers
                 model.CountSample = organism.CountSample;
                 model.Description = organism.Description;
 
-
+                using (var repozitCategory = new CategoryRepository())
+                {
+                    model.Categories = repozitCategory.GetListParent(organism.CategoryId);
+                }
             }
             return PartialView(model);
 
@@ -91,7 +87,7 @@ namespace TaxonomyPrj2.Controllers
                     repozitOrganizm.Create(newOrganism);
 
                     var newOrg = repozitOrganizm.GetList().Last();
-                    model.Id = newOrg.Id;
+                    //model.Id = newOrg.Id;
                     model.Name = newOrg.Name;
                     model.CategoryId = newOrg.CategoryId;
                     model.StartResearch = newOrg.StartResearch;
@@ -140,27 +136,22 @@ namespace TaxonomyPrj2.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> PartialOrganismTable(int categoryId)  // скрипт отображение списка организмов по категории ГЕТ
+        public IActionResult PartialOrganismTable(int categoryId)  // скрипт отображение списка организмов по категории ГЕТ
         {
-            var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var userRoles = await _userManager.GetRolesAsync(elem);
-                       
-            ViewBag.currenCategoryId = categoryId;
-           
             var model = new OrganismTableViewModel();
            
             using (var repozitOrganism = new OrganismRepository())
             {
 
                 model.Organisms = repozitOrganism.GetListByCategoryId(categoryId);
-                model.CurrenCategoryId = categoryId;
+                
             }
             return PartialView(model);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult PartialQuestion(int id)  
+        public IActionResult PartialQuestion(int id)  // confirm delete   переименовать
         {
             
             var model = new QuestionViewModel();

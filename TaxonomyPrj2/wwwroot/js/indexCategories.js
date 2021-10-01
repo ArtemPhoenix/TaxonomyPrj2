@@ -24,7 +24,7 @@
                    
                     $.post('/Category/PartialCreate', { parentId, name, nameCat, description })
                         .done(function (data) {
-                            alert("defsedf");
+                           
                             if (data.save) {
                                 $("#myModalC").modal('hide');
 
@@ -32,7 +32,7 @@
 
                             }
                         })
-                        .fail();
+                        .fail(function (err) { console.log(err); });
                 }
                
 
@@ -145,38 +145,41 @@ function loadInfoTree()
 
 function clickUL(selector)  // клик по категории
 {
-    var xFalse = $(selector).parent().children("ul").hasClass("hideChild");
+    var parent = $(selector).parent();
+    var isHidden = parent.children("ul").hasClass("hideChild");
 
-    if (xFalse)
+    if (isHidden)
     {
-        $(selector).parent().children("ul").removeClass("hideChild");
-        $(selector).html("-");
-        $(selector).addClass("btn-outline-primary");
-        $(selector).removeClass("btn-primary");
+        parent.children("ul").removeClass("hideChild");
+        $(selector).html("-").addClass("btn-outline-primary").removeClass("btn-primary");
+      
     }
     else
     {
-        $(selector).parent().children("ul").addClass("hideChild");
-        $(selector).html("+");
-        $(selector).addClass("btn-primary");
-        $(selector).removeClass("btn-outline-primary");
+        parent.children("ul").addClass("hideChild");
+        $(selector).html("+").addClass("btn-primary").removeClass("btn-outline-primary");
+     
     }
      
 }
 
 function clickDescr(selector) // клик по кнопке описание
 {
-    var xFalse = $(selector).parent().children("p").hasClass("hideChild");
+    var parent = $(selector).parent();
+    var isHidden =parent.children("span").hasClass("hideChild"); // 
 
-    if (xFalse) {
-        $(selector).parent().children("p").removeClass("hideChild");
-        $(selector).parent().children("button").addClass("btn-outline-success");
-        $(selector).parent().children("button").removeClass("btn-success");
+
+
+    if (isHidden) {
+       
+        parent.children("span").removeClass("hideChild");
+        parent.children("button").addClass("btn-outline-success").removeClass("btn-success");
+        
     }
     else
     {
-        $(selector).parent().children("p").addClass("hideChild");
-        $(selector).parent().children("button").addClass("btn-success");
-        $(selector).parent().children("button").removeClass("btn-outline-success");
+        parent.children("span").addClass("hideChild");
+        parent.children("button").addClass("btn-success").removeClass("btn-outline-success");
+        
     }
 }

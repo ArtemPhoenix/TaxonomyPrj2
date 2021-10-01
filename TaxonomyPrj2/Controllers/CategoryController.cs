@@ -40,44 +40,34 @@ namespace TaxonomyPrj2.Controllers
 
        
        
-        public IActionResult PartialCreate(int? id)   ////
+        public IActionResult PartialCreate()   
         {
             var model = new PartialCreateCategoryVievModel();
 
                 using (var repozitCategory = new CategoryRepository())
                 {
                     model.Categories = repozitCategory.GetList();
-                    var isCorrectId = id.HasValue && repozitCategory.GetList().Any(x => x.Id == id);
-                    model.Id = isCorrectId ? id.Value : 0;
-                    if (model.Id != 0)
-                    {
-                        model.Name = repozitCategory.Get(model.Id).Name;
-                        model.NameCat = repozitCategory.Get(model.Id).NameCat;
-                        model.Parent = repozitCategory.Get(model.Id).Parent;
-                        model.Description = repozitCategory.Get(model.Id).Description;
-                    }
-
 
                 }
-          
-           
-               
+
             return PartialView(model);
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        
         public IActionResult PartialCreate(int parentId, string name, string nameCat, string description)
         {
             
             using (var repozitCategory = new CategoryRepository())
             {
-                
-                var newCategory = new CategoryEditModel();
-                newCategory.Parent = parentId;
-                newCategory.Name = name;
-                newCategory.NameCat = nameCat;
-                newCategory.Description = description;
+
+                var newCategory = new CategoryEditModel
+                {
+                    Parent = parentId,
+                    Name = name,
+                    NameCat = nameCat,
+                    Description = description
+                };
                 repozitCategory.Create(newCategory);
 
             }
@@ -85,24 +75,20 @@ namespace TaxonomyPrj2.Controllers
             return Json(new { save = true });
         }
 
-        public IActionResult PartialEdit(int? id)
+        public IActionResult PartialEdit(int id)
         {
             var model = new PartialCreateCategoryVievModel();
             using (var repozitCategory = new CategoryRepository())
             {
                 
-                var isCorrectId = id.HasValue && repozitCategory.GetList().Any(x => x.Id == id);
-                model.Id = isCorrectId ? id.Value : 0;
-                model.Categories = isCorrectId ? repozitCategory.GetAnotherBranches(id.Value) : repozitCategory.GetList();
-                //var cadasd = repozitCategory.GetList();
+               
+                model.Id = id;
+                model.Categories =  repozitCategory.GetAnotherBranches(id) ;
+                model.Name = repozitCategory.Get(model.Id).Name;
+                model.NameCat = repozitCategory.Get(model.Id).NameCat;
+                model.Parent = repozitCategory.Get(model.Id).Parent;
+                model.Description = repozitCategory.Get(model.Id).Description;
 
-                if (model.Id != 0)
-                {
-                    model.Name = repozitCategory.Get(model.Id).Name;
-                    model.NameCat = repozitCategory.Get(model.Id).NameCat;
-                    model.Parent = repozitCategory.Get(model.Id).Parent;
-                    model.Description = repozitCategory.Get(model.Id).Description;
-                }
 
 
             }
@@ -111,19 +97,12 @@ namespace TaxonomyPrj2.Controllers
         }
 
         [HttpPost]
-        public IActionResult PartialEdit(int id, int parentId, string name, string nameCat, string description)
+        public IActionResult PartialEdit(CategoryEditModel model)
         {
             using (var repozitCategory = new CategoryRepository())
             {
 
-                var newCategory = new CategoryEditModel();
-
-                newCategory.Id = id;
-                newCategory.Parent = parentId;
-                newCategory.Name = name;
-                newCategory.NameCat = nameCat;
-                newCategory.Description = description;
-                repozitCategory.Update(newCategory);
+                repozitCategory.Update(model);
 
             }
 
@@ -133,8 +112,10 @@ namespace TaxonomyPrj2.Controllers
         [HttpGet]
         public IActionResult PartialDelete(int id)
         {
-            var model = new QuestionViewModel();
-            model.Id = id;
+            var model = new QuestionViewModel
+            {
+                Id = id
+            };
 
             return PartialView(model);
 
@@ -148,7 +129,6 @@ namespace TaxonomyPrj2.Controllers
             {
                 using (var repozitCategory = new CategoryRepository())
                 {
-
 
                     var result = repozitCategory.Delete(id);
                     return Json(new { save = result });

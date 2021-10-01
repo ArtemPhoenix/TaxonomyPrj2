@@ -33,11 +33,6 @@
 
 });
 
-function CheckingTheRoleChange()
-{
-   
-}
-
 
 function StartSearchSmall()
 {
@@ -127,7 +122,7 @@ function addButton()
                         // закрытие м/окна и обновление списка организмов по категории
                         //  exitPartialButton
                         $('#exitPartialButton').on('click', function () {
-                            var fsd = 90;
+                           
                             //var clickId = $(this).attr('data-id');
                             $("#myModal").modal('hide');
 
@@ -186,9 +181,7 @@ function addButton()
                             var clickId = $(this).attr('data-id');
 
                             loadTableOrganisms(clickId);
-                            /* $.get('/Organism/PartialOrganismTable', { categoryId: clickId }, function (data) {
-                                 alert("******");
-                                 $('#tableOrganisms').html(data);*/
+                            
                         });
                         //-------------------------
                         

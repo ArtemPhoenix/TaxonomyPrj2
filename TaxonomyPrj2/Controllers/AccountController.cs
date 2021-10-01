@@ -104,14 +104,15 @@ namespace TaxonomyPrj2.Controllers
             return View(model);
         }
 
+        
         [Authorize]
-        public async Task<IActionResult> SaveRole(string login)
+        public async Task<IActionResult> SaveRole(string login)//,????????????????????????????????????????????????????????????????????????????
         {
             var elem = _userManager.Users.FirstOrDefault(x => x.UserName == login);
             var userRoles = await _userManager.GetRolesAsync(elem);
             return Json(new { role = userRoles.First() });
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout() // + 
@@ -175,21 +176,19 @@ namespace TaxonomyPrj2.Controllers
             {
                 return Json(new { save = false, error = "Ошибка редактирования. Пользователь не найден" });
             }
-            else if (newRole == null)
+            if (newRole == null)
             {
                 return Json(new { save = false, error = "Ошибка редактирования. Роль пользователя не найдена" });
             }
-            else
-            {
+            
+            
                
                 elem.Email = eMail;
                 elem.Year = year;
                 var result = await _userManager.UpdateAsync(elem);
                 if (result.Succeeded)
                 {
-                    //--------------- как проверить результат изменения роли? или хватит проверки выше?
-                    /*var roles = await _userManager.GetRolesAsync(elem); // 
-                    roles.Clear();*/
+                    
                     List<string> roles = new List<string>();
                     roles.Add(role);
                     // получем список ролей пользователя
@@ -215,14 +214,16 @@ namespace TaxonomyPrj2.Controllers
                     return Json(new { save = false, error = "Ошибка редактирования. Изменения не сохранились" });
                 }
 
-            }
+            
         }
 
         [Authorize(Roles = "Admin")]
         public IActionResult PartialDelete(string login)  // + 
         {
-            var model = new QuestionUsersViewModel();
-            model.Login = login;
+            var model = new QuestionUsersViewModel
+            {
+                Login = login
+            };
             return PartialView(model);
         }
 
@@ -230,6 +231,11 @@ namespace TaxonomyPrj2.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string login)  //+
         {
+            // вст проверку
+            if (User.Identity.Name==login)
+            {
+                return Json(new { save = false, error = "Ошибка удаления. Нельзя удалить текущего пользователя" });
+            }
             var elem = _userManager.Users.FirstOrDefault(x => x.UserName == login);
             if (elem == null)
             {
@@ -248,20 +254,6 @@ namespace TaxonomyPrj2.Controllers
             
         }
 
-        public async Task<IActionResult> returnRole(string role) // проверка на неизменность роли  +
-        {
-            var elem = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var userRoles = await _userManager.GetRolesAsync(elem);
-            if (userRoles.First() == role)
-            {
-                return Json(new { result = true });
-            }
-            else
-            {
-                await _signInManager.SignOutAsync();
-                return Json(new { result = false });
-            }
-
-        }
+       
     }
 }
