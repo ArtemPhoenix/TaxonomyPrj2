@@ -10,6 +10,7 @@
     <!--пропись на странице роли доступа-->
     <input hidden type="text" value="Admin" id="constRole" />
 
+    <a href="/Information/index" class="btn btn-outline-secondary btn-lg btn-block " role="button" aria-pressed="true">Информация</a>
     <a href="/Category/index" class="btn btn-outline-primary btn-lg btn-block " role="button" aria-pressed="true">Работа с категориями</a>
     <button type="button" class="createOrganism btn btn-outline-success btn-lg btn-block ">Добавить организм в котегорию</button>
 }
@@ -60,17 +61,17 @@ else
         <div class="col-xl-6 h4" id="Categories">
             <table id="tableCategories " class="table-bordered ">
                 <tr class="h6">
-                    
+
                     <th class="parent ">Родитель</th>
                     <th>Приставочное имя</th>
                     <th>Имя</th>
-                    <th ><button type="button" class="btn btn-success " id="CategoryBut" onclick="clickDescr(this)">О</button> </th>
+                    <th><button type="button" class="btn btn-success " id="CategoryBut" onclick="clickDescr(this)">О</button> </th>
 
                 </tr>
                 @foreach (var category in Model.Categories)
                 {
                     <tr class="@(category.Id == Model.CurrenCategoryId ? "choiseMarker" : "" ) choiseCategory" data-id="@(category.Id)">
-                        
+
                         <td class="parent gray_3">@(category.Parent==null?"": Model.Categories.Find(x => x.Id == category.Parent).Name )</td>
                         <td>@category.NameCat</td>
                         <td class="navyText">@category.Name</td>
@@ -122,9 +123,9 @@ else
             <!--/конец фильтра в пределах категории-->
 
             <div id="tableOrganisms">
-               
+
                 <!--сюда загружается таблица организмов-->
-               
+
             </div>
 
         </div>
@@ -141,4 +142,4 @@ else
 @section Scripts
 {
     <script src="~/js/index.js" asp-append-version="true"></script>
-  }
+}

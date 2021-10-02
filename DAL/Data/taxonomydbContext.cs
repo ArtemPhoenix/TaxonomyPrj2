@@ -18,6 +18,7 @@ namespace DAL.Data
         {
         }
 
+        public virtual DbSet<OrganismAndCategory> OAC { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }

@@ -20,8 +20,13 @@ namespace TaxonomyPrj2.interfaces
             this.db = new taxonomydbContext();
         }
 
-               
 
+        public List<OrganismAndCategory> getAllInformation()
+        {
+            // var tt = resulta.Select(x => new _Example() { CategoryId=x.CategoryId, Id=x.Id, Name=x.Name}).ToList();  // памятка
+            return db.OAC.FromSqlRaw("Information").ToList();
+
+        }
         public void Create(OrganismEditModel editOrganism)
         {
             Organism newOrganism = new Organism
