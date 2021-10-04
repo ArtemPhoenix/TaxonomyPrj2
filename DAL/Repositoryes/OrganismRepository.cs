@@ -57,8 +57,7 @@ namespace TaxonomyPrj2.interfaces
 
            
             var result = db.OAC.FromSqlRaw("InformationFiltr @CountFrom ,@CountTo, @DateFrom, @DateTo, @DateFlag", param1 ,param2, param3, param4, param5).ToList();
-          //  var res = db.OAC.FromSqlRaw("InformationFiltrSampleCountFrom @CountFrom", param1).ToList();
-           // var res2 = db.OAC.FromSqlInterpolated($"InformationFiltrSampleCountFrom @CountFrom");
+         
 
             return result;
 
