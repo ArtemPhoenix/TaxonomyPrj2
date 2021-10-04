@@ -15,16 +15,31 @@ namespace TaxonomyPrj2.Controllers
     {
         public IActionResult Index()
         {
-            using (var repozitOrganism = new OrganismRepository())
+            using var repozitOrganism = new OrganismRepository();
+            var model = new IndexInformationViewModel()
             {
-                var model = new IndexInformationViewModel() { Info = repozitOrganism.getAllInformation() };
-                return View(model);
-            }
-               
-           
+                Info = repozitOrganism.getAllInformation()
+            };
 
-           
-            
+            return View(model);
+
+        }
+
+        public IActionResult PartialSearch( int? CountFromOrganism, int? CountToOrganism, string DateFromOrganism, string DateToOrganism)
+        {
+            DateTime? DateFromOrganismC = null;
+            if (DateTime.TryParse(DateFromOrganism, out var t)) { DateFromOrganismC = t; }
+
+            DateTime? DateToOrganismC = null;
+            if (DateTime.TryParse(DateToOrganism, out var x)) { DateToOrganismC = x; }
+
+            using var repozitOrganism = new OrganismRepository();
+            var model = new IndexInformationViewModel()
+            {
+                Info = repozitOrganism.getFiltrInformation(CountFromOrganism, CountToOrganism, DateFromOrganismC, DateToOrganismC)
+            };
+
+            return PartialView(model);
         }
     }
 }

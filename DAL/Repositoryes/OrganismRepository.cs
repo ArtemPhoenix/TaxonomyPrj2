@@ -27,6 +27,42 @@ namespace TaxonomyPrj2.interfaces
             return db.OAC.FromSqlRaw("Information").ToList();
 
         }
+        public List<OrganismAndCategory> getFiltrInformation(int? CountFrom, int? CountTo, DateTime? DateFrom, DateTime? DateTo)
+        {
+            Microsoft.Data.SqlClient.SqlParameter param1 = new Microsoft.Data.SqlClient.SqlParameter("CountFrom", CountFrom ?? 0);
+            
+            Microsoft.Data.SqlClient.SqlParameter param2 = new Microsoft.Data.SqlClient.SqlParameter("@CountTo", CountTo ?? 0);
+
+            Microsoft.Data.SqlClient.SqlParameter param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 99);
+            if ((DateFrom == null) || (DateFrom.Value.Year < 1753))
+            {
+                if ((DateTo == null) || (DateTo.Value.Year < 1753)) { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 12); }
+                else { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 10); }
+                
+            }
+            else
+            {
+                if ((DateTo == null) || (DateTo.Value.Year < 1753)) { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 02); }
+                else { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 99); }
+                
+            }
+            
+           
+            
+
+            Microsoft.Data.SqlClient.SqlParameter param3 = new Microsoft.Data.SqlClient.SqlParameter("@DateFrom", ((DateFrom==null) || (DateFrom.Value.Year < 1753) ? new DateTime(1753, 1, 1):DateFrom));
+
+            Microsoft.Data.SqlClient.SqlParameter param4 = new Microsoft.Data.SqlClient.SqlParameter("@DateTo", ((DateTo == null) || (DateTo.Value.Year < 1753) ? new DateTime(1753, 1, 1) : DateTo));
+
+
+           
+            var result = db.OAC.FromSqlRaw("InformationFiltr @CountFrom ,@CountTo, @DateFrom, @DateTo, @DateFlag", param1 ,param2, param3, param4, param5).ToList();
+          //  var res = db.OAC.FromSqlRaw("InformationFiltrSampleCountFrom @CountFrom", param1).ToList();
+           // var res2 = db.OAC.FromSqlInterpolated($"InformationFiltrSampleCountFrom @CountFrom");
+
+            return result;
+
+        }
         public void Create(OrganismEditModel editOrganism)
         {
             Organism newOrganism = new Organism

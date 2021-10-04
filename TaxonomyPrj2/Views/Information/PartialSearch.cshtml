@@ -1,0 +1,37 @@
+﻿@model TaxonomyPrj2.ViewModels.IndexInformationViewModel
+@{
+    Layout = null;
+}
+
+
+<table id="resultTable" class="table-bordered table-striped table-warning">
+    <thead>
+        <tr>
+            <th>ID орг</th>
+            <th>Имя орг</th>
+            <th>Кол обр</th>
+            <th>Начало иссл</th>
+            <th>Описание орг</th>
+            <th>ID кат</th>
+            <th>Прист имя кат</th>
+            <th>Имя кат</th>
+            <th>Описание кат</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Info)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.NameOrganism</td>
+                <td>@item.CountSample</td>
+                <td>@(item.StartResearch.Day + "." + item.StartResearch.Month + "." + item.StartResearch.Year)</td>
+                <td>@item.DescriptionOrganism</td>
+                <td>@item.CategoryId</td>
+                <td>@item.NameCat</td>
+                <td>@item.NameCategory</td>
+                <td>@item.DescriptionCategory</td>
+            </tr>
+        }
+    </tbody>
+</table>
