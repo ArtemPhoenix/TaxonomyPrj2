@@ -1,9 +1,11 @@
 ﻿using DAL.Data;
 using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,33 +31,54 @@ namespace TaxonomyPrj2.interfaces
         }
         public List<OrganismAndCategory> getFiltrInformation(int? CountFrom, int? CountTo, DateTime? DateFrom, DateTime? DateTo)
         {
-            Microsoft.Data.SqlClient.SqlParameter param1 = new Microsoft.Data.SqlClient.SqlParameter("CountFrom", CountFrom ?? 0);
-            
-            Microsoft.Data.SqlClient.SqlParameter param2 = new Microsoft.Data.SqlClient.SqlParameter("@CountTo", CountTo ?? 0);
+            //Microsoft.Data.SqlClient.SqlParameter param1 = new Microsoft.Data.SqlClient.SqlParameter("CountFrom", CountFrom ?? 0);
+
+            //SqlParameter[] parameters = new SqlParameter[5];
+            SqlParameter param1 = new SqlParameter("@CountFrom", SqlDbType.Int);
+            param1.Value = (object)CountFrom ?? DBNull.Value;
+            //  parameters[0] = param1;
+
+            //Microsoft.Data.SqlClient.SqlParameter param2 = new Microsoft.Data.SqlClient.SqlParameter("@CountTo", CountTo ?? 0);
+            SqlParameter param2 = new SqlParameter("@CountTo", SqlDbType.Int);
+            param2.Value = (object)CountTo ?? DBNull.Value;
 
             Microsoft.Data.SqlClient.SqlParameter param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 99);
             if ((DateFrom == null) || (DateFrom.Value.Year < 1753))
             {
                 if ((DateTo == null) || (DateTo.Value.Year < 1753)) { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 12); }
                 else { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 10); }
-                
             }
             else
             {
                 if ((DateTo == null) || (DateTo.Value.Year < 1753)) { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 02); }
                 else { param5 = new Microsoft.Data.SqlClient.SqlParameter("@DateFlag", 99); }
-                
             }
+
             
+
+            //Microsoft.Data.SqlClient.SqlParameter param3 = new Microsoft.Data.SqlClient.SqlParameter("@DateFrom", ((DateFrom==null) || (DateFrom.Value.Year < 1753) ? new DateTime(1753, 1, 1):DateFrom));
+              
+            SqlParameter param3 = new SqlParameter("@DateFrom", SqlDbType.DateTime);
+            param3.Value = (object)DateFrom ?? DBNull.Value;
+            if (DateFrom != null && DateFrom.Value.Year < 1753)
+            {
+                param3.Value = (object)DBNull.Value;
+            }
+            //Microsoft.Data.SqlClient.SqlParameter param4 = new Microsoft.Data.SqlClient.SqlParameter("@DateTo", ((DateTo == null) || (DateTo.Value.Year < 1753) ? new DateTime(1753, 1, 1) : DateTo));
+            SqlParameter param4 = new SqlParameter("@DateTo", SqlDbType.DateTime);
+            param4.Value = (object)DateTo ?? DBNull.Value;
            
-            
+           if (DateTo != null && DateTo.Value.Year < 1753) 
+            {
+                param4.Value = (object)DBNull.Value;
+            }
 
-            Microsoft.Data.SqlClient.SqlParameter param3 = new Microsoft.Data.SqlClient.SqlParameter("@DateFrom", ((DateFrom==null) || (DateFrom.Value.Year < 1753) ? new DateTime(1753, 1, 1):DateFrom));
+            /*parameters[1] = param2;
+            parameters[2] = param3;
+            parameters[3] = param4;
+            parameters[4] = param3;*/
 
-            Microsoft.Data.SqlClient.SqlParameter param4 = new Microsoft.Data.SqlClient.SqlParameter("@DateTo", ((DateTo == null) || (DateTo.Value.Year < 1753) ? new DateTime(1753, 1, 1) : DateTo));
 
-
-           
             var result = db.OAC.FromSqlRaw("InformationFiltr @CountFrom ,@CountTo, @DateFrom, @DateTo, @DateFlag", param1 ,param2, param3, param4, param5).ToList();
          
 
